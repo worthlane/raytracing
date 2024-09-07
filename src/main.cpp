@@ -27,7 +27,7 @@ int main()
     Visual window = {system, "Vectors"};
 
     Sphere sphere = {system, 5, NULL_VECTOR};
-    sphere.define_sphere();
+    sphere.render_sphere();
 
     while (window.is_open())
     {

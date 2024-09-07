@@ -17,6 +17,8 @@ RectangleSystem::RectangleSystem(const size_t length, const size_t width, const 
     width_  = width;
 }
 
+// ----------------------------------------------------------------------
+
 RectangleSystem::~RectangleSystem()
 {
     scale_ = NAN;
@@ -25,15 +27,21 @@ RectangleSystem::~RectangleSystem()
     length_ = NAN;
 }
 
+// ----------------------------------------------------------------------
+
 size_t RectangleSystem::get_width() const
 {
     return width_;
 }
 
+// ----------------------------------------------------------------------
+
 size_t RectangleSystem::get_length() const
 {
     return length_;
 }
+
+// ----------------------------------------------------------------------
 
 Vector2 RectangleSystem::coords_to_pixel(const Vector2& vec)
 {
@@ -47,12 +55,16 @@ Vector2 RectangleSystem::coords_to_pixel(const Vector2& vec)
     return result;
 }
 
+// ----------------------------------------------------------------------
+
 Vector2 RectangleSystem::pixel_to_coords(const Vector2& pixel)
 {
     Vector2 result = (pixel - center_) * scale_;
 
     return result;
 }
+
+// ----------------------------------------------------------------------
 
 double RectangleSystem::get_scale() const
 {

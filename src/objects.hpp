@@ -10,7 +10,7 @@ class Sphere
         Sphere(RectangleSystem& system, const double radius, const Vector2 center);
         ~Sphere();
 
-        void define_sphere();
+        void render_sphere();
 
         u_int8_t* get_pixels_array() const;
 

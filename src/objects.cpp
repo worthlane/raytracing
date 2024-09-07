@@ -23,7 +23,7 @@ Sphere::~Sphere()
 
 // ----------------------------------------------------------------------
 
-void Sphere::define_sphere()
+void Sphere::render_sphere()
 {
     size_t length = system_.get_length();
     size_t width  = system_.get_width();
@@ -34,8 +34,6 @@ void Sphere::define_sphere()
         {
             Dot pixel  = {x_pixel, y_pixel};
 
-            size_t position = (y_pixel * length + x_pixel) * 4;
-
             this->paint_sphere_point_(pixel);
         }
     }
@@ -45,11 +43,11 @@ void Sphere::define_sphere()
 
 void Sphere::paint_sphere_point_(const Dot& pixel)
 {
-    Dot coords = system_.pixel_to_coords(pixel);
-
+    Dot    coords   = system_.pixel_to_coords(pixel);
     size_t position = get_pixel_position(system_, pixel);
 
     Vector2 sphere_distance = coords - center_;
+    
     if (sphere_distance.get_length() > radius_)
     {
         pixels_.paint_pixel(position, BLACK_PIXEL);

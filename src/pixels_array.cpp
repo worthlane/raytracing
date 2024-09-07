@@ -11,12 +11,16 @@ Pixels::Pixels(const size_t size)
     size_   = size;
 }
 
+// ----------------------------------------------------------------------
+
 Pixels::~Pixels()
 {
     delete[] pixels_;
 
     size_   = NAN;
 }
+
+// ----------------------------------------------------------------------
 
 void Pixels::paint_pixel(const size_t position, const PixelCondition& color)
 {
@@ -28,10 +32,14 @@ void Pixels::paint_pixel(const size_t position, const PixelCondition& color)
     pixels_[position + 3] = color.transparency;
 }
 
+// ----------------------------------------------------------------------
+
 u_int8_t* Pixels::get_array() const
 {
     return pixels_;
 }
+
+// ----------------------------------------------------------------------
 
 PixelCondition Pixels::get_pixel_color(const size_t position) const
 {
@@ -40,6 +48,8 @@ PixelCondition Pixels::get_pixel_color(const size_t position) const
 
     return {pixels_[position], pixels_[position + 1], pixels_[position + 2], pixels_[position + 3]};
 }
+
+// ----------------------------------------------------------------------
 
 void Pixels::lighten_pixel(const size_t position, const double brightness)
 {
@@ -53,6 +63,8 @@ void Pixels::lighten_pixel(const size_t position, const double brightness)
 
     this->paint_pixel(position, color);
 }
+
+// ----------------------------------------------------------------------
 
 PixelCondition operator*=(PixelCondition& color, const double coef)
 {

@@ -18,6 +18,8 @@ Vector2::Vector2(const double x, const double y)
     this->_calculate_polar_system_();
 }
 
+// ----------------------------------------------------------------------
+
 Vector2::~Vector2()
 {
     x_ = NAN;
@@ -27,10 +29,14 @@ Vector2::~Vector2()
     length_ = NAN;
 }
 
+// ----------------------------------------------------------------------
+
 Vector2 Vector2::operator-() const
 {
     return {-x_, -y_};
 }
+
+// ----------------------------------------------------------------------
 
 Vector2 Vector2::operator+(const Vector2& second) const
 {
@@ -44,6 +50,8 @@ Vector2 Vector2::operator+(const Vector2& second) const
     return result;
 }
 
+// ----------------------------------------------------------------------
+
 Vector2 Vector2::operator-(const Vector2& second) const
 {
     Vector2 result = *this;
@@ -55,6 +63,8 @@ Vector2 Vector2::operator-(const Vector2& second) const
 
     return result;
 }
+
+// ----------------------------------------------------------------------
 
 Vector2 Vector2::operator*(const double scalar) const
 {
@@ -68,6 +78,8 @@ Vector2 Vector2::operator*(const double scalar) const
     return result;
 }
 
+// ----------------------------------------------------------------------
+
 Vector2 Vector2::operator/(const double scalar) const
 {
     Vector2 result = *this;
@@ -80,6 +92,8 @@ Vector2 Vector2::operator/(const double scalar) const
     return result;
 }
 
+// ----------------------------------------------------------------------
+
 Vector2 Vector2::operator=(const Vector2& second)
 {
     this->x_ = second.x_;
@@ -88,6 +102,8 @@ Vector2 Vector2::operator=(const Vector2& second)
     return *this;
 }
 
+// ----------------------------------------------------------------------
+
 void Vector2::print_vector() const
 {
     Vector2 vec = *this;
@@ -95,12 +111,16 @@ void Vector2::print_vector() const
     printf("%g %g\n", vec.x_, vec.y_);
 }
 
+// ----------------------------------------------------------------------
+
 Vector2 Vector2::get_normal() const
 {
     Vector2 res = {-y_, x_};
 
     return res;
 }
+
+// ----------------------------------------------------------------------
 
 Vector2 Vector2::get_normalized() const
 {
@@ -110,6 +130,8 @@ Vector2 Vector2::get_normalized() const
 
     return res;
 }
+
+// ----------------------------------------------------------------------
 
 void Vector2::_calculate_polar_system_()
 {
@@ -128,6 +150,8 @@ void Vector2::_calculate_polar_system_()
     length_ = length;
 }
 
+// ----------------------------------------------------------------------
+
 static bool is_zero(const double num)
 {
     double diff = fabs(num);
@@ -135,11 +159,15 @@ static bool is_zero(const double num)
     return (diff < EPSILON) ? true : false;
 }
 
+// ----------------------------------------------------------------------
+
 void Vector2::_calculate_rectangular_system_()
 {
     x_ = length_ * cos(angle_);
     y_ = length_ * sin(angle_);
 }
+
+// ----------------------------------------------------------------------
 
 void Vector2::rotate(const double delta_angle)
 {
@@ -147,6 +175,8 @@ void Vector2::rotate(const double delta_angle)
 
     this->_calculate_rectangular_system_();
 }
+
+// ----------------------------------------------------------------------
 
 void Vector2::set_length(const double length)
 {

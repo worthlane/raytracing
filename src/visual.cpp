@@ -12,30 +12,42 @@ Visual::Visual(const RectangleSystem& system, const char* name) :
 {
 }
 
+// ----------------------------------------------------------------------
+
 Visual::~Visual()
 {
     window_.close();
 }
+
+// ----------------------------------------------------------------------
 
 bool Visual::is_open()
 {
     return window_.isOpen();
 }
 
+// ----------------------------------------------------------------------
+
 void Visual::clear()
 {
     window_.clear();
 }
+
+// ----------------------------------------------------------------------
 
 void Visual::display()
 {
     window_.display();
 }
 
+// ----------------------------------------------------------------------
+
 void Visual::close()
 {
     window_.close();
 }
+
+// ----------------------------------------------------------------------
 
 void Visual::closure_check()
 {
@@ -47,6 +59,8 @@ void Visual::closure_check()
             window_.close();
     }
 }
+
+// ----------------------------------------------------------------------
 
 void Visual::draw_line(const Dot& start_dot, const Dot& end_dot, const sf::Color color)
 {
@@ -65,6 +79,8 @@ void Visual::draw_line(const Dot& start_dot, const Dot& end_dot, const sf::Color
     window_.draw(line, 2, sf::Lines);
 }
 
+// ----------------------------------------------------------------------
+
 void Visual::draw_dot(const Dot& dot, const sf::Color color)
 {
     Dot dot_pixel = system_.coords_to_pixel(dot);
@@ -77,10 +93,14 @@ void Visual::draw_dot(const Dot& dot, const sf::Color color)
     window_.draw(shape);
 }
 
+// ----------------------------------------------------------------------
+
 void Visual::draw_free_vector(const Dot& end_point, const sf::Color color)
 {
     this->draw_vector(NULL_VECTOR, end_point, color);
 }
+
+// ----------------------------------------------------------------------
 
 void Visual::draw_vector(const Dot& start_point, const Vector2& vector, const sf::Color color)
 {
@@ -101,6 +121,8 @@ void Visual::draw_vector(const Dot& start_point, const Vector2& vector, const sf
     this->draw_line(end_point, left_arrow_part, color);
     this->draw_line(end_point, right_arrow_part, color);
 }
+
+// ----------------------------------------------------------------------
 
 Vector2 Visual::get_mouse_position() // TODO refactor
 {
@@ -125,6 +147,8 @@ Vector2 Visual::get_mouse_position() // TODO refactor
     return res; // res
 }
 
+// ----------------------------------------------------------------------
+
 void Visual::draw_sphere(const Sphere& sphere)
 {
     sf::Texture texture;
@@ -138,6 +162,5 @@ void Visual::draw_sphere(const Sphere& sphere)
     sprite.setTexture(texture);
 
     window_.draw(sprite);
-
 }
 

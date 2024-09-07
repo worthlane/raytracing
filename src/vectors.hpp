@@ -41,6 +41,4 @@ class Vector2
 
 typedef Vector2 Dot;
 
-
-
 #endif // _VECTORS_HPP_
