@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "coord_system.h"
+#include "coord_system.hpp"
 
 static const size_t X_CENTER_STD = 240;
 static const size_t Y_CENTER_STD = 320;
@@ -40,29 +40,16 @@ Vector2 RectangleSystem::coords_to_pixel(const Vector2& vec)
     double x = vec.get_x();
     double y = vec.get_y();
 
-    size_t x_center = center_.get_x();
-    size_t y_center = center_.get_y();
+    Vector2 delta = {x, -y};
 
-    double x_pixel = x_center + x * DX / scale_;
-    double y_pixel = y_center - y * DY / scale_;
-
-    Vector2 result = {x_pixel, y_pixel};
+    Vector2 result = center_ + (delta / scale_);
 
     return result;
 }
 
 Vector2 RectangleSystem::pixel_to_coords(const Vector2& pixel)
 {
-    double x_pixel = pixel.get_x();
-    double y_pixel = pixel.get_y();
-
-    double x_center = center_.get_x();
-    double y_center = center_.get_x();
-
-    double x = (x_pixel - x_center) * scale_ / DX;
-    double y = (y_pixel - y_center) * scale_ / DY;
-
-    Vector2 result = {x, y};
+    Vector2 result = (pixel - center_) * scale_;
 
     return result;
 }

@@ -1,5 +1,5 @@
-#ifndef _VECTORS_H_
-#define _VECTORS_H_
+#ifndef _VECTORS_HPP_
+#define _VECTORS_HPP_
 
 #include <cmath>
 
@@ -43,4 +43,4 @@ typedef Vector2 Dot;
 
 
 
-#endif // _VECTORS_H_
+#endif // _VECTORS_HPP_

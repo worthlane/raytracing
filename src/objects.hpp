@@ -1,8 +1,8 @@
-#ifndef _OBJECTS_H_
-#define _OBJECTS_H_
+#ifndef _OBJECTS_HPP_
+#define _OBJECTS_HPP_
 
-#include "coord_system.h"
-#include "pixels_array.h"
+#include "coord_system.hpp"
+#include "pixels_array.hpp"
 
 class Sphere
 {
@@ -21,6 +21,9 @@ class Sphere
         RectangleSystem system_;
 
         void paint_sphere_point_(const Dot& pixel);
+        void lighten_sphere_point_(const Dot& pixel, const double brightness);
 };
 
-#endif // _OBJECTS_H_
+double calculate_sphere_z(const Vector2& xy, const double radius);
+
+#endif // _OBJECTS_HPP_

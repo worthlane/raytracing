@@ -1,11 +1,11 @@
-#ifndef _GR_LIB_H_
-#define _GR_LIB_H_
+#ifndef _GR_LIB_HPP_
+#define _GR_LIB_HPP_
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Mouse.hpp>
 
-#include "coord_system.h"
-#include "objects.h"
+#include "coord_system.hpp"
+#include "objects.hpp"
 
 class Visual
 {
@@ -35,4 +35,4 @@ class Visual
 
 };
 
-#endif // GR_LIB_H
+#endif // GR_LIB_HPP

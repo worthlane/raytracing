@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 
-#include "vectors.h"
-#include "visual.h"
+#include "vectors.hpp"
+#include "visual.hpp"
 
 static const double DELTA_ANGLE = 1e-4;
 
@@ -21,12 +21,13 @@ int main()
 
     RectangleSystem system = {LENGTH, WIDTH, SCALE};
 
+    Vector2 center = {LENGTH / 2, WIDTH / 2};
+    Vector2 centerp = system.pixel_to_coords(center);
+
     Visual window = {system, "Vectors"};
 
     Sphere sphere = {system, 5, NULL_VECTOR};
     sphere.define_sphere();
-
-    printf("odsd\n");
 
     while (window.is_open())
     {
@@ -34,15 +35,15 @@ int main()
 
         window.clear();
 
-        vec2.rotate(DELTA_ANGLE);
-        window.draw_free_vector(vec2, sf::Color::Cyan);
+        //vec2.rotate(DELTA_ANGLE);
+        //window.draw_free_vector(vec2, sf::Color::Cyan);
 
         //Vector2 mouse = window.get_mouse_position();
         //window.draw_free_vector(mouse, sf::Color::Cyan);
 
         //window.draw_dot(NULL_VECTOR, sf::Color::Cyan);
 
-        //window.draw_sphere(sphere);
+        window.draw_sphere(sphere);
 
         window.display();
     }

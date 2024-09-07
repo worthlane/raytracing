@@ -1,7 +1,7 @@
-#ifndef _COORD_SYSTEM_H_
-#define _COORD_SYSTEM_H_
+#ifndef _COORD_SYSTEM_HPP_
+#define _COORD_SYSTEM_HPP_
 
-#include "vectors.h"
+#include "vectors.hpp"
 
 class RectangleSystem
 {
@@ -23,4 +23,4 @@ class RectangleSystem
         size_t width_, length_;
 };
 
-#endif // _COORD_SYSTEM_H
+#endif // _COORD_SYSTEM_HPP

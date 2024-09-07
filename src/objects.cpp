@@ -1,6 +1,12 @@
 #include <stdio.h>
+#include <assert.h>
+#include <cmath>
 
-#include "objects.h"
+#include "objects.hpp"
+
+static size_t get_pixel_position(const RectangleSystem& system, const Dot& pixel);
+
+// =======================================================================
 
 Sphere::Sphere(RectangleSystem& system, const double radius, const Vector2 center) :
     center_(center), system_(system), pixels_(system.get_length() * system.get_width() * 4)
@@ -8,10 +14,14 @@ Sphere::Sphere(RectangleSystem& system, const double radius, const Vector2 cente
     radius_ = radius;
 }
 
+// ----------------------------------------------------------------------
+
 Sphere::~Sphere()
 {
     radius_ = NAN;
 }
+
+// ----------------------------------------------------------------------
 
 void Sphere::define_sphere()
 {
@@ -26,40 +36,76 @@ void Sphere::define_sphere()
 
             size_t position = (y_pixel * length + x_pixel) * 4;
 
-            /*pixels_.get_array()[position]     = 255;
-            pixels_.get_array()[position + 1] = 0;
-            pixels_.get_array()[position + 2] = 0;
-            pixels_.get_array()[position + 3] = 255;*/
-
-            //pixels_.paint_pixel(position, 255, 0, 0);
-
             this->paint_sphere_point_(pixel);
         }
     }
 }
 
+// ----------------------------------------------------------------------
+
 void Sphere::paint_sphere_point_(const Dot& pixel)
 {
     Dot coords = system_.pixel_to_coords(pixel);
 
-    size_t x_pixel = pixel.get_x();
-    size_t y_pixel = pixel.get_y();
-    size_t length  = system_.get_length();
-
-    size_t position = (y_pixel * length + x_pixel) * 4;
+    size_t position = get_pixel_position(system_, pixel);
 
     Vector2 sphere_distance = coords - center_;
+    if (sphere_distance.get_length() > radius_)
+    {
+        pixels_.paint_pixel(position, BLACK_PIXEL);
+        return;
+    }
 
-    if (sphere_distance.get_length() < radius_)
-        pixels_.paint_pixel(position, RGB_MAX, 0, 0);
-    else
-        pixels_.paint_pixel(position, 0, 0, RGB_MAX);
+    double z = calculate_sphere_z(sphere_distance, radius_);
+    double brightness = z / radius_;
 
+    PixelCondition color = RED_PIXEL;
+    color *= brightness;
 
+    pixels_.paint_pixel(position, color);
 }
+
+// ----------------------------------------------------------------------
+
+void Sphere::lighten_sphere_point_(const Dot& pixel, const double brightness)
+{
+    Dot coords = system_.pixel_to_coords(pixel);
+
+    size_t position = get_pixel_position(system_, pixel);
+
+    pixels_.lighten_pixel(position, brightness);
+}
+
+// ----------------------------------------------------------------------
 
 u_int8_t* Sphere::get_pixels_array() const
 {
     return pixels_.get_array();
+}
+
+// ----------------------------------------------------------------------
+
+static size_t get_pixel_position(const RectangleSystem& system, const Dot& pixel)
+{
+    size_t x_pixel = pixel.get_x();
+    size_t y_pixel = pixel.get_y();
+    size_t length  = system.get_length();
+
+    size_t position = (y_pixel * length + x_pixel) * 4;
+
+    return position;
+}
+
+// ----------------------------------------------------------------------
+
+double calculate_sphere_z(const Vector2& xy, const double radius)
+{
+    double component2 = xy.get_length();
+
+    double z2 = radius * radius - component2 * component2;
+
+    assert(z2 >= 0);
+
+    return sqrt(z2);
 }
 

@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <stdio.h>
 
-#include "pixels_array.h"
+#include "pixels_array.hpp"
 
 Pixels::Pixels(const size_t size)
 {
@@ -18,20 +18,49 @@ Pixels::~Pixels()
     size_   = NAN;
 }
 
-void Pixels::paint_pixel(const size_t position,
-                         const u_int8_t red, const u_int8_t green, const u_int8_t blue)
+void Pixels::paint_pixel(const size_t position, const PixelCondition& color)
 {
     assert(position + 3 < size_);
 
-    pixels_[position]     = red;
-    pixels_[position + 1] = green;
-    pixels_[position + 2] = blue;
-    pixels_[position + 3] = NOT_TRANSPARENT;
+    pixels_[position]     = color.red;
+    pixels_[position + 1] = color.green;
+    pixels_[position + 2] = color.blue;
+    pixels_[position + 3] = color.transparency;
 }
 
 u_int8_t* Pixels::get_array() const
 {
     return pixels_;
+}
+
+PixelCondition Pixels::get_pixel_color(const size_t position) const
+{
+    assert((position + 3 < size_) && (position % 4) == 0 &&
+           "position should point at the start of pixel info in array");
+
+    return {pixels_[position], pixels_[position + 1], pixels_[position + 2], pixels_[position + 3]};
+}
+
+void Pixels::lighten_pixel(const size_t position, const double brightness)
+{
+    assert((position + 3 < size_) && (position % 4) == 0 &&
+           "position should point at the start of pixel info in array");
+    assert(brightness >= 0 && brightness <= 1 && "brightness coefficient should be in [0, 1] range");
+
+    PixelCondition color = this->get_pixel_color(position);
+
+    color *= brightness;
+
+    this->paint_pixel(position, color);
+}
+
+PixelCondition operator*=(PixelCondition& color, const double coef)
+{
+    color.red   *= coef;
+    color.green *= coef;
+    color.blue  *= coef;
+
+    return color;
 }
 
 

@@ -1,4 +1,4 @@
-#include "visual.h"
+#include "visual.hpp"
 
 static const float DOT_RADIUS = 1.0;
 
