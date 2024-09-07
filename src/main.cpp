@@ -21,12 +21,9 @@ int main()
 
     RectangleSystem system = {LENGTH, WIDTH, SCALE};
 
-    Vector2 center = {LENGTH / 2, WIDTH / 2};
-    Vector2 centerp = system.pixel_to_coords(center);
+    Visual window = {system, "Sphere"};
 
-    Visual window = {system, "Vectors"};
-
-    Sphere sphere = {system, 5, NULL_VECTOR};
+    Sphere sphere = {system, 8, NULL_VECTOR};
     sphere.render_sphere();
 
     while (window.is_open())

@@ -1,6 +1,6 @@
 CXX = g++
 
-EXECUTABLE = vector
+EXECUTABLE = sphere
 
 CXXFLAGS  = -D _DEBUG -ggdb3 -std=c++17 -O0 -Wall -Wextra -Weffc++ -Waggressive-loop-optimizations \
 			-Wc++14-compat -Wmissing-declarations -Wcast-align -Wcast-qual -Wchar-subscripts       \
@@ -14,12 +14,17 @@ CXXFLAGS  = -D _DEBUG -ggdb3 -std=c++17 -O0 -Wall -Wextra -Weffc++ -Waggressive-
 			-Wvariadic-macros -Wno-literal-suffix -Wno-missing-field-initializers -Wno-narrowing   \
 			-Wno-old-style-cast -Wno-varargs -Wstack-protector -fcheck-new -fsized-deallocation    \
 			-fstack-protector -fstrict-overflow -fno-omit-frame-pointer -Wlarger-than=8192         \
-			-Wstack-usage=8192 -fPIE -Werror=vla -I/opt/homebrew/Cellar/sfml/2.6.1/include -L/opt/homebrew/Cellar/sfml/2.6.1/lib -lsfml-graphics -lsfml-window -lsfml-system
+			-Wstack-usage=8192 -fPIE -Werror=vla
 
 HOME = $(shell pwd)
 
 SOURCE_DIR = src
-CXXFLAGS  += -I $(HOME)/$(SOURCE_DIR)
+INCLUDE_DIR = include
+
+LIB_INCLUDE = -I/opt/homebrew/Cellar/sfml/2.6.1/include -L/opt/homebrew/Cellar/sfml/2.6.1/lib -lsfml-graphics -lsfml-window -lsfml-system
+
+CXXFLAGS  += -I $(HOME)/$(INCLUDE_DIR)
+CXXFLAGS  += $(LIB_INCLUDE)
 
 BUILD_DIR   = build
 

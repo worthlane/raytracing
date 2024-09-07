@@ -35,8 +35,8 @@ class Vector2
         double x_, y_;
         double angle_, length_;
 
-        void _calculate_polar_system_();
-        void _calculate_rectangular_system_();
+        void calculate_polar_system_();
+        void calculate_rectangular_system_();
 };
 
 typedef Vector2 Dot;

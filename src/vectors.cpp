@@ -15,7 +15,7 @@ Vector2::Vector2(const double x, const double y)
     x_ = x;
     y_ = y;
 
-    this->_calculate_polar_system_();
+    this->calculate_polar_system_();
 }
 
 // ----------------------------------------------------------------------
@@ -45,7 +45,7 @@ Vector2 Vector2::operator+(const Vector2& second) const
     result.x_ += second.x_;
     result.y_ += second.y_;
 
-    result._calculate_polar_system_();
+    result.calculate_polar_system_();
 
     return result;
 }
@@ -59,7 +59,7 @@ Vector2 Vector2::operator-(const Vector2& second) const
     result.x_ -= second.x_;
     result.y_ -= second.y_;
 
-    result._calculate_polar_system_();
+    result.calculate_polar_system_();
 
     return result;
 }
@@ -73,7 +73,7 @@ Vector2 Vector2::operator*(const double scalar) const
     result.x_ *= scalar;
     result.y_ *= scalar;
 
-    result._calculate_polar_system_();
+    result.calculate_polar_system_();
 
     return result;
 }
@@ -87,7 +87,7 @@ Vector2 Vector2::operator/(const double scalar) const
     result.x_ /= scalar;
     result.y_ /= scalar;
 
-    result._calculate_polar_system_();
+    result.calculate_polar_system_();
 
     return result;
 }
@@ -133,7 +133,7 @@ Vector2 Vector2::get_normalized() const
 
 // ----------------------------------------------------------------------
 
-void Vector2::_calculate_polar_system_()
+void Vector2::calculate_polar_system_()
 {
     double angle = 0;
 
@@ -161,7 +161,7 @@ static bool is_zero(const double num)
 
 // ----------------------------------------------------------------------
 
-void Vector2::_calculate_rectangular_system_()
+void Vector2::calculate_rectangular_system_()
 {
     x_ = length_ * cos(angle_);
     y_ = length_ * sin(angle_);
@@ -173,7 +173,7 @@ void Vector2::rotate(const double delta_angle)
 {
     angle_ += delta_angle;
 
-    this->_calculate_rectangular_system_();
+    this->calculate_rectangular_system_();
 }
 
 // ----------------------------------------------------------------------
