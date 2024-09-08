@@ -47,12 +47,9 @@ void Sphere::paint_sphere_point_(const Dot& pixel)
     size_t position = get_pixel_position(system_, pixel);
 
     Vector2 sphere_distance = coords - center_;
-    
-    if (sphere_distance.get_length() > radius_)
-    {
-        pixels_.paint_pixel(position, BLACK_PIXEL);
+
+    if (!(this->belong_to_sphere(coords)))
         return;
-    }
 
     double z = calculate_sphere_z(sphere_distance, radius_);
     double brightness = z / radius_;
@@ -105,5 +102,21 @@ double calculate_sphere_z(const Vector2& xy, const double radius)
     assert(z2 >= 0);
 
     return sqrt(z2);
+}
+
+// ----------------------------------------------------------------------
+
+Vector3 Sphere::get_surface_normal(const Dot& coords)
+{
+
+}
+
+// ----------------------------------------------------------------------
+
+bool Sphere::belong_to_sphere(const Dot& coords)
+{
+    Vector2 sphere_distance = coords - center_;
+
+    return (sphere_distance.get_length() > radius_) ? false : true;
 }
 

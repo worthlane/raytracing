@@ -61,7 +61,7 @@ Vector2 RectangleSystem::pixel_to_coords(const Vector2& pixel)
 {
     Vector2 result = (pixel - center_) * scale_;
 
-    return result;
+    return {result.get_x(), -result.get_y()};
 }
 
 // ----------------------------------------------------------------------

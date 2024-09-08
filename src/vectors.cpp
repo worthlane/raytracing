@@ -186,4 +186,100 @@ void Vector2::set_length(const double length)
     length_ = length;
 }
 
+// ----------------------------------------------------------------------
+
+Vector3::Vector3(const double x, const double y, const double z)
+{
+    x_ = x;
+    y_ = y;
+    z_ = z;
+}
+
+// ----------------------------------------------------------------------
+
+Vector3::~Vector3()
+{
+    x_ = NAN;
+    y_ = NAN;
+    z_ = NAN;
+}
+
+// ----------------------------------------------------------------------
+
+Vector3 Vector3::operator-() const
+{
+    return {-x_, -y_, -z_};
+}
+
+// ----------------------------------------------------------------------
+
+Vector3 Vector3::operator+(const Vector3& second) const
+{
+    Vector3 result = *this;
+
+    result.x_ += second.x_;
+    result.y_ += second.y_;
+    result.z_ += second.z_;
+
+    return result;
+}
+
+// ----------------------------------------------------------------------
+
+Vector3 Vector3::operator-(const Vector3& second) const
+{
+    Vector3 result = *this;
+
+    result.x_ -= second.x_;
+    result.y_ -= second.y_;
+    result.z_ -= second.z_;
+
+    return result;
+}
+
+// ----------------------------------------------------------------------
+
+Vector3 Vector3::operator*(const double scalar) const
+{
+    Vector3 result = *this;
+
+    result.x_ *= scalar;
+    result.y_ *= scalar;
+    result.z_ *= scalar;
+
+    return result;
+}
+
+// ----------------------------------------------------------------------
+
+Vector3 Vector3::operator/(const double scalar) const
+{
+    Vector3 result = *this;
+
+    result.x_ /= scalar;
+    result.y_ /= scalar;
+    result.z_ /= scalar;
+
+    return result;
+}
+
+// ----------------------------------------------------------------------
+
+Vector3 Vector3::operator=(const Vector3& second)
+{
+    this->x_ = second.x_;
+    this->y_ = second.y_;
+    this->z_ = second.z_;
+
+    return *this;
+}
+
+// ----------------------------------------------------------------------
+
+void Vector3::print_vector() const
+{
+    Vector3 vec = *this;
+
+    printf("%g %g %g\n", vec.x_, vec.y_, vec.z_);
+}
 

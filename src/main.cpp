@@ -15,7 +15,7 @@ static const Vector2 NULL_VECTOR = {0, 0};
 int main()
 {
     Vector2 vec = {0, 0};
-    Vector2 vec2 = {0, 5};
+    Vector2 vec2 = {3, 5};
     Vector2 vec4 = {-9, 9};
     Vector2 vec3 = (vec2.get_normal());
 
@@ -23,8 +23,10 @@ int main()
 
     Visual window = {system, "Sphere"};
 
-    Sphere sphere = {system, 8, NULL_VECTOR};
+    Sphere sphere = {system, 8, vec2};
+    Sphere sphere2 = {system, 5, vec2};
     sphere.render_sphere();
+    sphere2.render_sphere();
 
     while (window.is_open())
     {
@@ -41,6 +43,7 @@ int main()
         //window.draw_dot(NULL_VECTOR, sf::Color::Cyan);
 
         window.draw_sphere(sphere);
+        //window.draw_sphere(sphere2);
 
         window.display();
     }

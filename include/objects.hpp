@@ -4,6 +4,11 @@
 #include "coord_system.hpp"
 #include "pixels_array.hpp"
 
+struct LightSource
+{
+    Vector3 center;
+};
+
 class Sphere
 {
     public:
@@ -11,6 +16,10 @@ class Sphere
         ~Sphere();
 
         void render_sphere();
+
+        Vector3 get_surface_normal(const Dot& coords);
+
+        bool belong_to_sphere(const Dot& coords);
 
         u_int8_t* get_pixels_array() const;
 
