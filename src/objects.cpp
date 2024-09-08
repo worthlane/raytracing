@@ -91,10 +91,8 @@ double Sphere::calculate_point_brightness(const Dot& coords, const LightSource& 
     double z = calculate_sphere_z(sphere_offset, radius_);
 
     Vector3 sphere_point = {sphere_offset.get_x(), sphere_offset.get_y(), z};
-
     Vector3 surface_normal = this->get_surface_normal(coords);
     Vector3 falling_ray = light.center - sphere_point;
-
     Vector3 edge = falling_ray - surface_normal; // other triangle edge
 
     double a = surface_normal.get_length();
@@ -148,9 +146,8 @@ Vector3 Sphere::get_surface_normal(const Dot& coords)
     if (!(this->belong_to_sphere(coords)))
         return result;
 
-    double z = calculate_sphere_z(coords, radius_);
-
     Vector2 delta = coords - center_;
+    double z = calculate_sphere_z(delta, radius_);
 
     result = {delta.get_x(), delta.get_y(), z};
 

@@ -25,17 +25,19 @@ int main()
 
     Visual window = {system, "Sphere"};
 
-    LightSource light  = {{0, 0, 100}};
+    LightSource light  = {{-3, 0, 3}};
     LightSource light2 = {{9, 9, 0}};
-    LightSource light3 = {{9, -9, 0}};
+    LightSource light3 = {{9, -9, 5}};
 
-    Sphere sphere = {system, 8, vec, RED_PIXEL};
-    Sphere sphere2 = {system, 3, {-15, 0}, BLUE_PIXEL};
+    Sphere sphere =  {system, 3, {0, -7}, RED_PIXEL};
+    Sphere sphere2 = {system, 3, {0, 0}, BLUE_PIXEL};
+    Sphere sphere3 = {system, 3, {0, 7}, WHITE_PIXEL};
     //sphere.render_sphere();
     sphere.add_light(light);
-    sphere.add_light(light2);
-    //sphere2.add_light(light2);
-    sphere.add_light(light3);
+    sphere2.add_light(light);
+    sphere3.add_light(light);
+    //sphere.add_light(light2);
+    //sphere.add_light(light3);
 
     while (window.is_open())
     {
@@ -53,6 +55,7 @@ int main()
 
         window.draw_sphere(sphere);
         window.draw_sphere(sphere2);
+        window.draw_sphere(sphere3);
         //window.draw_sphere(sphere2);
 
         window.display();
