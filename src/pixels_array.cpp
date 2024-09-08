@@ -66,13 +66,28 @@ void Pixels::lighten_pixel(const size_t position, const double brightness)
 
 // ----------------------------------------------------------------------
 
-PixelCondition operator*=(PixelCondition& color, const double coef)
+PixelCondition operator*=(PixelCondition& self, const double coef)
 {
-    color.red   *= coef;
-    color.green *= coef;
-    color.blue  *= coef;
+    self.red   *= coef;
+    self.green *= coef;
+    self.blue  *= coef;
 
-    return color;
+    return self;
+}
+
+// ----------------------------------------------------------------------
+
+PixelCondition operator+=(PixelCondition& self, const PixelCondition& second)
+{
+    int red   = self.red   + second.red;
+    int green = self.green + second.green;
+    int blue  = self.blue  + second.blue;
+
+    self.red   = (red   > RGB_MAX) ? RGB_MAX : red;
+    self.green = (green > RGB_MAX) ? RGB_MAX : green;
+    self.blue  = (blue  > RGB_MAX) ? RGB_MAX : blue;
+
+    return self;
 }
 
 

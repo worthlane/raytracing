@@ -48,6 +48,8 @@ class Vector3
         double get_y() const { return y_; }
         double get_z() const { return z_; }
 
+        double get_length() const { return sqrt(x_ * x_ + y_ * y_ + z_ * z_); }
+
         Vector3 operator-() const;
         Vector3 operator-(const Vector3& second) const; // TODO вынести
         Vector3 operator+(const Vector3& second) const;

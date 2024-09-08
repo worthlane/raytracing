@@ -15,6 +15,7 @@ struct PixelCondition
 };
 
 PixelCondition operator*=(PixelCondition& color, const double coef);
+PixelCondition operator+=(PixelCondition& self, const PixelCondition& second);
 
 static const PixelCondition RED_PIXEL   = {RGB_MAX,       0,       0, NOT_TRANSPARENT};
 static const PixelCondition GREEN_PIXEL = {      0, RGB_MAX,       0, NOT_TRANSPARENT};

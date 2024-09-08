@@ -19,12 +19,23 @@ int main()
     Vector2 vec4 = {-9, 9};
     Vector2 vec3 = (vec2.get_normal());
 
+    Vector3 vector = {7, 7, 9};
+
     RectangleSystem system = {LENGTH, WIDTH, SCALE};
 
     Visual window = {system, "Sphere"};
 
-    Sphere sphere = {system, 8, vec2, {RGB_MAX, RGB_MAX, RGB_MAX, RGB_MAX}};
-    sphere.render_sphere();
+    LightSource light  = {{0, 0, 100}};
+    LightSource light2 = {{9, 9, 0}};
+    LightSource light3 = {{9, -9, 0}};
+
+    Sphere sphere = {system, 8, vec, RED_PIXEL};
+    Sphere sphere2 = {system, 3, {-15, 0}, BLUE_PIXEL};
+    //sphere.render_sphere();
+    sphere.add_light(light);
+    sphere.add_light(light2);
+    //sphere2.add_light(light2);
+    sphere.add_light(light3);
 
     while (window.is_open())
     {
@@ -41,6 +52,7 @@ int main()
         //window.draw_dot(NULL_VECTOR, sf::Color::Cyan);
 
         window.draw_sphere(sphere);
+        window.draw_sphere(sphere2);
         //window.draw_sphere(sphere2);
 
         window.display();

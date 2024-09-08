@@ -24,7 +24,7 @@ Sphere::~Sphere()
 
 // ----------------------------------------------------------------------
 
-void Sphere::render_sphere()
+void Sphere::add_light(const LightSource& light)
 {
     size_t length = system_.get_length();
     size_t width  = system_.get_width();
@@ -35,7 +35,7 @@ void Sphere::render_sphere()
         {
             Dot pixel  = {x_pixel, y_pixel};
 
-            this->paint_sphere_point_(pixel);
+            this->update_pixel_brightness_(pixel, light);
         }
     }
 }
@@ -45,7 +45,6 @@ void Sphere::render_sphere()
 void Sphere::paint_sphere_point_(const Dot& pixel)
 {
     Dot    coords   = system_.pixel_to_coords(pixel);
-    size_t position = get_pixel_position(system_, pixel);
 
     Vector2 sphere_distance = coords - center_;
 
@@ -58,18 +57,53 @@ void Sphere::paint_sphere_point_(const Dot& pixel)
     PixelCondition color = color_;
     color *= brightness;
 
+    size_t position = get_pixel_position(system_, pixel);
     pixels_.paint_pixel(position, color);
 }
 
 // ----------------------------------------------------------------------
 
-void Sphere::lighten_sphere_point_(const Dot& pixel, const double brightness)
+void Sphere::update_pixel_brightness_(const Dot& pixel, const LightSource& light)
 {
     Dot coords = system_.pixel_to_coords(pixel);
 
+    if (!(this->belong_to_sphere(coords)))
+        return;
+
+    double brightness = this->calculate_point_brightness(coords, light);
+
+    PixelCondition delta_color = color_;
+    delta_color *= brightness;
+
     size_t position = get_pixel_position(system_, pixel);
 
-    pixels_.lighten_pixel(position, brightness);
+    PixelCondition color = pixels_.get_pixel_color(position);
+    delta_color += color;
+
+    pixels_.paint_pixel(position, delta_color);
+}
+
+// ----------------------------------------------------------------------
+
+double Sphere::calculate_point_brightness(const Dot& coords, const LightSource& light)
+{
+    Dot sphere_offset = coords - center_;
+    double z = calculate_sphere_z(sphere_offset, radius_);
+
+    Vector3 sphere_point = {sphere_offset.get_x(), sphere_offset.get_y(), z};
+
+    Vector3 surface_normal = this->get_surface_normal(coords);
+    Vector3 falling_ray = light.center - sphere_point;
+
+    Vector3 edge = falling_ray - surface_normal; // other triangle edge
+
+    double a = surface_normal.get_length();
+    double b = falling_ray.get_length();
+    double c = edge.get_length();
+
+    double cos = (a * a + b * b - c * c) / (2 * a * b);
+
+    return (cos < 0) ? 0 : cos;
 }
 
 // ----------------------------------------------------------------------
@@ -109,7 +143,18 @@ double calculate_sphere_z(const Vector2& xy, const double radius)
 
 Vector3 Sphere::get_surface_normal(const Dot& coords)
 {
+    Vector3 result = {0, 0, 0};
 
+    if (!(this->belong_to_sphere(coords)))
+        return result;
+
+    double z = calculate_sphere_z(coords, radius_);
+
+    Vector2 delta = coords - center_;
+
+    result = {delta.get_x(), delta.get_y(), z};
+
+    return result;
 }
 
 // ----------------------------------------------------------------------
