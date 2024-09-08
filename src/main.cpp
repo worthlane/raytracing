@@ -23,10 +23,8 @@ int main()
 
     Visual window = {system, "Sphere"};
 
-    Sphere sphere = {system, 8, vec2};
-    Sphere sphere2 = {system, 5, vec2};
+    Sphere sphere = {system, 8, vec2, {RGB_MAX, RGB_MAX, RGB_MAX, RGB_MAX}};
     sphere.render_sphere();
-    sphere2.render_sphere();
 
     while (window.is_open())
     {

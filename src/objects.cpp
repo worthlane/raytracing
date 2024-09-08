@@ -8,10 +8,11 @@ static size_t get_pixel_position(const RectangleSystem& system, const Dot& pixel
 
 // =======================================================================
 
-Sphere::Sphere(RectangleSystem& system, const double radius, const Vector2 center) :
+Sphere::Sphere(RectangleSystem& system, const double radius, const Vector2& center, const PixelCondition& color) :
     center_(center), system_(system), pixels_(system.get_length() * system.get_width() * 4)
 {
     radius_ = radius;
+    color_  = color;
 }
 
 // ----------------------------------------------------------------------
@@ -54,7 +55,7 @@ void Sphere::paint_sphere_point_(const Dot& pixel)
     double z = calculate_sphere_z(sphere_distance, radius_);
     double brightness = z / radius_;
 
-    PixelCondition color = RED_PIXEL;
+    PixelCondition color = color_;
     color *= brightness;
 
     pixels_.paint_pixel(position, color);

@@ -12,7 +12,7 @@ struct LightSource
 class Sphere
 {
     public:
-        Sphere(RectangleSystem& system, const double radius, const Vector2 center);
+        Sphere(RectangleSystem& system, const double radius, const Vector2& center, const PixelCondition& color);
         ~Sphere();
 
         void render_sphere();
@@ -28,6 +28,7 @@ class Sphere
         Vector2 center_;
         Pixels  pixels_;
         RectangleSystem system_;
+        PixelCondition color_;
 
         void paint_sphere_point_(const Dot& pixel);
         void lighten_sphere_point_(const Dot& pixel, const double brightness);
