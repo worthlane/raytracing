@@ -22,7 +22,7 @@ class Sphere
 
         void   add_light(const LightSource& light);
 
-        double calculate_point_brightness(const Dot& coords, const LightSource& light);
+        PixelCondition calculate_point_brightness(const Dot& coords, const LightSource& light);
 
 
     private:

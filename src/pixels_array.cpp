@@ -79,13 +79,16 @@ PixelCondition operator*=(PixelCondition& self, const double coef)
 
 PixelCondition operator+=(PixelCondition& self, const PixelCondition& second)
 {
-    int red   = self.red   + second.red;
-    int green = self.green + second.green;
-    int blue  = self.blue  + second.blue;
+    int red   = self.red          + second.red;
+    int green = self.green        + second.green;
+    int blue  = self.blue         + second.blue;
+    int trans = self.transparency + second.transparency;
 
-    self.red   = (red   >= RGB_MAX) ? RGB_MAX : red;
-    self.green = (green >= RGB_MAX) ? RGB_MAX : green;
-    self.blue  = (blue  >= RGB_MAX) ? RGB_MAX : blue;
+
+    self.red          = (red   >= RGB_MAX) ? RGB_MAX : red;
+    self.green        = (green >= RGB_MAX) ? RGB_MAX : green;
+    self.blue         = (blue  >= RGB_MAX) ? RGB_MAX : blue;
+    self.transparency = (trans >= RGB_MAX) ? RGB_MAX : trans;
 
     return self;
 }

@@ -70,22 +70,19 @@ void Sphere::update_pixel_brightness_(const Dot& pixel, const LightSource& light
     if (!(this->belong_to_sphere(coords)))
         return;
 
-    double brightness = this->calculate_point_brightness(coords, light);
-
-    PixelCondition delta_color = color_;
-    delta_color *= brightness;
+    PixelCondition delta_color = this->calculate_point_brightness(coords, light);
 
     size_t position = get_pixel_position(system_, pixel);
 
     PixelCondition color = pixels_.get_pixel_color(position);
-    delta_color += color;
+    color += delta_color;
 
-    pixels_.paint_pixel(position, delta_color);
+    pixels_.paint_pixel(position, color);
 }
 
 // ----------------------------------------------------------------------
 
-double Sphere::calculate_point_brightness(const Dot& coords, const LightSource& light)
+PixelCondition Sphere::calculate_point_brightness(const Dot& coords, const LightSource& light)
 {
     Dot sphere_offset = coords - center_;
     double z = calculate_sphere_z(sphere_offset, radius_);
@@ -96,7 +93,12 @@ double Sphere::calculate_point_brightness(const Dot& coords, const LightSource& 
 
     double cos = cosinus(falling_ray, surface_normal);
 
-    return (cos < 0) ? 0 : cos;
+    double brightness = (cos < 0) ? 0 : cos;
+
+    PixelCondition delta_color = color_;
+    delta_color *= brightness;
+
+    return delta_color;
 }
 
 // ----------------------------------------------------------------------
