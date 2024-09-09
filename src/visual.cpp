@@ -80,7 +80,7 @@ Vector2 Visual::get_mouse_position() // TODO refactor
 
     Vector2 res = system_.coords_to_pixel(pos);
 
-    res.print_vector();
+    res.print();
 
     return res; // res
 }

@@ -11,28 +11,22 @@ class Vector2
 
         double get_x() const { return x_; }
         double get_y() const { return y_; }
-        double get_angle()  const { return angle_; }
-        double get_length() const { return length_; }
+        double get_length() const { return sqrt(x_ * x_ + y_ * y_); }
 
-        void set_length(const double length);
-
-        Vector2 operator-() const;
-        Vector2 operator-(const Vector2& second) const; // TODO вынести
-        Vector2 operator+(const Vector2& second) const;
-        Vector2 operator*(const double scalar)  const;
-        Vector2 operator/(const double scalar)  const;
         Vector2 operator=(const Vector2& second);
 
-        void print_vector() const;
+        void print() const;
 
     private:
         double x_, y_;
-        double angle_, length_;
-
-        void calculate_polar_system_();
-        void calculate_rectangular_system_();
 };
 typedef Vector2 Dot;
+
+Vector2 operator-(const Vector2& self);
+Vector2 operator-(const Vector2& self, const Vector2& second);
+Vector2 operator+(const Vector2& self, const Vector2& second);
+Vector2 operator*(const Vector2& self, const double scalar);
+Vector2 operator/(const Vector2& self, const double scalar);
 
 class Vector3
 {
@@ -53,7 +47,7 @@ class Vector3
 
         Vector3 normalize() const;
 
-        void print_vector() const;
+        void print() const;
 
     private:
         double x_, y_, z_;

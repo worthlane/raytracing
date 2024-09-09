@@ -10,14 +10,10 @@ static const double EPSILON = 1e-9;
 
 // ================================================================
 
-// ----------------------------------------------------------------------
-
 Vector2::Vector2(const double x, const double y)
 {
     x_ = x;
     y_ = y;
-
-    this->calculate_polar_system_();
 }
 
 // ----------------------------------------------------------------------
@@ -26,110 +22,73 @@ Vector2::~Vector2()
 {
     x_ = NAN;
     y_ = NAN;
-
-    angle_  = NAN;
-    length_ = NAN;
-}
-
-// ----------------------------------------------------------------------
-
-Vector2 Vector2::operator-() const
-{
-    return {-x_, -y_};
-}
-
-// ----------------------------------------------------------------------
-
-Vector2 Vector2::operator+(const Vector2& second) const
-{
-    Vector2 result = *this;
-
-    result.x_ += second.x_;
-    result.y_ += second.y_;
-
-    result.calculate_polar_system_();
-
-    return result;
-}
-
-// ----------------------------------------------------------------------
-
-Vector2 Vector2::operator-(const Vector2& second) const
-{
-    Vector2 result = *this;
-
-    result.x_ -= second.x_;
-    result.y_ -= second.y_;
-
-    result.calculate_polar_system_();
-
-    return result;
-}
-
-// ----------------------------------------------------------------------
-
-Vector2 Vector2::operator*(const double scalar) const
-{
-    Vector2 result = *this;
-
-    result.x_ *= scalar;
-    result.y_ *= scalar;
-
-    result.calculate_polar_system_();
-
-    return result;
-}
-
-// ----------------------------------------------------------------------
-
-Vector2 Vector2::operator/(const double scalar) const
-{
-    Vector2 result = *this;
-
-    result.x_ /= scalar;
-    result.y_ /= scalar;
-
-    result.calculate_polar_system_();
-
-    return result;
 }
 
 // ----------------------------------------------------------------------
 
 Vector2 Vector2::operator=(const Vector2& second)
 {
-    this->x_ = second.x_;
-    this->y_ = second.y_;
+    x_ = second.x_;
+    y_ = second.y_;
 
     return *this;
 }
 
 // ----------------------------------------------------------------------
 
-void Vector2::print_vector() const
+Vector2 operator-(const Vector2& self)
 {
-    Vector2 vec = *this;
-
-    printf("%g %g\n", vec.x_, vec.y_);
+    return {-self.get_x(), -self.get_y()};
 }
 
 // ----------------------------------------------------------------------
 
-void Vector2::calculate_polar_system_()
+Vector2 operator+(const Vector2& self, const Vector2& second)
 {
-    double angle = 0;
+    Vector2 result = {  self.get_x() + second.get_x(),
+                        self.get_y() + second.get_y() };
 
-    if (is_zero(x_))
-    {
-        angle = M_PI;
-    }
-    else
-        angle = atan(y_ / x_);
+    return result;
+}
 
-    double length = sqrt(x_ * x_ + y_ * y_);
+// ----------------------------------------------------------------------
 
-    angle_ = angle;
-    length_ = length;
+Vector2 operator-(const Vector2& self, const Vector2& second)
+{
+    Vector2 result = {  self.get_x() - second.get_x(),
+                        self.get_y() - second.get_y() };
+
+    return result;
+}
+
+
+// ----------------------------------------------------------------------
+
+Vector2 operator*(const Vector2& self, const double scalar)
+{
+    Vector2 result = {  self.get_x() * scalar,
+                        self.get_y() * scalar };
+
+    return result;
+}
+
+// ----------------------------------------------------------------------
+
+Vector2 operator/(const Vector2& self, const double scalar)
+{
+    Vector2 result = {  self.get_x() / scalar,
+                        self.get_y() / scalar };
+
+    return result;
+}
+
+// ----------------------------------------------------------------------
+
+void Vector2::print() const
+{
+    Vector2 vec = *this;
+
+    printf("%g %g\n", vec.x_, vec.y_);
 }
 
 // ----------------------------------------------------------------------
@@ -139,24 +98,6 @@ static bool is_zero(const double num)
     double diff = fabs(num);
 
     return (diff < EPSILON) ? true : false;
-}
-
-// ----------------------------------------------------------------------
-
-void Vector2::calculate_rectangular_system_()
-{
-    x_ = length_ * cos(angle_);
-    y_ = length_ * sin(angle_);
-}
-
-// ----------------------------------------------------------------------
-
-void Vector2::set_length(const double length)
-{
-    x_ = x_ * length / length_;
-    y_ = y_ * length / length_;
-
-    length_ = length;
 }
 
 // ----------------------------------------------------------------------
@@ -241,7 +182,7 @@ Vector3 Vector3::operator=(const Vector3& second)
 
 // ----------------------------------------------------------------------
 
-void Vector3::print_vector() const
+void Vector3::print() const
 {
     Vector3 vec = *this;
 
