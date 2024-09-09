@@ -21,11 +21,6 @@ class Visual
 
         Vector2 get_mouse_position();
 
-        void draw_line(const Dot& start_dot, const Dot& end_dot, const sf::Color color);
-        void draw_dot(const Dot& dot, const sf::Color color);
-        void draw_free_vector(const Dot& end_point, const sf::Color color);
-        void draw_vector(const Dot& start_point, const Vector2& vector, const sf::Color color); // TODO rename
-
         void draw_sphere(const Sphere& sphere);
 
     private:

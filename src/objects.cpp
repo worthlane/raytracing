@@ -8,7 +8,8 @@ static size_t get_pixel_position(const RectangleSystem& system, const Dot& pixel
 
 static PixelCondition calculate_point_brightness(Sphere& sphere, const Dot& coords, const LightSource& light);
 static PixelCondition calculate_illumination(Sphere& sphere, const Vector3& falling_ray, const Vector3& surface_normal);
-static PixelCondition calculate_glare(Sphere& sphere, const Vector3& falling_ray, const Vector3& surface_normal);
+static PixelCondition calculate_glare(Sphere& sphere, const Vector3& falling_ray,
+                                      const Vector3& surface_normal, const PixelCondition& color);
 
 // =======================================================================
 
@@ -96,7 +97,7 @@ static PixelCondition calculate_point_brightness(Sphere& sphere, const Dot& coor
     Vector3 falling_ray = light.center - sphere_point;
 
     PixelCondition delta_color = calculate_illumination(sphere, falling_ray, surface_normal);
-    delta_color += calculate_glare(sphere, falling_ray, surface_normal);
+    delta_color += calculate_glare(sphere, falling_ray, surface_normal, light.color);
 
     return delta_color;
 }
@@ -116,7 +117,8 @@ static PixelCondition calculate_illumination(Sphere& sphere, const Vector3& fall
 
 // ----------------------------------------------------------------------
 
-static PixelCondition calculate_glare(Sphere& sphere, const Vector3& falling_ray, const Vector3& surface_normal)
+static PixelCondition calculate_glare(Sphere& sphere, const Vector3& falling_ray,
+                                      const Vector3& surface_normal, const PixelCondition& color)
 {
     Vector3 reflected = reflect_vector(falling_ray, surface_normal);
 
@@ -126,7 +128,7 @@ static PixelCondition calculate_glare(Sphere& sphere, const Vector3& falling_ray
     double cos = cosinus(reflected, CAMERA);
     double brightness = (cos < 0) ? 0 : cos;
 
-    PixelCondition glare = WHITE_PIXEL;
+    PixelCondition glare = color;
     glare *= pow(brightness, GLARE_COEF);
 
     return glare;

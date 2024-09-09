@@ -6,7 +6,8 @@
 
 struct LightSource
 {
-    Vector3 center;
+    Vector3        center;
+    PixelCondition color;
 };
 
 class Sphere
@@ -21,7 +22,7 @@ class Sphere
         RectangleSystem get_system() const { return system_; }
 
         u_int8_t* get_pixels_array() const;
-        
+
         Vector3   get_surface_normal(const Dot& coords);
 
         bool belong_to_sphere(const Dot& coords);
@@ -33,7 +34,7 @@ class Sphere
         Vector2 center_;
         Pixels  pixels_;
         RectangleSystem system_;
-        PixelCondition color_;
+        PixelCondition  color_;
 
         void paint_sphere_point_(const Dot& pixel);
         void update_pixel_brightness_(const Dot& pixel, const LightSource& light);

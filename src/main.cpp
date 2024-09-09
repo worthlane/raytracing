@@ -25,17 +25,21 @@ int main()
 
     Visual window = {system, "Sphere"};
 
-    LightSource light  = {{-5, 0, 10}};
-    LightSource light2 = {{9, 9, 0}};
-    LightSource light3 = {{9, -9, 5}};
+    LightSource light  = {{-5, 0, 10}, WHITE_PIXEL};
+    LightSource light2 = {{9, 9, 0}, WHITE_PIXEL};
 
     Sphere sphere =  {system, 3, {0, -7}, RED_PIXEL};
     Sphere sphere2 = {system, 3, {0, 0}, BLUE_PIXEL};
     Sphere sphere3 = {system, 3, {0, 7}, WHITE_PIXEL};
+
     //sphere.render_sphere();
     sphere.add_light(light);
     sphere2.add_light(light);
     sphere3.add_light(light);
+
+    sphere.add_light(light2);
+    sphere2.add_light(light2);
+    sphere3.add_light(light2);
     //sphere.add_light(light2);
     //sphere.add_light(light3);
 
@@ -45,18 +49,9 @@ int main()
 
         window.clear();
 
-        //vec2.rotate(DELTA_ANGLE);
-        //window.draw_free_vector(vec2, sf::Color::Cyan);
-
-        //Vector2 mouse = window.get_mouse_position();
-        //window.draw_free_vector(mouse, sf::Color::Cyan);
-
-        //window.draw_dot(NULL_VECTOR, sf::Color::Cyan);
-
         window.draw_sphere(sphere);
         window.draw_sphere(sphere2);
         window.draw_sphere(sphere3);
-        //window.draw_sphere(sphere2);
 
         window.display();
     }
