@@ -84,7 +84,6 @@ PixelCondition operator+=(PixelCondition& self, const PixelCondition& second)
     int blue  = self.blue         + second.blue;
     int trans = self.transparency + second.transparency;
 
-
     self.red          = (red   >= RGB_MAX) ? RGB_MAX : red;
     self.green        = (green >= RGB_MAX) ? RGB_MAX : green;
     self.blue         = (blue  >= RGB_MAX) ? RGB_MAX : blue;
