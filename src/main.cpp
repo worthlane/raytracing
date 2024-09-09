@@ -25,7 +25,7 @@ int main()
 
     Visual window = {system, "Sphere"};
 
-    LightSource light  = {{-3, 0, 3}};
+    LightSource light  = {{-5, 0, 10}};
     LightSource light2 = {{9, 9, 0}};
     LightSource light3 = {{9, -9, 5}};
 

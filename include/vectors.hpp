@@ -37,6 +37,7 @@ class Vector2
         void calculate_polar_system_();
         void calculate_rectangular_system_();
 };
+typedef Vector2 Dot;
 
 class Vector3
 {
@@ -49,6 +50,8 @@ class Vector3
         double get_z() const { return z_; }
 
         double get_length() const { return sqrt(x_ * x_ + y_ * y_ + z_ * z_); }
+
+        Vector3 normalize() const;
 
         Vector3 operator-() const;
         Vector3 operator-(const Vector3& second) const; // TODO вынести
@@ -64,6 +67,8 @@ class Vector3
         double x_, y_, z_;
 };
 
-typedef Vector2 Dot;
+Vector3 reflect_vector(const Vector3& falling, const Vector3& normal);
+
+double cosinus(const Vector3& first, const Vector3& second);
 
 #endif // _VECTORS_HPP_

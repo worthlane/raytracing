@@ -15,12 +15,12 @@ class Sphere
         Sphere(RectangleSystem& system, const double radius, const Vector2& center, const PixelCondition& color);
         ~Sphere();
 
-        void add_light(const LightSource& light);
-
         Vector3   get_surface_normal(const Dot& coords);
         u_int8_t* get_pixels_array() const;
 
         bool belong_to_sphere(const Dot& coords);
+
+        void   add_light(const LightSource& light);
 
         double calculate_point_brightness(const Dot& coords, const LightSource& light);
 

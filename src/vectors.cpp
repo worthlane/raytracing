@@ -285,3 +285,43 @@ void Vector3::print_vector() const
     printf("%g %g %g\n", vec.x_, vec.y_, vec.z_);
 }
 
+// ----------------------------------------------------------------------
+
+Vector3 Vector3::normalize() const
+{
+    double len = this->get_length();
+
+    Vector3 result = {x_ / len, y_ / len, z_ / len};
+
+    return result;
+}
+
+// ----------------------------------------------------------------------
+
+double cosinus(const Vector3& first, const Vector3& second)
+{
+    Vector3 third_edge = first - second;
+
+    double a = first.get_length();
+    double b = second.get_length();
+    double c = third_edge.get_length();
+
+    double cos = (a * a + b * b - c * c) / (2 * a * b);
+
+    return cos;
+}
+
+// ----------------------------------------------------------------------
+
+Vector3 reflect_vector(const Vector3& falling, const Vector3& normal)
+{
+    Vector3 normalized = normal.normalize();
+
+    double length = falling.get_length();
+    double cos    = cosinus(falling, normal);
+
+    Vector3 reflected = normalized * (2 * length * cos) - falling;
+
+    return reflected;
+}
+
