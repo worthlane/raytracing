@@ -21,7 +21,7 @@ int main()
 
     Vector3 vector = {7, 7, 9};
 
-    RectangleSystem system = {LENGTH, WIDTH, SCALE};
+    RectangleSystem system = {LENGTH, WIDTH, SCALE, {0, 0}};
 
     Visual window = {system, "Sphere"};
 

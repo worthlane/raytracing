@@ -208,59 +208,51 @@ Vector3::~Vector3()
 
 // ----------------------------------------------------------------------
 
-Vector3 Vector3::operator-() const
+Vector3 operator-(const Vector3& self)
 {
-    return {-x_, -y_, -z_};
+    return {-self.get_x(), -self.get_y(), -self.get_z()};
 }
 
 // ----------------------------------------------------------------------
 
-Vector3 Vector3::operator+(const Vector3& second) const
+Vector3 operator+(const Vector3& self, const Vector3& second)
 {
-    Vector3 result = *this;
-
-    result.x_ += second.x_;
-    result.y_ += second.y_;
-    result.z_ += second.z_;
+    Vector3 result = {  self.get_x() + second.get_x(),
+                        self.get_y() + second.get_y(),
+                        self.get_z() + second.get_z() };
 
     return result;
 }
 
 // ----------------------------------------------------------------------
 
-Vector3 Vector3::operator-(const Vector3& second) const
+Vector3 operator-(const Vector3& self, const Vector3& second)
 {
-    Vector3 result = *this;
-
-    result.x_ -= second.x_;
-    result.y_ -= second.y_;
-    result.z_ -= second.z_;
+    Vector3 result = {  self.get_x() - second.get_x(),
+                        self.get_y() - second.get_y(),
+                        self.get_z() - second.get_z() };
 
     return result;
 }
 
 // ----------------------------------------------------------------------
 
-Vector3 Vector3::operator*(const double scalar) const
+Vector3 operator*(const Vector3& self, const double scalar)
 {
-    Vector3 result = *this;
-
-    result.x_ *= scalar;
-    result.y_ *= scalar;
-    result.z_ *= scalar;
+    Vector3 result = {  self.get_x() * scalar,
+                        self.get_y() * scalar,
+                        self.get_z() * scalar };
 
     return result;
 }
 
 // ----------------------------------------------------------------------
 
-Vector3 Vector3::operator/(const double scalar) const
+Vector3 operator/(const Vector3& self, const double scalar)
 {
-    Vector3 result = *this;
-
-    result.x_ /= scalar;
-    result.y_ /= scalar;
-    result.z_ /= scalar;
+    Vector3 result = {  self.get_x() / scalar,
+                        self.get_y() / scalar,
+                        self.get_z() / scalar };
 
     return result;
 }
@@ -269,9 +261,9 @@ Vector3 Vector3::operator/(const double scalar) const
 
 Vector3 Vector3::operator=(const Vector3& second)
 {
-    this->x_ = second.x_;
-    this->y_ = second.y_;
-    this->z_ = second.z_;
+    x_ = second.x_;
+    y_ = second.y_;
+    z_ = second.z_;
 
     return *this;
 }

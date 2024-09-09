@@ -6,7 +6,7 @@
 class RectangleSystem
 {
     public:
-        RectangleSystem(const size_t length, const size_t width, const double scale);
+        RectangleSystem(const size_t length, const size_t width, const double scale, const Vector2& center);
         ~RectangleSystem();
 
         size_t get_width()  const;
