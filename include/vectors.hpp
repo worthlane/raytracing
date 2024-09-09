@@ -23,11 +23,6 @@ class Vector2
         Vector2 operator/(const double scalar)  const;
         Vector2 operator=(const Vector2& second);
 
-        void rotate(const double delta_angle);
-
-        Vector2 get_normal()     const;
-        Vector2 get_normalized() const;
-
         void print_vector() const;
 
     private:

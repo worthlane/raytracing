@@ -115,26 +115,6 @@ void Vector2::print_vector() const
 
 // ----------------------------------------------------------------------
 
-Vector2 Vector2::get_normal() const
-{
-    Vector2 res = {-y_, x_};
-
-    return res;
-}
-
-// ----------------------------------------------------------------------
-
-Vector2 Vector2::get_normalized() const
-{
-    assert(!is_zero(length_));
-
-    Vector2 res = {x_ / length_, y_ / length_};
-
-    return res;
-}
-
-// ----------------------------------------------------------------------
-
 void Vector2::calculate_polar_system_()
 {
     double angle = 0;
@@ -167,15 +147,6 @@ void Vector2::calculate_rectangular_system_()
 {
     x_ = length_ * cos(angle_);
     y_ = length_ * sin(angle_);
-}
-
-// ----------------------------------------------------------------------
-
-void Vector2::rotate(const double delta_angle)
-{
-    angle_ += delta_angle;
-
-    this->calculate_rectangular_system_();
 }
 
 // ----------------------------------------------------------------------

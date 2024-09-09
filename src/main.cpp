@@ -17,7 +17,6 @@ int main()
     Vector2 vec = {0, 0};
     Vector2 vec2 = {3, 5};
     Vector2 vec4 = {-9, 9};
-    Vector2 vec3 = (vec2.get_normal());
 
     Vector3 vector = {7, 7, 9};
 
