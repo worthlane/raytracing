@@ -193,3 +193,18 @@ bool Sphere::belong_to_sphere(const Dot& coords)
     return (sphere_distance.get_length() > radius_) ? false : true;
 }
 
+// ----------------------------------------------------------------------
+
+void Sphere::set_system(const RectangleSystem& system)
+{
+    system_ = system;
+    pixels_.clear();
+}
+
+// ----------------------------------------------------------------------
+
+void Sphere::clear()
+{
+    pixels_.clear();
+}
+

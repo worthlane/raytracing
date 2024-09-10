@@ -35,7 +35,7 @@ DOXYBUILD = doxygen $(DOXYFILE)
 # 						 FILE GROUPS
 # ==============================================================
 
-SOURCES = main.cpp vectors.cpp visual.cpp coord_system.cpp objects.cpp pixels_array.cpp
+SOURCES = main.cpp vectors.cpp visual.cpp coord_system.cpp objects.cpp pixels_array.cpp controls.cpp
 
 OBJECTS = $(SOURCES:%.cpp=$(BUILD_DIR)/%.o)
 

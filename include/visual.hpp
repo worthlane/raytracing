@@ -2,7 +2,6 @@
 #define _GR_LIB_HPP_
 
 #include <SFML/Graphics.hpp>
-#include <SFML/Window/Mouse.hpp>
 
 #include "coord_system.hpp"
 #include "objects.hpp"
@@ -18,6 +17,8 @@ class Visual
         void display();
         void close();
         void closure_check();
+
+        void set_system(const RectangleSystem& system);
 
         Vector2 get_mouse_position();
 

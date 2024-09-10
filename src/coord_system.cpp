@@ -78,3 +78,9 @@ double RectangleSystem::get_scale() const
     return scale_;
 }
 
+// ----------------------------------------------------------------------
+
+void RectangleSystem::set_center(const Vector2& center)
+{
+    center_ = center;
+}

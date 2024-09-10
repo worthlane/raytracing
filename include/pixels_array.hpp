@@ -35,6 +35,8 @@ class Pixels
         void paint_pixel(const size_t position, const PixelCondition& color);
         void lighten_pixel(const size_t position, const double brightness);
 
+        void clear();
+
     private:
         size_t    size_;
         u_int8_t* pixels_;

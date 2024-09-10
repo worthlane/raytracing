@@ -17,6 +17,8 @@ class RectangleSystem
 
         Vector2 pixel_to_coords(const Vector2& pixel);
 
+        void set_center(const Vector2& center);
+
     private:
         double scale_;
         Dot    center_;

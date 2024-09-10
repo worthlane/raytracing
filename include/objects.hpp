@@ -21,13 +21,16 @@ class Sphere
         PixelCondition  get_color()  const { return color_; }
         RectangleSystem get_system() const { return system_; }
 
-        bool belong_to_sphere(const Dot& coords);
-
         u_int8_t* get_pixels_array() const;
-
         Vector3   get_surface_normal(const Dot& coords);
 
+        void set_system(const RectangleSystem& system);
+
+        bool belong_to_sphere(const Dot& coords);
+
         void add_light(const LightSource& light);
+
+        void clear();
 
     private:
         double  radius_;

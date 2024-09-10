@@ -2,11 +2,12 @@
 
 #include "vectors.hpp"
 #include "visual.hpp"
+#include "controls.hpp"
 
 static const double DELTA_ANGLE = 1e-4;
 
-static const size_t LENGTH = 1000;
-static const size_t WIDTH  = 640;
+static const size_t LENGTH = 1280;
+static const size_t WIDTH  = 720;
 
 static const double SCALE  = 0.05;
 
@@ -31,6 +32,8 @@ int main()
     Sphere sphere2 = {system, 3, {0, 0}, BLUE_PIXEL};
     Sphere sphere3 = {system, 3, {0, 7}, WHITE_PIXEL};
 
+    double scale = SCALE;
+
     //sphere.render_sphere();
     sphere.add_light(light);
     sphere2.add_light(light);
@@ -51,6 +54,9 @@ int main()
         window.draw_sphere(sphere);
         window.draw_sphere(sphere2);
         window.draw_sphere(sphere3);
+
+        Vector2 mouse = get_mouse_position();
+        mouse.print();
 
         window.display();
     }

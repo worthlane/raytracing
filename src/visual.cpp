@@ -62,31 +62,6 @@ void Visual::closure_check()
 
 // ----------------------------------------------------------------------
 
-Vector2 Visual::get_mouse_position() // TODO refactor
-{
-    sf::Vector2i vector = sf::Mouse::getPosition();
-
-    double x = vector.x;
-    double y = vector.y;
-
-    static const size_t Y_SHIFT = 2334;
-    static const size_t X_SHIFT = 1942;
-
-    //printf("%lf %f\n", x, y);
-
-    Vector2 pos = {x - X_SHIFT, y - Y_SHIFT};
-
-    //pos.print_vector();
-
-    Vector2 res = system_.coords_to_pixel(pos);
-
-    res.print();
-
-    return res; // res
-}
-
-// ----------------------------------------------------------------------
-
 void Visual::draw_sphere(const Sphere& sphere)
 {
     sf::Texture texture;
@@ -102,3 +77,9 @@ void Visual::draw_sphere(const Sphere& sphere)
     window_.draw(sprite);
 }
 
+// ----------------------------------------------------------------------
+
+void Visual::set_system(const RectangleSystem& system)
+{
+    system_ = system;
+}

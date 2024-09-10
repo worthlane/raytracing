@@ -92,4 +92,12 @@ PixelCondition operator+=(PixelCondition& self, const PixelCondition& second)
     return self;
 }
 
+// ----------------------------------------------------------------------
+
+void Pixels::clear()
+{
+    for (size_t i = 0; i < size_; i++)
+        pixels_[i] = 0;
+}
+
 
