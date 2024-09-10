@@ -6,7 +6,7 @@ static const Vector2 NULL_VECTOR = {0, 0};
 
 // ==============================================================
 
-Visual::Visual(const RectangleSystem& system, const char* name) :
+Window::Window(const RectangleSystem& system, const char* name) :
     window_(sf::VideoMode(system.get_length(), system.get_width()), name),
     system_(system)
 {
@@ -14,42 +14,42 @@ Visual::Visual(const RectangleSystem& system, const char* name) :
 
 // ----------------------------------------------------------------------
 
-Visual::~Visual()
+Window::~Window()
 {
     window_.close();
 }
 
 // ----------------------------------------------------------------------
 
-bool Visual::is_open()
+bool Window::is_open()
 {
     return window_.isOpen();
 }
 
 // ----------------------------------------------------------------------
 
-void Visual::clear()
+void Window::clear()
 {
     window_.clear();
 }
 
 // ----------------------------------------------------------------------
 
-void Visual::display()
+void Window::display()
 {
     window_.display();
 }
 
 // ----------------------------------------------------------------------
 
-void Visual::close()
+void Window::close()
 {
     window_.close();
 }
 
 // ----------------------------------------------------------------------
 
-void Visual::closure_check()
+void Window::closure_check()
 {
     sf::Event event;
 
@@ -62,7 +62,7 @@ void Visual::closure_check()
 
 // ----------------------------------------------------------------------
 
-void Visual::draw_sphere(const Sphere& sphere)
+void Window::draw_sphere(const Sphere& sphere)
 {
     sf::Texture texture;
     texture.create(system_.get_length(), system_.get_width());
@@ -79,7 +79,7 @@ void Visual::draw_sphere(const Sphere& sphere)
 
 // ----------------------------------------------------------------------
 
-void Visual::set_system(const RectangleSystem& system)
+void Window::set_system(const RectangleSystem& system)
 {
     system_ = system;
 }

@@ -23,7 +23,7 @@ int main()
 
     RectangleSystem system = {LENGTH, WIDTH, SCALE, {0, 0}};
 
-    Visual window = {system, "Sphere"};
+    Window window = {system, "Sphere"};
 
     LightSource light  = {{-5, 0, 10}, WHITE_PIXEL};
     LightSource light2 = {{9, 9, 0}, WHITE_PIXEL};
@@ -31,6 +31,8 @@ int main()
     Sphere sphere =  {system, 3, {0, -7}, RED_PIXEL};
     Sphere sphere2 = {system, 3, {0, 0}, BLUE_PIXEL};
     Sphere sphere3 = {system, 3, {0, 7}, WHITE_PIXEL};
+
+    Button but = {20, 10, {100, 100}};
 
     double scale = SCALE;
 
@@ -55,8 +57,10 @@ int main()
         window.draw_sphere(sphere2);
         window.draw_sphere(sphere3);
 
-        Vector2 mouse = get_mouse_position();
+        Vector2 mouse = get_mouse_position(window);
         mouse.print();
+
+        printf("%d\n", but.is_pointed(window));
 
         window.display();
     }

@@ -6,11 +6,11 @@
 #include "coord_system.hpp"
 #include "objects.hpp"
 
-class Visual
+class Window
 {
     public:
-        Visual(const RectangleSystem& system, const char* name);
-        ~Visual();
+        Window(const RectangleSystem& system, const char* name);
+        ~Window();
 
         bool is_open();
         void clear();
@@ -24,9 +24,9 @@ class Visual
 
         void draw_sphere(const Sphere& sphere);
 
-    private:
-
         sf::RenderWindow window_;
+
+    private:
         RectangleSystem  system_;
 
 };
