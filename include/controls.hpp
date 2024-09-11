@@ -16,12 +16,13 @@ enum class ButtonCondition
 class Button
 {
     public:
-        Button(const size_t length, const size_t width, const Dot& upper_left);
+        Button(const size_t length, const size_t width, const Dot& upper_left, void (*action)(void*),
+               const char* default_image, const char* pressed_image);
         ~Button();
 
         bool is_pointed(const Window& window);
 
-        ButtonCondition condition(const Window& window);
+        ButtonCondition update_condition(Window& window, void* params);
 
 
     private:
@@ -29,9 +30,16 @@ class Button
     size_t width_, length_;
     Dot upper_left_;
 
+    sf::Texture default_;
+    sf::Texture pressed_;
+
+    void (*action_)(void*);
+
     ButtonCondition cond_ = ButtonCondition::DEFAULT;
 
 };
+
+void default_action(void* params);
 
 
 #endif // _CONTROLS_HPP_

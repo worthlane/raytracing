@@ -79,6 +79,13 @@ void Window::draw_sphere(const Sphere& sphere)
 
 // ----------------------------------------------------------------------
 
+void Window::draw(const sf::Sprite& sprite) // TODO convert
+{
+    window_.draw(sprite);
+}
+
+// ----------------------------------------------------------------------
+
 void Window::set_system(const RectangleSystem& system)
 {
     system_ = system;

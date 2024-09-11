@@ -1,12 +1,17 @@
 #include <SFML/Window/Mouse.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "controls.hpp"
 
 // ----------------------------------------------------------------------
 
-Button::Button(const size_t length, const size_t width,   const Dot& upper_left) :
-                    length_(length),      width_(width), upper_left_(upper_left)
-{}
+Button::Button(const size_t length, const size_t width,   const Dot& upper_left, void (*action)(void*),
+               const char* default_texture, const char* pressed_texture) :
+                    length_(length),      width_(width), upper_left_(upper_left), action_(action)
+{
+	default_.loadFromFile(default_texture);
+    pressed_.loadFromFile(pressed_texture);
+}
 
 // ----------------------------------------------------------------------
 
@@ -40,11 +45,52 @@ bool Button::is_pointed(const Window& window)
 
 // ----------------------------------------------------------------------
 
-ButtonCondition Button::condition(const Window& window) // TODO
+ButtonCondition Button::update_condition(Window& window, void* params)
 {
-    ButtonCondition cond = ButtonCondition::DEFAULT;
+    bool is_pointed = this->is_pointed(window);
+    bool is_pressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
 
-    return cond;
+    sf::Sprite default_sprite;
+    default_sprite.setTexture(default_);
+	default_sprite.setPosition(upper_left_.get_x(), upper_left_.get_y());
+
+    sf::Sprite pressed_sprite;
+    pressed_sprite.setTexture(pressed_);
+	pressed_sprite.setPosition(upper_left_.get_x(), upper_left_.get_y());
+
+    switch (cond_)
+    {
+        case ButtonCondition::DEFAULT:
+
+            window.draw(default_sprite);
+
+            if (is_pointed && is_pressed)
+                cond_ = ButtonCondition::PRESSED;
+
+            break;
+
+        case ButtonCondition::PRESSED:
+
+            window.draw(pressed_sprite);
+
+            if (!is_pressed && is_pointed)
+                cond_ = ButtonCondition::RELEASED;
+            else if (!is_pointed)
+                cond_ = ButtonCondition::DEFAULT;
+
+            break;
+
+        case ButtonCondition::RELEASED:
+
+            window.draw(default_sprite);
+            action_(params);
+
+        default:
+
+            cond_ = ButtonCondition::DEFAULT;
+    }
+
+    return cond_;
 }
 
 // ----------------------------------------------------------------------
@@ -62,4 +108,11 @@ Vector2 get_mouse_position(const Window& window)
     Vector2 pos = {x - X_SHIFT, y - Y_SHIFT};
 
     return pos;
+}
+
+// ----------------------------------------------------------------------
+
+void default_action(void* params)
+{
+    printf("action\n");
 }
