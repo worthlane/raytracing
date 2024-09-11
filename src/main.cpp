@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <assert.h>
 
 #include "vectors.hpp"
 #include "visual.hpp"
@@ -26,7 +27,12 @@ struct Scene
     LightSource light2;
 };
 
-void render_scene(const Scene& scene);
+void render_scene(Scene& scene);
+
+void upper_light1(void* scene);
+void lower_light1(void* scene);
+void righter_light1(void* scene);
+void lefter_light1(void* scene);
 
 int main()
 {
@@ -45,17 +51,31 @@ int main()
 
     Scene scene = {sphere, sphere2, sphere3, light, light2};
 
-    Button but = {BUTTON_LENGTH, BUTTON_WIDTH, {100, 100}, default_action, DEFAULT_BUTTON, PRESSED_BUTTON};
+    Button up_but = {BUTTON_LENGTH, BUTTON_WIDTH, {180, 100},
+                     upper_light1, DEFAULT_BUTTON, PRESSED_BUTTON};
+
+    Button low_but = {BUTTON_LENGTH, BUTTON_WIDTH, {180, 300},
+                     lower_light1, DEFAULT_BUTTON, PRESSED_BUTTON};
+
+    Button right_but = {BUTTON_LENGTH, BUTTON_WIDTH, {300, 200},
+                        righter_light1, DEFAULT_BUTTON, PRESSED_BUTTON};
+
+    Button left_but = {BUTTON_LENGTH, BUTTON_WIDTH, {50, 200},
+                       lefter_light1, DEFAULT_BUTTON, PRESSED_BUTTON};
+
+
 
     double scale = SCALE;
 
-    sphere.add_light(light);
+    render_scene(scene);
+
+    /*sphere.add_light(light);
     sphere2.add_light(light);
     sphere3.add_light(light);
 
     sphere.add_light(light2);
     sphere2.add_light(light2);
-    sphere3.add_light(light2);
+    sphere3.add_light(light2);*/
 
     while (window.is_open())
     {
@@ -67,29 +87,91 @@ int main()
         window.draw_sphere(sphere2);
         window.draw_sphere(sphere3);
 
-        Vector2 mouse = get_mouse_position(window);
+        up_but.update_condition(window, &scene);
+        low_but.update_condition(window, &scene);
+        right_but.update_condition(window, &scene);
+        left_but.update_condition(window, &scene);
+
+        /*Vector2 mouse = get_mouse_position(window);
         mouse.print();
 
-        printf("%d %d\n", but.is_pointed(window), but.update_condition(window, nullptr));
-
-        //but.update_condition(window, nullptr);
-
-        /*light_pos = light_pos + delta_light;
-        light.center = light_pos;
-
-        sphere.clear();
-        sphere2.clear();
-        sphere3.clear();
-
-        sphere.add_light(light);
-        sphere2.add_light(light);
-        sphere3.add_light(light);
-        sphere.add_light(light2);
-        sphere2.add_light(light2);
-        sphere3.add_light(light2);*/
-
-
+        printf("%d %d\n", but.is_pointed(window), but.update_condition(window, &scene));*/
 
         window.display();
     }
 }
+
+// ----------------------------------------------------------
+
+void render_scene(Scene& scene)
+{
+    scene.sphere1.clear();
+    scene.sphere2.clear();
+    scene.sphere3.clear();
+
+    scene.sphere1.add_light(scene.light1);
+    scene.sphere2.add_light(scene.light1);
+    scene.sphere3.add_light(scene.light1);
+
+    scene.sphere1.add_light(scene.light2);
+    scene.sphere2.add_light(scene.light2);
+    scene.sphere3.add_light(scene.light2);
+}
+
+// ----------------------------------------------------------
+
+void upper_light1(void* scene_ptr)
+{
+    assert(scene_ptr);
+
+    Scene* scene = (Scene*) scene_ptr;
+
+    static const Vector3 UPPERLIGHT_DELTA = {0, 1, 0};
+    scene->light1.center = scene->light1.center + UPPERLIGHT_DELTA;
+
+    render_scene(*scene);
+}
+
+// ----------------------------------------------------------
+
+void lower_light1(void* scene_ptr)
+{
+    assert(scene_ptr);
+
+    Scene* scene = (Scene*) scene_ptr;
+
+    static const Vector3 LOWERLIGHT_DELTA = {0, -1, 0};
+    scene->light1.center = scene->light1.center + LOWERLIGHT_DELTA;
+
+    render_scene(*scene);
+}
+
+// ----------------------------------------------------------
+
+void righter_light1(void* scene_ptr)
+{
+    assert(scene_ptr);
+
+    Scene* scene = (Scene*) scene_ptr;
+
+    static const Vector3 RIGHTERLIGHT_DELTA = {1, 0, 0};
+    scene->light1.center = scene->light1.center + RIGHTERLIGHT_DELTA;
+
+    render_scene(*scene);
+}
+
+// ----------------------------------------------------------
+
+void lefter_light1(void* scene_ptr)
+{
+    assert(scene_ptr);
+
+    Scene* scene = (Scene*) scene_ptr;
+
+    static const Vector3 LEFTERLIGHT_DELTA = {-1, 0, 0};
+    scene->light1.center = scene->light1.center + LEFTERLIGHT_DELTA;
+
+    render_scene(*scene);
+}
+
+
