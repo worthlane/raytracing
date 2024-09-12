@@ -16,8 +16,8 @@ static const Vector2 NULL_VECTOR = {0, 0};
 
 const char* DEFAULT_BUTTON = "assets/textures/button_default.png";
 const char* PRESSED_BUTTON = "assets/textures/button_pressed.png";
-const size_t BUTTON_LENGTH = 200;
-const size_t BUTTON_WIDTH  = 80;
+const size_t BUTTON_LENGTH = 130;
+const size_t BUTTON_WIDTH  = 50;
 
 struct Scene
 {
@@ -45,21 +45,28 @@ int main()
     LightSource light  = {{-12, 15, 10}, {0.6, 0.9, 0.4}};
     LightSource light2 = {{15, 13, 11}, {0.8, 0, 0.8}};
 
-    Sphere sphere = {system, 10, {0, 0}, WHITE, AMBIENT};
+    Sphere sphere = {system, 6, {0, 0}, WHITE, AMBIENT};
 
     Scene scene = {sphere, light, light2};
 
-    Button up_but = {BUTTON_LENGTH, BUTTON_WIDTH, {180, 100},
+    Manager manager = {};
+
+    Button up_but = {BUTTON_LENGTH, BUTTON_WIDTH, {180, 50}, ButtonType::HOLD,
                      upper_light1, DEFAULT_BUTTON, PRESSED_BUTTON};
 
-    Button low_but = {BUTTON_LENGTH, BUTTON_WIDTH, {180, 300},
+    Button low_but = {BUTTON_LENGTH, BUTTON_WIDTH, {180, 210}, ButtonType::HOLD,
                      lower_light1, DEFAULT_BUTTON, PRESSED_BUTTON};
 
-    Button right_but = {BUTTON_LENGTH, BUTTON_WIDTH, {300, 200},
+    Button right_but = {BUTTON_LENGTH, BUTTON_WIDTH, {250, 130}, ButtonType::HOLD,
                         righter_light1, DEFAULT_BUTTON, PRESSED_BUTTON};
 
-    Button left_but = {BUTTON_LENGTH, BUTTON_WIDTH, {50, 200},
+    Button left_but = {BUTTON_LENGTH, BUTTON_WIDTH, {100, 130}, ButtonType::HOLD,
                        lefter_light1, DEFAULT_BUTTON, PRESSED_BUTTON};
+
+    manager.add_button(up_but);
+    manager.add_button(low_but);
+    manager.add_button(right_but);
+    manager.add_button(left_but);
 
     render_scene(scene);
 
@@ -71,10 +78,7 @@ int main()
 
         window.draw_sphere(sphere);
 
-        up_but.update_condition(window, &scene);
-        low_but.update_condition(window, &scene);
-        right_but.update_condition(window, &scene);
-        left_but.update_condition(window, &scene);
+        manager.update(window, &scene);
 
         window.display();
     }

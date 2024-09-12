@@ -48,27 +48,6 @@ void Sphere::add_light(const LightSource& light)
 
 // ----------------------------------------------------------------------
 
-/*void Sphere::paint_sphere_point_(const Dot& pixel)
-{
-    Dot    coords   = system_.pixel_to_coords(pixel);
-
-    Vector2 sphere_distance = coords - center_;
-
-    if (!(this->belong_to_sphere(coords)))
-        return;
-
-    double z = calculate_sphere_z(sphere_distance, radius_);
-    double brightness = z / radius_;
-
-    PixelCondition color = color_;
-    color *= brightness;
-
-    size_t position = get_pixel_position(system_, pixel);
-    pixels_.paint_pixel(position, color);
-}*/
-
-// ----------------------------------------------------------------------
-
 void Sphere::update_pixel_brightness_(const Dot& pixel, const LightSource& light)
 {
     Dot coords = system_.pixel_to_coords(pixel);
@@ -83,9 +62,7 @@ void Sphere::update_pixel_brightness_(const Dot& pixel, const LightSource& light
     PixelCondition color = pixels_.get_pixel_color(position);
     color += delta_color;
 
-    //printf("%d %d %d %d\n", delta_color.red, delta_color.green, delta_color.blue, delta_color.transparency);
-
-    pixels_.paint_pixel(position, color); //color
+    pixels_.paint_pixel(position, color);
 }
 
 // ----------------------------------------------------------------------

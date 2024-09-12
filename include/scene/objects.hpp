@@ -47,8 +47,6 @@ class Sphere
         Vector3 color_;
         double  ambient_;
 
-
-        //void paint_sphere_point_(const Dot& pixel);
         void update_pixel_brightness_(const Dot& pixel, const LightSource& light);
 };
 

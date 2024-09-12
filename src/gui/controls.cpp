@@ -3,14 +3,17 @@
 
 #include "gui/controls.hpp"
 
+
 // ----------------------------------------------------------------------
 
-Button::Button(const size_t length, const size_t width,   const Dot& upper_left, void (*action)(void*),
-               const char* default_texture, const char* pressed_texture) :
-                    length_(length),      width_(width), upper_left_(upper_left), action_(action)
+Button::Button(const size_t length, const size_t width, const Dot& upper_left, const ButtonType type,
+               void (*action)(void*), const char* default_image, const char* pressed_image) :
+                    length_(length), width_(width), upper_left_(upper_left), action_(action)
 {
-	default_.loadFromFile(default_texture);
-    pressed_.loadFromFile(pressed_texture);
+	default_.loadFromFile(default_image);
+    pressed_.loadFromFile(pressed_image);
+
+    type_ = type;
 }
 
 // ----------------------------------------------------------------------
@@ -72,7 +75,9 @@ ButtonCondition Button::update_condition(Window& window, void* params)
         case ButtonCondition::PRESSED:
 
             window.draw(pressed_sprite);
-            action_(params);
+
+            if (type_ == ButtonType::HOLD)
+                action_(params);
 
             if (!is_pressed && is_pointed)
                 cond_ = ButtonCondition::RELEASED;
@@ -84,7 +89,8 @@ ButtonCondition Button::update_condition(Window& window, void* params)
         case ButtonCondition::RELEASED:
 
             window.draw(default_sprite);
-            //action_(params);
+            if (type_ == ButtonType::RELEASE)
+                action_(params);
 
         default:
 
@@ -116,4 +122,36 @@ Vector2 get_mouse_position(const Window& window)
 void default_action(void* params)
 {
     printf("action\n");
+}
+
+// ----------------------------------------------------------------------
+
+Manager::Manager()
+{
+    std::vector<Button> button_;
+}
+
+// ----------------------------------------------------------------------
+
+Manager::~Manager()
+{
+}
+
+// ----------------------------------------------------------------------
+
+void Manager::add_button(Button& button)
+{
+    buttons_.push_back(button);
+}
+
+// ----------------------------------------------------------------------
+
+void Manager::update(Window& window, void* params)
+{
+    size_t size = buttons_.size();
+
+    for (size_t i = 0; i < size; i++)
+    {
+        buttons_[i].update_condition(window, params);
+    }
 }
