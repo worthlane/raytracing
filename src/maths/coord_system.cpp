@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "coord_system.hpp"
+#include "maths/coord_system.hpp"
 
 static const size_t X_CENTER_STD = 240;
 static const size_t Y_CENTER_STD = 320;

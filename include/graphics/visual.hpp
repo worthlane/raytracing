@@ -3,8 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "coord_system.hpp"
-#include "objects.hpp"
+#include "maths/coord_system.hpp"
+#include "scene/objects.hpp"
 
 class Window
 {

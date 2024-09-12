@@ -1,7 +1,7 @@
 #ifndef _COORD_SYSTEM_HPP_
 #define _COORD_SYSTEM_HPP_
 
-#include "vectors.hpp"
+#include "maths/vectors.hpp"
 
 class RectangleSystem
 {

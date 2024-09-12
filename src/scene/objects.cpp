@@ -2,7 +2,7 @@
 #include <assert.h>
 #include <cmath>
 
-#include "objects.hpp"
+#include "scene/objects.hpp"
 
 static size_t get_pixel_position(const RectangleSystem& system, const Dot& pixel);
 

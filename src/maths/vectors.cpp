@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <assert.h>
 
-#include "vectors.hpp"
+#include "maths/vectors.hpp"
 
 static bool is_zero(const double num);
 

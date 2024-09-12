@@ -1,7 +1,7 @@
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "controls.hpp"
+#include "gui/controls.hpp"
 
 // ----------------------------------------------------------------------
 

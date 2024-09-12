@@ -1,7 +1,7 @@
 #ifndef _CONTROLS_HPP_
 #define _CONTROLS_HPP_
 
-#include "visual.hpp"
+#include "graphics/visual.hpp"
 
 Vector2 get_mouse_position(const Window& window);
 

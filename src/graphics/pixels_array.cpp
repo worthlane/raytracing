@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <stdio.h>
 
-#include "pixels_array.hpp"
+#include "graphics/pixels_array.hpp"
 
 Pixels::Pixels(const size_t size)
 {

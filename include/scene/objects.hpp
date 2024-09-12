@@ -1,8 +1,8 @@
 #ifndef _OBJECTS_HPP_
 #define _OBJECTS_HPP_
 
-#include "coord_system.hpp"
-#include "pixels_array.hpp"
+#include "maths/coord_system.hpp"
+#include "graphics/pixels_array.hpp"
 
 struct LightSource
 {

@@ -1,9 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <assert.h>
 
-#include "vectors.hpp"
-#include "visual.hpp"
-#include "controls.hpp"
+#include "maths/vectors.hpp"
+#include "graphics/visual.hpp"
+#include "gui/controls.hpp"
 
 static const double DELTA_ANGLE = 1e-4;
 static const size_t LENGTH = 1280;
@@ -39,7 +39,7 @@ int main()
     RectangleSystem system = {LENGTH, WIDTH, SCALE, {0, 0}};
     Window          window = {system, "Sphere"};
 
-    Vector3 light_pos = {-5, 0, 10};
+    Vector3 light_pos   = {-5, 0, 10};
     Vector3 delta_light = {0, 1, 0};
 
     LightSource light  = {{-12, 15, 10}, {0.6, 0.9, 0.4}};
@@ -71,11 +71,10 @@ int main()
 
         window.draw_sphere(sphere);
 
-
-        //up_but.update_condition(window, &scene);
-        //low_but.update_condition(window, &scene);
-        //right_but.update_condition(window, &scene);
-        //left_but.update_condition(window, &scene);
+        up_but.update_condition(window, &scene);
+        low_but.update_condition(window, &scene);
+        right_but.update_condition(window, &scene);
+        left_but.update_condition(window, &scene);
 
         window.display();
     }

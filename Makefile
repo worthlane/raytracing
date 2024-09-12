@@ -35,9 +35,25 @@ DOXYBUILD = doxygen $(DOXYFILE)
 # 						 FILE GROUPS
 # ==============================================================
 
-SOURCES = main.cpp vectors.cpp visual.cpp coord_system.cpp objects.cpp pixels_array.cpp controls.cpp
+SOURCES = main.cpp
+
+GUI_SOURCES = controls.cpp
+GUI_DIR = $(SOURCE_DIR)/gui
+
+SCENE_SOURCES = objects.cpp
+SCENE_DIR = $(SOURCE_DIR)/scene
+
+MATHS_SOURCES = coord_system.cpp vectors.cpp
+MATHS_DIR = $(SOURCE_DIR)/maths
+
+GRAPHICS_SOURCES = visual.cpp pixels_array.cpp
+GRAPHICS_DIR = $(SOURCE_DIR)/graphics
 
 OBJECTS = $(SOURCES:%.cpp=$(BUILD_DIR)/%.o)
+GUI_OBJECTS = $(GUI_SOURCES:%.cpp=$(BUILD_DIR)/%.o)
+SCENE_OBJECTS = $(SCENE_SOURCES:%.cpp=$(BUILD_DIR)/%.o)
+MATHS_OBJECTS = $(MATHS_SOURCES:%.cpp=$(BUILD_DIR)/%.o)
+GRAPHICS_OBJECTS = $(GRAPHICS_SOURCES:%.cpp=$(BUILD_DIR)/%.o)
 
 # ==============================================================
 
@@ -46,10 +62,22 @@ all: $(EXECUTABLE)
 
 # -------------------------------------------------------------------------------
 
-$(EXECUTABLE): $(OBJECTS)
+$(EXECUTABLE): $(OBJECTS) $(GUI_OBJECTS) $(SCENE_OBJECTS) $(MATHS_OBJECTS) $(GRAPHICS_OBJECTS)
 	$(CXX) $^ -o $@ $(CXXFLAGS)
 
 $(BUILD_DIR)/%.o : $(SOURCE_DIR)/%.cpp
+	$(CXX) -c $^ -o $@ $(CXXFLAGS)
+
+$(BUILD_DIR)/%.o : $(GUI_DIR)/%.cpp
+	$(CXX) -c $^ -o $@ $(CXXFLAGS)
+
+$(BUILD_DIR)/%.o : $(SCENE_DIR)/%.cpp
+	$(CXX) -c $^ -o $@ $(CXXFLAGS)
+
+$(BUILD_DIR)/%.o : $(MATHS_DIR)/%.cpp
+	$(CXX) -c $^ -o $@ $(CXXFLAGS)
+
+$(BUILD_DIR)/%.o : $(GRAPHICS_DIR)/%.cpp
 	$(CXX) -c $^ -o $@ $(CXXFLAGS)
 
 # -------------------------------------------------------------------------------
