@@ -21,12 +21,10 @@ const size_t BUTTON_WIDTH  = 80;
 
 struct Scene
 {
-    Sphere sphere1;
-    Sphere sphere2;
-    Sphere sphere3;
+    Sphere& sphere;
 
-    LightSource light1;
-    LightSource light2;
+    LightSource& light1;
+    LightSource& light2;
 };
 
 void render_scene(Scene& scene);
@@ -44,14 +42,12 @@ int main()
     Vector3 light_pos = {-5, 0, 10};
     Vector3 delta_light = {0, 1, 0};
 
-    LightSource light  = {{-5, 0, 10}, {0.6, 0.9, 0.4}};
-    LightSource light2 = {{9, 9, 0}, WHITE};
+    LightSource light  = {{-12, 15, 10}, {0.6, 0.9, 0.4}};
+    LightSource light2 = {{15, 13, 11}, {0.8, 0, 0.8}};
 
-    Sphere sphere =  {system, 3, {0, -7}, RED, AMBIENT};
-    Sphere sphere2 = {system, 3, {0, 0}, BLUE, AMBIENT};
-    Sphere sphere3 = {system, 3, {0, 7}, WHITE, AMBIENT};
+    Sphere sphere = {system, 10, {0, 0}, WHITE, AMBIENT};
 
-    Scene scene = {sphere, sphere2, sphere3, light, light2};
+    Scene scene = {sphere, light, light2};
 
     Button up_but = {BUTTON_LENGTH, BUTTON_WIDTH, {180, 100},
                      upper_light1, DEFAULT_BUTTON, PRESSED_BUTTON};
@@ -65,10 +61,6 @@ int main()
     Button left_but = {BUTTON_LENGTH, BUTTON_WIDTH, {50, 200},
                        lefter_light1, DEFAULT_BUTTON, PRESSED_BUTTON};
 
-
-
-    double scale = SCALE;
-
     render_scene(scene);
 
     while (window.is_open())
@@ -78,13 +70,12 @@ int main()
         window.clear();
 
         window.draw_sphere(sphere);
-        window.draw_sphere(sphere2);
-        window.draw_sphere(sphere3);
 
-        /*up_but.update_condition(window, &scene);
-        low_but.update_condition(window, &scene);
-        right_but.update_condition(window, &scene);
-        left_but.update_condition(window, &scene);*/
+
+        //up_but.update_condition(window, &scene);
+        //low_but.update_condition(window, &scene);
+        //right_but.update_condition(window, &scene);
+        //left_but.update_condition(window, &scene);
 
         window.display();
     }
@@ -96,17 +87,10 @@ int main()
 
 void render_scene(Scene& scene)
 {
-    scene.sphere1.clear();
-    scene.sphere2.clear();
-    scene.sphere3.clear();
+    scene.sphere.clear();
 
-    scene.sphere1.add_light(scene.light1);
-    scene.sphere2.add_light(scene.light1);
-    scene.sphere3.add_light(scene.light1);
-
-    /*scene.sphere1.add_light(scene.light2);
-    scene.sphere2.add_light(scene.light2);
-    scene.sphere3.add_light(scene.light2);*/
+    scene.sphere.add_light(scene.light1);
+    scene.sphere.add_light(scene.light2);
 }
 
 // ----------------------------------------------------------

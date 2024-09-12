@@ -80,12 +80,12 @@ void Sphere::update_pixel_brightness_(const Dot& pixel, const LightSource& light
 
     size_t position = get_pixel_position(system_, pixel);
 
-    /*PixelCondition color = pixels_.get_pixel_color(position);
-    color += delta_color;*/
+    PixelCondition color = pixels_.get_pixel_color(position);
+    color += delta_color;
 
     //printf("%d %d %d %d\n", delta_color.red, delta_color.green, delta_color.blue, delta_color.transparency);
 
-    pixels_.paint_pixel(position, delta_color); //color
+    pixels_.paint_pixel(position, color); //color
 }
 
 // ----------------------------------------------------------------------
@@ -103,8 +103,6 @@ static PixelCondition calculate_point_brightness(Sphere& sphere, const Dot& coor
     delta_color = delta_color + calculate_glare(sphere, falling_ray, surface_normal, light);
 
     delta_color %= 1;
-
-    printf("%f %f %f\n", delta_color.get_x(), delta_color.get_y(), delta_color.get_z());
 
     PixelCondition pixel = {delta_color.get_x() * RGB_MAX,
                             delta_color.get_y() * RGB_MAX,
@@ -124,7 +122,7 @@ static Vector3 calculate_illumination(Sphere& sphere, const Vector3& falling_ray
     double diffusion = (cos < 0) ? 0 : cos;
 
     Vector3 material = sphere.get_color();
-    Vector3 result = (material * light.color) * diffusion;
+    Vector3 result = (material * light.color) * (diffusion + sphere.get_ambient());
 
     return result;
 }

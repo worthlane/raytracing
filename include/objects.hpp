@@ -22,10 +22,11 @@ class Sphere
         Sphere(RectangleSystem& system, const double radius, const Vector2& center, const Vector3& color, const double ambient);
         ~Sphere();
 
-        Vector2         get_center() const { return center_; }
-        double          get_radius() const { return radius_; }
-        Vector3         get_color()  const { return color_; }
-        RectangleSystem get_system() const { return system_; }
+        Vector2         get_center()  const { return center_; }
+        double          get_radius()  const { return radius_; }
+        Vector3         get_color()   const { return color_; }
+        RectangleSystem get_system()  const { return system_; }
+        double          get_ambient() const { return ambient_; }
 
         u_int8_t* get_pixels_array() const;
         Vector3   get_surface_normal(const Dot& coords);

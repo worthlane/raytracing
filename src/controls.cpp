@@ -72,6 +72,7 @@ ButtonCondition Button::update_condition(Window& window, void* params)
         case ButtonCondition::PRESSED:
 
             window.draw(pressed_sprite);
+            action_(params);
 
             if (!is_pressed && is_pointed)
                 cond_ = ButtonCondition::RELEASED;
@@ -83,7 +84,7 @@ ButtonCondition Button::update_condition(Window& window, void* params)
         case ButtonCondition::RELEASED:
 
             window.draw(default_sprite);
-            action_(params);
+            //action_(params);
 
         default:
 
