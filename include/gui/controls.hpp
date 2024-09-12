@@ -28,11 +28,15 @@ class Button
                void (*action)(void*), const char* default_image, const char* pressed_image);
         ~Button();
 
-        bool is_pointed(const Window& window);
+        bool is_hovered(const Window& window);
 
         ButtonCondition update_condition(Window& window, void* params);
 
     private:
+
+        virtual void when_default_(Window& window, void* params, const bool is_hovered, const bool is_pressed);
+        virtual void when_pressed_(Window& window, void* params, const bool is_hovered, const bool is_pressed);
+        virtual void when_released_(Window& window, void* params, const bool is_hovered, const bool is_pressed);
 
     size_t width_, length_;
     Dot upper_left_;
@@ -48,20 +52,5 @@ class Button
 };
 
 void default_action(void* params);
-
-class Manager
-{
-    public:
-        Manager();
-        ~Manager();
-
-        void add_button(Button& button);
-
-        void update(Window& window, void* params);
-
-    private:
-        std::vector<Button> buttons_;
-};
-
 
 #endif // _CONTROLS_HPP_

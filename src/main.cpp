@@ -3,7 +3,7 @@
 
 #include "maths/vectors.hpp"
 #include "graphics/visual.hpp"
-#include "gui/controls.hpp"
+#include "gui/manager.hpp"
 
 static const double DELTA_ANGLE = 1e-4;
 static const size_t LENGTH = 1280;

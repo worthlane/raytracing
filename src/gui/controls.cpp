@@ -26,7 +26,7 @@ Button::~Button()
 
 // ----------------------------------------------------------------------
 
-bool Button::is_pointed(const Window& window)
+bool Button::is_hovered(const Window& window)
 {
     Dot mouse = get_mouse_position(window);
 
@@ -50,47 +50,25 @@ bool Button::is_pointed(const Window& window)
 
 ButtonCondition Button::update_condition(Window& window, void* params)
 {
-    bool is_pointed = this->is_pointed(window);
+    bool is_hovered = this->is_hovered(window);
     bool is_pressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
-
-    sf::Sprite default_sprite;
-    default_sprite.setTexture(default_);
-	default_sprite.setPosition(upper_left_.get_x(), upper_left_.get_y());
-
-    sf::Sprite pressed_sprite;
-    pressed_sprite.setTexture(pressed_);
-	pressed_sprite.setPosition(upper_left_.get_x(), upper_left_.get_y());
 
     switch (cond_)
     {
         case ButtonCondition::DEFAULT:
 
-            window.draw(default_sprite);
-
-            if (is_pointed && is_pressed)
-                cond_ = ButtonCondition::PRESSED;
-
+            this->when_default_(window, params, is_hovered, is_pressed);
             break;
 
         case ButtonCondition::PRESSED:
 
-            window.draw(pressed_sprite);
-
-            if (type_ == ButtonType::HOLD)
-                action_(params);
-
-            if (!is_pressed && is_pointed)
-                cond_ = ButtonCondition::RELEASED;
-            else if (!is_pointed)
-                cond_ = ButtonCondition::DEFAULT;
-
+            this->when_pressed_(window, params, is_hovered, is_pressed);
             break;
 
         case ButtonCondition::RELEASED:
 
-            window.draw(default_sprite);
-            if (type_ == ButtonType::RELEASE)
-                action_(params);
+            this->when_released_(window, params, is_hovered, is_pressed);
+            break;
 
         default:
 
@@ -98,6 +76,50 @@ ButtonCondition Button::update_condition(Window& window, void* params)
     }
 
     return cond_;
+}
+
+// ----------------------------------------------------------------------
+
+void Button::when_default_(Window& window, void* params, const bool is_hovered, const bool is_pressed)
+{
+    sf::Sprite default_sprite;
+    default_sprite.setTexture(default_);
+	default_sprite.setPosition(upper_left_.get_x(), upper_left_.get_y());
+    window.draw(default_sprite);
+
+    if (is_hovered && is_pressed)
+        cond_ = ButtonCondition::PRESSED;
+}
+
+// ----------------------------------------------------------------------
+
+void Button::when_pressed_(Window& window, void* params, const bool is_hovered, const bool is_pressed)
+{
+    sf::Sprite pressed_sprite;
+    pressed_sprite.setTexture(pressed_);
+	pressed_sprite.setPosition(upper_left_.get_x(), upper_left_.get_y());
+    window.draw(pressed_sprite);
+
+    if (type_ == ButtonType::HOLD)
+        action_(params);
+
+    if (!is_pressed && is_hovered)
+        cond_ = ButtonCondition::RELEASED;
+    else if (!is_hovered)
+        cond_ = ButtonCondition::DEFAULT;
+}
+
+// ----------------------------------------------------------------------
+
+void Button::when_released_(Window& window, void* params, const bool is_hovered, const bool is_pressed)
+{
+    sf::Sprite default_sprite;
+    default_sprite.setTexture(default_);
+	default_sprite.setPosition(upper_left_.get_x(), upper_left_.get_y());
+    window.draw(default_sprite);
+
+    if (type_ == ButtonType::RELEASE)
+        action_(params);
 }
 
 // ----------------------------------------------------------------------
@@ -122,36 +144,4 @@ Vector2 get_mouse_position(const Window& window)
 void default_action(void* params)
 {
     printf("action\n");
-}
-
-// ----------------------------------------------------------------------
-
-Manager::Manager()
-{
-    std::vector<Button> button_;
-}
-
-// ----------------------------------------------------------------------
-
-Manager::~Manager()
-{
-}
-
-// ----------------------------------------------------------------------
-
-void Manager::add_button(Button& button)
-{
-    buttons_.push_back(button);
-}
-
-// ----------------------------------------------------------------------
-
-void Manager::update(Window& window, void* params)
-{
-    size_t size = buttons_.size();
-
-    for (size_t i = 0; i < size; i++)
-    {
-        buttons_[i].update_condition(window, params);
-    }
 }
