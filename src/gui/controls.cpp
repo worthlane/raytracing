@@ -82,9 +82,9 @@ ButtonCondition Button::update_condition(Window& window, void* params)
 
 void Button::when_default_(Window& window, void* params, const bool is_hovered, const bool is_pressed)
 {
-    sf::Sprite default_sprite;
-    default_sprite.setTexture(default_);
-	default_sprite.setPosition(upper_left_.get_x(), upper_left_.get_y());
+    Sprite default_sprite;
+    default_sprite.set_texture(default_);
+	default_sprite.set_position(upper_left_.get_x(), upper_left_.get_y());
     window.draw(default_sprite);
 
     if (is_hovered && is_pressed)
@@ -95,9 +95,9 @@ void Button::when_default_(Window& window, void* params, const bool is_hovered, 
 
 void Button::when_pressed_(Window& window, void* params, const bool is_hovered, const bool is_pressed)
 {
-    sf::Sprite pressed_sprite;
-    pressed_sprite.setTexture(pressed_);
-	pressed_sprite.setPosition(upper_left_.get_x(), upper_left_.get_y());
+    Sprite pressed_sprite;
+    pressed_sprite.set_texture(pressed_);
+	pressed_sprite.set_position(upper_left_.get_x(), upper_left_.get_y());
     window.draw(pressed_sprite);
 
     if (type_ == ButtonType::HOLD)
@@ -113,13 +113,15 @@ void Button::when_pressed_(Window& window, void* params, const bool is_hovered, 
 
 void Button::when_released_(Window& window, void* params, const bool is_hovered, const bool is_pressed)
 {
-    sf::Sprite default_sprite;
-    default_sprite.setTexture(default_);
-	default_sprite.setPosition(upper_left_.get_x(), upper_left_.get_y());
+    Sprite default_sprite;
+    default_sprite.set_texture(default_);
+	default_sprite.set_position(upper_left_.get_x(), upper_left_.get_y());
     window.draw(default_sprite);
 
     if (type_ == ButtonType::RELEASE)
         action_(params);
+
+    cond_ = ButtonCondition::DEFAULT;
 }
 
 // ----------------------------------------------------------------------

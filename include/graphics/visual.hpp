@@ -5,6 +5,7 @@
 
 #include "maths/coord_system.hpp"
 #include "scene/objects.hpp"
+#include "graphics/convertion.hpp"
 
 class Window
 {
@@ -23,7 +24,7 @@ class Window
         Vector2 get_mouse_position();
 
         void draw_sphere(const Sphere& sphere);
-        void draw(const sf::Sprite& sprite); // TODO convert
+        void draw(const Sprite& sprite); // TODO convert
 
         sf::RenderWindow window_;
 

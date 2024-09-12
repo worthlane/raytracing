@@ -46,7 +46,7 @@ SCENE_DIR = $(SOURCE_DIR)/scene
 MATHS_SOURCES = coord_system.cpp vectors.cpp
 MATHS_DIR = $(SOURCE_DIR)/maths
 
-GRAPHICS_SOURCES = visual.cpp pixels_array.cpp
+GRAPHICS_SOURCES = visual.cpp pixels_array.cpp convertion.cpp
 GRAPHICS_DIR = $(SOURCE_DIR)/graphics
 
 OBJECTS = $(SOURCES:%.cpp=$(BUILD_DIR)/%.o)

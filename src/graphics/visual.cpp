@@ -79,9 +79,9 @@ void Window::draw_sphere(const Sphere& sphere)
 
 // ----------------------------------------------------------------------
 
-void Window::draw(const sf::Sprite& sprite) // TODO convert
+void Window::draw(const Sprite& sprite) // TODO convert
 {
-    window_.draw(sprite);
+    window_.draw(sprite.get_sprite());
 }
 
 // ----------------------------------------------------------------------
