@@ -36,8 +36,8 @@ void lefter_light1(void* scene);
 
 int main()
 {
-    RectangleSystem system = {LENGTH, WIDTH, SCALE, {0, 0}};
-    Window          window = {system, "Sphere"};
+    RectangleSystem  system = {LENGTH, WIDTH, SCALE, {0, 0}};
+    Graphics::Window window = {system, "Sphere"};
 
     Vector3 light_pos   = {-5, 0, 10};
     Vector3 delta_light = {0, 1, 0};

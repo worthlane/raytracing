@@ -12,7 +12,7 @@ class Manager
 
         void add_button(Button& button);
 
-        void update(Window& window, void* params);
+        void update(Graphics::Window& window, void* params);
 
     private:
         std::vector<Button> buttons_;

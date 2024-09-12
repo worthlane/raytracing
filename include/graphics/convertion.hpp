@@ -3,6 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 
+namespace Graphics
+{
+
 class Sprite
 {
     public:
@@ -17,5 +20,7 @@ class Sprite
     private:
         sf::Sprite sprite_;
 };
+
+}
 
 #endif // CONVERTION_HPP

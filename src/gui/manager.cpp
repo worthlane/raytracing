@@ -22,7 +22,7 @@ void Manager::add_button(Button& button)
 
 // ----------------------------------------------------------------------
 
-void Manager::update(Window& window, void* params)
+void Manager::update(Graphics::Window& window, void* params)
 {
     size_t size = buttons_.size();
 

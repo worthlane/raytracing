@@ -26,7 +26,7 @@ Button::~Button()
 
 // ----------------------------------------------------------------------
 
-bool Button::is_hovered(const Window& window)
+bool Button::is_hovered(const Graphics::Window& window)
 {
     Dot mouse = get_mouse_position(window);
 
@@ -48,7 +48,7 @@ bool Button::is_hovered(const Window& window)
 
 // ----------------------------------------------------------------------
 
-ButtonCondition Button::update_condition(Window& window, void* params)
+ButtonCondition Button::update_condition(Graphics::Window& window, void* params)
 {
     bool is_hovered = this->is_hovered(window);
     bool is_pressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
@@ -80,9 +80,9 @@ ButtonCondition Button::update_condition(Window& window, void* params)
 
 // ----------------------------------------------------------------------
 
-void Button::when_default_(Window& window, void* params, const bool is_hovered, const bool is_pressed)
+void Button::when_default_(Graphics::Window& window, void* params, const bool is_hovered, const bool is_pressed)
 {
-    Sprite default_sprite;
+    Graphics::Sprite default_sprite;
     default_sprite.set_texture(default_);
 	default_sprite.set_position(upper_left_.get_x(), upper_left_.get_y());
     window.draw(default_sprite);
@@ -93,9 +93,9 @@ void Button::when_default_(Window& window, void* params, const bool is_hovered, 
 
 // ----------------------------------------------------------------------
 
-void Button::when_pressed_(Window& window, void* params, const bool is_hovered, const bool is_pressed)
+void Button::when_pressed_(Graphics::Window& window, void* params, const bool is_hovered, const bool is_pressed)
 {
-    Sprite pressed_sprite;
+    Graphics::Sprite pressed_sprite;
     pressed_sprite.set_texture(pressed_);
 	pressed_sprite.set_position(upper_left_.get_x(), upper_left_.get_y());
     window.draw(pressed_sprite);
@@ -111,9 +111,9 @@ void Button::when_pressed_(Window& window, void* params, const bool is_hovered, 
 
 // ----------------------------------------------------------------------
 
-void Button::when_released_(Window& window, void* params, const bool is_hovered, const bool is_pressed)
+void Button::when_released_(Graphics::Window& window, void* params, const bool is_hovered, const bool is_pressed)
 {
-    Sprite default_sprite;
+    Graphics::Sprite default_sprite;
     default_sprite.set_texture(default_);
 	default_sprite.set_position(upper_left_.get_x(), upper_left_.get_y());
     window.draw(default_sprite);
@@ -126,7 +126,7 @@ void Button::when_released_(Window& window, void* params, const bool is_hovered,
 
 // ----------------------------------------------------------------------
 
-Vector2 get_mouse_position(const Window& window)
+Vector2 get_mouse_position(const Graphics::Window& window)
 {
     sf::Vector2i vector = sf::Mouse::getPosition(window.window_);
 

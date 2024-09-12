@@ -6,7 +6,7 @@ static const Vector2 NULL_VECTOR = {0, 0};
 
 // ==============================================================
 
-Window::Window(const RectangleSystem& system, const char* name) :
+Graphics::Window::Window(const RectangleSystem& system, const char* name) :
     window_(sf::VideoMode(system.get_length(), system.get_width()), name),
     system_(system)
 {
@@ -14,42 +14,42 @@ Window::Window(const RectangleSystem& system, const char* name) :
 
 // ----------------------------------------------------------------------
 
-Window::~Window()
+Graphics::Window::~Window()
 {
     window_.close();
 }
 
 // ----------------------------------------------------------------------
 
-bool Window::is_open()
+bool Graphics::Window::is_open()
 {
     return window_.isOpen();
 }
 
 // ----------------------------------------------------------------------
 
-void Window::clear()
+void Graphics::Window::clear()
 {
     window_.clear();
 }
 
 // ----------------------------------------------------------------------
 
-void Window::display()
+void Graphics::Window::display()
 {
     window_.display();
 }
 
 // ----------------------------------------------------------------------
 
-void Window::close()
+void Graphics::Window::close()
 {
     window_.close();
 }
 
 // ----------------------------------------------------------------------
 
-void Window::closure_check()
+void Graphics::Window::closure_check()
 {
     sf::Event event;
 
@@ -62,7 +62,7 @@ void Window::closure_check()
 
 // ----------------------------------------------------------------------
 
-void Window::draw_sphere(const Sphere& sphere)
+void Graphics::Window::draw_sphere(const Sphere& sphere)
 {
     sf::Texture texture;
     texture.create(system_.get_length(), system_.get_width());
@@ -79,14 +79,14 @@ void Window::draw_sphere(const Sphere& sphere)
 
 // ----------------------------------------------------------------------
 
-void Window::draw(const Sprite& sprite) // TODO convert
+void Graphics::Window::draw(const Graphics::Sprite& sprite) // TODO convert
 {
     window_.draw(sprite.get_sprite());
 }
 
 // ----------------------------------------------------------------------
 
-void Window::set_system(const RectangleSystem& system)
+void Graphics::Window::set_system(const RectangleSystem& system)
 {
     system_ = system;
 }

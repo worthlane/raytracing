@@ -5,7 +5,7 @@
 
 #include "graphics/visual.hpp"
 
-Vector2 get_mouse_position(const Window& window);
+Vector2 get_mouse_position(const Graphics::Window& window);
 
 enum class ButtonCondition
 {
@@ -28,15 +28,15 @@ class Button
                void (*action)(void*), const char* default_image, const char* pressed_image);
         ~Button();
 
-        bool is_hovered(const Window& window);
+        bool is_hovered(const Graphics::Window& window);
 
-        ButtonCondition update_condition(Window& window, void* params);
+        ButtonCondition update_condition(Graphics::Window& window, void* params);
 
     private:
 
-        virtual void when_default_(Window& window, void* params, const bool is_hovered, const bool is_pressed);
-        virtual void when_pressed_(Window& window, void* params, const bool is_hovered, const bool is_pressed);
-        virtual void when_released_(Window& window, void* params, const bool is_hovered, const bool is_pressed);
+        virtual void when_default_(Graphics::Window& window, void* params, const bool is_hovered, const bool is_pressed);
+        virtual void when_pressed_(Graphics::Window& window, void* params, const bool is_hovered, const bool is_pressed);
+        virtual void when_released_(Graphics::Window& window, void* params, const bool is_hovered, const bool is_pressed);
 
     size_t width_, length_;
     Dot upper_left_;

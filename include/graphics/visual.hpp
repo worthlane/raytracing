@@ -7,6 +7,9 @@
 #include "scene/objects.hpp"
 #include "graphics/convertion.hpp"
 
+namespace Graphics
+{
+
 class Window
 {
     public:
@@ -32,5 +35,7 @@ class Window
         RectangleSystem  system_;
 
 };
+
+}
 
 #endif // GR_LIB_HPP

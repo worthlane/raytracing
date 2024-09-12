@@ -2,34 +2,34 @@
 
 // ----------------------------------------------------------------------
 
-Sprite::Sprite()
+Graphics::Sprite::Sprite()
 {
     sf::Sprite sprite_;
 }
 
 // ----------------------------------------------------------------------
 
-Sprite::~Sprite()
+Graphics::Sprite::~Sprite()
 {
 }
 
 // ----------------------------------------------------------------------
 
-void Sprite::set_texture(const sf::Texture &texture, bool reset_rect)
+void Graphics::Sprite::set_texture(const sf::Texture &texture, bool reset_rect)
 {
     sprite_.setTexture(texture, reset_rect);
 }
 
 // ----------------------------------------------------------------------
 
-void Sprite::set_position(float x, float y)
+void Graphics::Sprite::set_position(float x, float y)
 {
     sprite_.setPosition(x, y);
 }
 
 // ----------------------------------------------------------------------
 
-sf::Sprite Sprite::get_sprite() const
+sf::Sprite Graphics::Sprite::get_sprite() const
 {
     return sprite_;
 }
