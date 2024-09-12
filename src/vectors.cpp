@@ -160,6 +160,17 @@ Vector3 operator*(const Vector3& self, const double scalar)
 
 // ----------------------------------------------------------------------
 
+Vector3 operator*(const Vector3& self, const Vector3& second)
+{
+    Vector3 result = {  self.get_x() * second.get_x(),
+                        self.get_y() * second.get_y(),
+                        self.get_z() * second.get_z() };
+
+    return result;
+}
+
+// ----------------------------------------------------------------------
+
 Vector3 operator/(const Vector3& self, const double scalar)
 {
     Vector3 result = {  self.get_x() / scalar,
@@ -187,6 +198,22 @@ void Vector3::print() const
     Vector3 vec = *this;
 
     printf("%g %g %g\n", vec.x_, vec.y_, vec.z_);
+}
+
+// ----------------------------------------------------------------------
+
+Vector3 operator%=(Vector3& self, const double a)
+{
+    if (self.get_x() >= a)
+        self.set_x(a);
+
+    if (self.get_y() >= a)
+        self.set_y(a);
+
+    if (self.get_z() >= a)
+        self.set_z(a);
+
+    return self;
 }
 
 // ----------------------------------------------------------------------

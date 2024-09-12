@@ -10,6 +10,8 @@ static const size_t LENGTH = 1280;
 static const size_t WIDTH  = 720;
 static const double SCALE  = 0.05;
 
+static const double AMBIENT = 0.2;
+
 static const Vector2 NULL_VECTOR = {0, 0};
 
 const char* DEFAULT_BUTTON = "assets/textures/button_default.png";
@@ -42,12 +44,12 @@ int main()
     Vector3 light_pos = {-5, 0, 10};
     Vector3 delta_light = {0, 1, 0};
 
-    LightSource light  = {{-5, 0, 10}, WHITE_PIXEL};
-    LightSource light2 = {{9, 9, 0}, WHITE_PIXEL};
+    LightSource light  = {{-5, 0, 10}, {0.6, 0.9, 0.4}};
+    LightSource light2 = {{9, 9, 0}, WHITE};
 
-    Sphere sphere =  {system, 3, {0, -7}, RED_PIXEL};
-    Sphere sphere2 = {system, 3, {0, 0}, BLUE_PIXEL};
-    Sphere sphere3 = {system, 3, {0, 7}, WHITE_PIXEL};
+    Sphere sphere =  {system, 3, {0, -7}, RED, AMBIENT};
+    Sphere sphere2 = {system, 3, {0, 0}, BLUE, AMBIENT};
+    Sphere sphere3 = {system, 3, {0, 7}, WHITE, AMBIENT};
 
     Scene scene = {sphere, sphere2, sphere3, light, light2};
 
@@ -69,14 +71,6 @@ int main()
 
     render_scene(scene);
 
-    /*sphere.add_light(light);
-    sphere2.add_light(light);
-    sphere3.add_light(light);
-
-    sphere.add_light(light2);
-    sphere2.add_light(light2);
-    sphere3.add_light(light2);*/
-
     while (window.is_open())
     {
         window.closure_check();
@@ -87,18 +81,15 @@ int main()
         window.draw_sphere(sphere2);
         window.draw_sphere(sphere3);
 
-        up_but.update_condition(window, &scene);
+        /*up_but.update_condition(window, &scene);
         low_but.update_condition(window, &scene);
         right_but.update_condition(window, &scene);
-        left_but.update_condition(window, &scene);
-
-        /*Vector2 mouse = get_mouse_position(window);
-        mouse.print();
-
-        printf("%d %d\n", but.is_pointed(window), but.update_condition(window, &scene));*/
+        left_but.update_condition(window, &scene);*/
 
         window.display();
     }
+
+    return 0;
 }
 
 // ----------------------------------------------------------
@@ -113,9 +104,9 @@ void render_scene(Scene& scene)
     scene.sphere2.add_light(scene.light1);
     scene.sphere3.add_light(scene.light1);
 
-    scene.sphere1.add_light(scene.light2);
+    /*scene.sphere1.add_light(scene.light2);
     scene.sphere2.add_light(scene.light2);
-    scene.sphere3.add_light(scene.light2);
+    scene.sphere3.add_light(scene.light2);*/
 }
 
 // ----------------------------------------------------------

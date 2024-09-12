@@ -60,6 +60,8 @@ Vector3 operator-(const Vector3& self);
 Vector3 operator-(const Vector3& self, const Vector3& second);
 Vector3 operator+(const Vector3& self, const Vector3& second);
 Vector3 operator*(const Vector3& self, const double scalar);
+Vector3 operator*(const Vector3& self, const Vector3& second);
+Vector3 operator%=(Vector3& self, const double a);
 Vector3 operator/(const Vector3& self, const double scalar);
 
 #endif // _VECTORS_HPP_

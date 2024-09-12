@@ -7,17 +7,18 @@
 static size_t get_pixel_position(const RectangleSystem& system, const Dot& pixel);
 
 static PixelCondition calculate_point_brightness(Sphere& sphere, const Dot& coords, const LightSource& light);
-static PixelCondition calculate_illumination(Sphere& sphere, const Vector3& falling_ray, const Vector3& surface_normal);
-static PixelCondition calculate_glare(Sphere& sphere, const Vector3& falling_ray,
-                                      const Vector3& surface_normal, const PixelCondition& color);
+static Vector3 calculate_illumination(Sphere& sphere, const Vector3& falling_ray, const Vector3& surface_normal, const LightSource& light);
+static Vector3 calculate_glare(Sphere& sphere, const Vector3& falling_ray,
+                                      const Vector3& surface_normal, const LightSource& light);
 
 // =======================================================================
 
-Sphere::Sphere(RectangleSystem& system, const double radius, const Vector2& center, const PixelCondition& color) :
-    center_(center), system_(system), pixels_(system.get_length() * system.get_width() * 4)
+Sphere::Sphere(RectangleSystem& system, const double radius, const Vector2& center, const Vector3& color, const double ambient) :
+    center_(center), system_(system), pixels_(system.get_length() * system.get_width() * 4), color_(color)
 {
-    radius_ = radius;
-    color_  = color;
+    radius_  = radius;
+    ambient_ = ambient;
+
 }
 
 // ----------------------------------------------------------------------
@@ -47,7 +48,7 @@ void Sphere::add_light(const LightSource& light)
 
 // ----------------------------------------------------------------------
 
-void Sphere::paint_sphere_point_(const Dot& pixel)
+/*void Sphere::paint_sphere_point_(const Dot& pixel)
 {
     Dot    coords   = system_.pixel_to_coords(pixel);
 
@@ -64,7 +65,7 @@ void Sphere::paint_sphere_point_(const Dot& pixel)
 
     size_t position = get_pixel_position(system_, pixel);
     pixels_.paint_pixel(position, color);
-}
+}*/
 
 // ----------------------------------------------------------------------
 
@@ -79,10 +80,12 @@ void Sphere::update_pixel_brightness_(const Dot& pixel, const LightSource& light
 
     size_t position = get_pixel_position(system_, pixel);
 
-    PixelCondition color = pixels_.get_pixel_color(position);
-    color += delta_color;
+    /*PixelCondition color = pixels_.get_pixel_color(position);
+    color += delta_color;*/
 
-    pixels_.paint_pixel(position, color);
+    //printf("%d %d %d %d\n", delta_color.red, delta_color.green, delta_color.blue, delta_color.transparency);
+
+    pixels_.paint_pixel(position, delta_color); //color
 }
 
 // ----------------------------------------------------------------------
@@ -96,29 +99,40 @@ static PixelCondition calculate_point_brightness(Sphere& sphere, const Dot& coor
     Vector3 surface_normal = sphere.get_surface_normal(coords);
     Vector3 falling_ray = light.center - sphere_point;
 
-    PixelCondition delta_color = calculate_illumination(sphere, falling_ray, surface_normal);
-    delta_color += calculate_glare(sphere, falling_ray, surface_normal, light.color);
+    Vector3 delta_color = calculate_illumination(sphere, falling_ray, surface_normal, light);
+    delta_color = delta_color + calculate_glare(sphere, falling_ray, surface_normal, light);
 
-    return delta_color;
+    delta_color %= 1;
+
+    printf("%f %f %f\n", delta_color.get_x(), delta_color.get_y(), delta_color.get_z());
+
+    PixelCondition pixel = {delta_color.get_x() * RGB_MAX,
+                            delta_color.get_y() * RGB_MAX,
+                            delta_color.get_z() * RGB_MAX,
+                            NOT_TRANSPARENT};
+
+
+
+    return pixel;
 }
 
 // ----------------------------------------------------------------------
 
-static PixelCondition calculate_illumination(Sphere& sphere, const Vector3& falling_ray, const Vector3& surface_normal)
+static Vector3 calculate_illumination(Sphere& sphere, const Vector3& falling_ray, const Vector3& surface_normal, const LightSource& light)
 {
     double cos = cosinus(falling_ray, surface_normal);
-    double brightness = (cos < 0) ? 0 : cos;
+    double diffusion = (cos < 0) ? 0 : cos;
 
-    PixelCondition illumination = sphere.get_color();
-    illumination *= brightness;
+    Vector3 material = sphere.get_color();
+    Vector3 result = (material * light.color) * diffusion;
 
-    return illumination;
+    return result;
 }
 
 // ----------------------------------------------------------------------
 
-static PixelCondition calculate_glare(Sphere& sphere, const Vector3& falling_ray,
-                                      const Vector3& surface_normal, const PixelCondition& color)
+static Vector3 calculate_glare(Sphere& sphere, const Vector3& falling_ray,
+                                      const Vector3& surface_normal, const LightSource& light)
 {
     Vector3 reflected = reflect_vector(falling_ray, surface_normal);
 
@@ -126,10 +140,10 @@ static PixelCondition calculate_glare(Sphere& sphere, const Vector3& falling_ray
     static const int     GLARE_COEF = 25;
 
     double cos = cosinus(reflected, CAMERA);
-    double brightness = (cos < 0) ? 0 : cos;
+    double S = (cos < 0) ? 0 : cos;
 
-    PixelCondition glare = color;
-    glare *= pow(brightness, GLARE_COEF);
+    Vector3 glare = light.color;
+    glare = glare * pow(S, GLARE_COEF);
 
     return glare;
 }
