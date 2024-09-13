@@ -6,14 +6,14 @@
 
 static size_t get_pixel_position(const RectangleSystem& system, const Dot& pixel);
 
-static PixelCondition calculate_point_brightness(Sphere& sphere, const Dot& coords, const LightSource& light);
-static Vector3 calculate_illumination(Sphere& sphere, const Vector3& falling_ray, const Vector3& surface_normal, const LightSource& light);
-static Vector3 calculate_glare(Sphere& sphere, const Vector3& falling_ray,
-                                      const Vector3& surface_normal, const LightSource& light);
+static PixelCondition calculate_point_brightness(Scene::Sphere& sphere, const Dot& coords, const Scene::LightSource& light);
+static Vector3 calculate_illumination(Scene::Sphere& sphere, const Vector3& falling_ray, const Vector3& surface_normal, const Scene::LightSource& light);
+static Vector3 calculate_glare(Scene::Sphere& sphere, const Vector3& falling_ray,
+                                      const Vector3& surface_normal, const Scene::LightSource& light);
 
 // =======================================================================
 
-Sphere::Sphere(RectangleSystem& system, const double radius, const Vector2& center, const Vector3& color, const double ambient) :
+Scene::Sphere::Sphere(RectangleSystem& system, const double radius, const Vector2& center, const Vector3& color, const double ambient) :
     center_(center), system_(system), pixels_(system.get_length() * system.get_width() * 4), color_(color)
 {
     radius_  = radius;
@@ -23,14 +23,14 @@ Sphere::Sphere(RectangleSystem& system, const double radius, const Vector2& cent
 
 // ----------------------------------------------------------------------
 
-Sphere::~Sphere()
+Scene::Sphere::~Sphere()
 {
     radius_ = NAN;
 }
 
 // ----------------------------------------------------------------------
 
-void Sphere::add_light(const LightSource& light)
+void Scene::Sphere::add_light(const Scene::LightSource& light)
 {
     size_t length = system_.get_length();
     size_t width  = system_.get_width();
@@ -48,7 +48,7 @@ void Sphere::add_light(const LightSource& light)
 
 // ----------------------------------------------------------------------
 
-void Sphere::update_pixel_brightness_(const Dot& pixel, const LightSource& light)
+void Scene::Sphere::update_pixel_brightness_(const Dot& pixel, const Scene::LightSource& light)
 {
     Dot coords = system_.pixel_to_coords(pixel);
 
@@ -67,7 +67,7 @@ void Sphere::update_pixel_brightness_(const Dot& pixel, const LightSource& light
 
 // ----------------------------------------------------------------------
 
-static PixelCondition calculate_point_brightness(Sphere& sphere, const Dot& coords, const LightSource& light)
+static PixelCondition calculate_point_brightness(Scene::Sphere& sphere, const Dot& coords, const Scene::LightSource& light)
 {
     Dot sphere_offset = coords - sphere.get_center();
     double z = calculate_sphere_z(sphere_offset, sphere.get_radius());
@@ -93,7 +93,7 @@ static PixelCondition calculate_point_brightness(Sphere& sphere, const Dot& coor
 
 // ----------------------------------------------------------------------
 
-static Vector3 calculate_illumination(Sphere& sphere, const Vector3& falling_ray, const Vector3& surface_normal, const LightSource& light)
+static Vector3 calculate_illumination(Scene::Sphere& sphere, const Vector3& falling_ray, const Vector3& surface_normal, const Scene::LightSource& light)
 {
     double cos = cosinus(falling_ray, surface_normal);
     double diffusion = (cos < 0) ? 0 : cos;
@@ -106,8 +106,8 @@ static Vector3 calculate_illumination(Sphere& sphere, const Vector3& falling_ray
 
 // ----------------------------------------------------------------------
 
-static Vector3 calculate_glare(Sphere& sphere, const Vector3& falling_ray,
-                                      const Vector3& surface_normal, const LightSource& light)
+static Vector3 calculate_glare(Scene::Sphere& sphere, const Vector3& falling_ray,
+                                      const Vector3& surface_normal, const Scene::LightSource& light)
 {
     Vector3 reflected = reflect_vector(falling_ray, surface_normal);
 
@@ -125,7 +125,7 @@ static Vector3 calculate_glare(Sphere& sphere, const Vector3& falling_ray,
 
 // ----------------------------------------------------------------------
 
-u_int8_t* Sphere::get_pixels_array() const
+u_int8_t* Scene::Sphere::get_pixels_array() const
 {
     return pixels_.get_array();
 }
@@ -158,7 +158,7 @@ double calculate_sphere_z(const Vector2& xy, const double radius)
 
 // ----------------------------------------------------------------------
 
-Vector3 Sphere::get_surface_normal(const Dot& coords)
+Vector3 Scene::Sphere::get_surface_normal(const Dot& coords)
 {
     Vector3 result = {0, 0, 0};
 
@@ -175,7 +175,7 @@ Vector3 Sphere::get_surface_normal(const Dot& coords)
 
 // ----------------------------------------------------------------------
 
-bool Sphere::belong_to_sphere(const Dot& coords)
+bool Scene::Sphere::belong_to_sphere(const Dot& coords)
 {
     Vector2 sphere_distance = coords - center_;
 
@@ -184,7 +184,7 @@ bool Sphere::belong_to_sphere(const Dot& coords)
 
 // ----------------------------------------------------------------------
 
-void Sphere::set_system(const RectangleSystem& system)
+void Scene::Sphere::set_system(const RectangleSystem& system)
 {
     system_ = system;
     pixels_.clear();
@@ -192,7 +192,7 @@ void Sphere::set_system(const RectangleSystem& system)
 
 // ----------------------------------------------------------------------
 
-void Sphere::clear()
+void Scene::Sphere::clear()
 {
     pixels_.clear();
 }

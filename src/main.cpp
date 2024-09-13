@@ -19,15 +19,15 @@ const char* PRESSED_BUTTON = "assets/textures/button_pressed.png";
 const size_t BUTTON_LENGTH = 130;
 const size_t BUTTON_WIDTH  = 50;
 
-struct Scene
+struct Objects
 {
-    Sphere& sphere;
+    Scene::Sphere& sphere;
 
-    LightSource& light1;
-    LightSource& light2;
+    Scene::LightSource& light1;
+    Scene::LightSource& light2;
 };
 
-void render_scene(Scene& scene);
+void render_scene(Objects& scene);
 
 void upper_light1(void* scene);
 void lower_light1(void* scene);
@@ -39,15 +39,12 @@ int main()
     RectangleSystem  system = {LENGTH, WIDTH, SCALE, {0, 0}};
     Graphics::Window window = {system, "Sphere"};
 
-    Vector3 light_pos   = {-5, 0, 10};
-    Vector3 delta_light = {0, 1, 0};
+    Scene::LightSource light  = {{-12, 15, 10}, {0.6, 0.9, 0.4}};
+    Scene::LightSource light2 = {{15, 13, 11}, {0.8, 0, 0.8}};
 
-    LightSource light  = {{-12, 15, 10}, {0.6, 0.9, 0.4}};
-    LightSource light2 = {{15, 13, 11}, {0.8, 0, 0.8}};
+    Scene::Sphere sphere = {system, 6, {0, 0}, WHITE, AMBIENT};
 
-    Sphere sphere = {system, 6, {0, 0}, WHITE, AMBIENT};
-
-    Scene scene = {sphere, light, light2};
+    Objects scene = {sphere, light, light2};
 
     Manager manager = {};
 
@@ -88,7 +85,7 @@ int main()
 
 // ----------------------------------------------------------
 
-void render_scene(Scene& scene)
+void render_scene(Objects& scene)
 {
     scene.sphere.clear();
 
@@ -102,7 +99,7 @@ void upper_light1(void* scene_ptr)
 {
     assert(scene_ptr);
 
-    Scene* scene = (Scene*) scene_ptr;
+    Objects* scene = (Objects*) scene_ptr;
 
     static const Vector3 UPPERLIGHT_DELTA = {0, 1, 0};
     scene->light1.center = scene->light1.center + UPPERLIGHT_DELTA;
@@ -116,7 +113,7 @@ void lower_light1(void* scene_ptr)
 {
     assert(scene_ptr);
 
-    Scene* scene = (Scene*) scene_ptr;
+    Objects* scene = (Objects*) scene_ptr;
 
     static const Vector3 LOWERLIGHT_DELTA = {0, -1, 0};
     scene->light1.center = scene->light1.center + LOWERLIGHT_DELTA;
@@ -130,7 +127,7 @@ void righter_light1(void* scene_ptr)
 {
     assert(scene_ptr);
 
-    Scene* scene = (Scene*) scene_ptr;
+    Objects* scene = (Objects*) scene_ptr;
 
     static const Vector3 RIGHTERLIGHT_DELTA = {1, 0, 0};
     scene->light1.center = scene->light1.center + RIGHTERLIGHT_DELTA;
@@ -144,7 +141,7 @@ void lefter_light1(void* scene_ptr)
 {
     assert(scene_ptr);
 
-    Scene* scene = (Scene*) scene_ptr;
+    Objects* scene = (Objects*) scene_ptr;
 
     static const Vector3 LEFTERLIGHT_DELTA = {-1, 0, 0};
     scene->light1.center = scene->light1.center + LEFTERLIGHT_DELTA;

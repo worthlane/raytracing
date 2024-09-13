@@ -62,7 +62,7 @@ void Graphics::Window::closure_check()
 
 // ----------------------------------------------------------------------
 
-void Graphics::Window::draw_sphere(const Sphere& sphere)
+void Graphics::Window::draw_sphere(const Scene::Sphere& sphere)
 {
     sf::Texture texture;
     texture.create(system_.get_length(), system_.get_width());

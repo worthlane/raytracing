@@ -4,17 +4,20 @@
 #include "maths/coord_system.hpp"
 #include "graphics/pixels_array.hpp"
 
-struct LightSource
-{
-    Vector3 center;
-    Vector3 color;
-};
-
 static const Vector3 RED   = {1, 0, 0};
 static const Vector3 GREEN = {0, 1, 0};
 static const Vector3 BLUE  = {0, 0, 1};
 static const Vector3 BLACK = {0, 0, 0};
 static const Vector3 WHITE = {1, 1, 1};
+
+namespace Scene
+{
+
+struct LightSource
+{
+    Vector3 center;
+    Vector3 color;
+};
 
 class Sphere
 {
@@ -49,6 +52,8 @@ class Sphere
 
         void update_pixel_brightness_(const Dot& pixel, const LightSource& light);
 };
+
+}
 
 double calculate_sphere_z(const Vector2& xy, const double radius);
 
