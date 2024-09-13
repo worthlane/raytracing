@@ -40,7 +40,7 @@ SOURCES = main.cpp
 GUI_SOURCES = controls.cpp manager.cpp
 GUI_DIR = $(SOURCE_DIR)/gui
 
-SCENE_SOURCES = objects.cpp
+SCENE_SOURCES = objects.cpp light.cpp
 SCENE_DIR = $(SOURCE_DIR)/scene
 
 MATHS_SOURCES = coord_system.cpp vectors.cpp

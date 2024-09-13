@@ -18,6 +18,7 @@ Scene::Sphere::Sphere(RectangleSystem& system, const double radius, const Vector
 {
     radius_  = radius;
     ambient_ = ambient;
+    color_   = color / RGB_MAX;
 
 }
 
@@ -74,7 +75,7 @@ static PixelCondition calculate_point_brightness(Scene::Sphere& sphere, const Do
 
     Vector3 sphere_point = {coords.get_x(), coords.get_y(), z};
     Vector3 surface_normal = sphere.get_surface_normal(coords);
-    Vector3 falling_ray = light.center - sphere_point;
+    Vector3 falling_ray = light.get_center() - sphere_point;
 
     Vector3 delta_color = calculate_illumination(sphere, falling_ray, surface_normal, light);
     delta_color = delta_color + calculate_glare(sphere, falling_ray, surface_normal, light);
@@ -99,7 +100,7 @@ static Vector3 calculate_illumination(Scene::Sphere& sphere, const Vector3& fall
     double diffusion = (cos < 0) ? 0 : cos;
 
     Vector3 material = sphere.get_color();
-    Vector3 result = (material * light.color) * (diffusion + sphere.get_ambient());
+    Vector3 result = (material * light.get_color_vector()) * (diffusion + sphere.get_ambient());
 
     return result;
 }
@@ -117,7 +118,7 @@ static Vector3 calculate_glare(Scene::Sphere& sphere, const Vector3& falling_ray
     double cos = cosinus(reflected, CAMERA);
     double S = (cos < 0) ? 0 : cos;
 
-    Vector3 glare = light.color;
+    Vector3 glare = light.get_color_vector();
     glare = glare * pow(S, GLARE_COEF);
 
     return glare;

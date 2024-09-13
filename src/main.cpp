@@ -39,8 +39,8 @@ int main()
     RectangleSystem  system = {LENGTH, WIDTH, SCALE, {0, 0}};
     Graphics::Window window = {system, "Sphere"};
 
-    Scene::LightSource light  = {{-12, 15, 10}, {0.6, 0.9, 0.4}};
-    Scene::LightSource light2 = {{15, 13, 11}, {0.8, 0, 0.8}};
+    Scene::LightSource light  = {{-12, 15, 10}, {153, 230, 100}};
+    Scene::LightSource light2 = {{15, 13, 11}, {200, 0, 200}};
 
     Scene::Sphere sphere = {system, 6, {0, 0}, WHITE, AMBIENT};
 
@@ -102,7 +102,7 @@ void upper_light1(void* scene_ptr)
     Objects* scene = (Objects*) scene_ptr;
 
     static const Vector3 UPPERLIGHT_DELTA = {0, 1, 0};
-    scene->light1.center = scene->light1.center + UPPERLIGHT_DELTA;
+    scene->light1.set_center(scene->light1.get_center() + UPPERLIGHT_DELTA);
 
     render_scene(*scene);
 }
@@ -116,7 +116,7 @@ void lower_light1(void* scene_ptr)
     Objects* scene = (Objects*) scene_ptr;
 
     static const Vector3 LOWERLIGHT_DELTA = {0, -1, 0};
-    scene->light1.center = scene->light1.center + LOWERLIGHT_DELTA;
+    scene->light1.set_center(scene->light1.get_center() + LOWERLIGHT_DELTA);
 
     render_scene(*scene);
 }
@@ -130,7 +130,7 @@ void righter_light1(void* scene_ptr)
     Objects* scene = (Objects*) scene_ptr;
 
     static const Vector3 RIGHTERLIGHT_DELTA = {1, 0, 0};
-    scene->light1.center = scene->light1.center + RIGHTERLIGHT_DELTA;
+    scene->light1.set_center(scene->light1.get_center() + RIGHTERLIGHT_DELTA);
 
     render_scene(*scene);
 }
@@ -144,7 +144,7 @@ void lefter_light1(void* scene_ptr)
     Objects* scene = (Objects*) scene_ptr;
 
     static const Vector3 LEFTERLIGHT_DELTA = {-1, 0, 0};
-    scene->light1.center = scene->light1.center + LEFTERLIGHT_DELTA;
+    scene->light1.set_center(scene->light1.get_center() + LEFTERLIGHT_DELTA);
 
     render_scene(*scene);
 }

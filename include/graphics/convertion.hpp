@@ -21,6 +21,18 @@ class Sprite
         sf::Sprite sprite_;
 };
 
+/*class Texture
+{
+    public:
+        Texture();
+        ~Texture();
+
+
+
+    private:
+        sf::Texture texture_;
+};*/
+
 }
 
 #endif // CONVERTION_HPP

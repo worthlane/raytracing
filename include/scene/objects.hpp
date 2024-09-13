@@ -3,21 +3,10 @@
 
 #include "maths/coord_system.hpp"
 #include "graphics/pixels_array.hpp"
-
-static const Vector3 RED   = {1, 0, 0};
-static const Vector3 GREEN = {0, 1, 0};
-static const Vector3 BLUE  = {0, 0, 1};
-static const Vector3 BLACK = {0, 0, 0};
-static const Vector3 WHITE = {1, 1, 1};
+#include "scene/light.hpp"
 
 namespace Scene
 {
-
-struct LightSource
-{
-    Vector3 center;
-    Vector3 color;
-};
 
 class Sphere
 {
