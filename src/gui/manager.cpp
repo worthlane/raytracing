@@ -4,7 +4,7 @@
 
 Manager::Manager()
 {
-    std::vector<Button> button_;
+    std::vector<AButton*> button_;
 }
 
 // ----------------------------------------------------------------------
@@ -15,19 +15,25 @@ Manager::~Manager()
 
 // ----------------------------------------------------------------------
 
-void Manager::add_button(Button& button)
+void Manager::add_button(AButton* button)
 {
     buttons_.push_back(button);
 }
 
 // ----------------------------------------------------------------------
 
-void Manager::update(Graphics::Window& window, void* params)
+bool Manager::update(Graphics::Window& window)
 {
     size_t size = buttons_.size();
 
+    bool update_flag = false;
+
     for (size_t i = 0; i < size; i++)
     {
-        buttons_[i].update_condition(window, params);
+        bool res = buttons_[i]->update(window);
+        if (res)
+            update_flag = true;
     }
+
+    return update_flag;
 }

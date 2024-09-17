@@ -10,12 +10,12 @@ class Manager
         Manager();
         ~Manager();
 
-        void add_button(Button& button);
+        void add_button(AButton* button);
 
-        void update(Graphics::Window& window, void* params);
+        bool update(Graphics::Window& window);
 
     private:
-        std::vector<Button> buttons_;
+        std::vector<AButton*> buttons_;
 };
 
 #endif // _MANAGER_HPP_

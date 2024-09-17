@@ -6,19 +6,14 @@
 
 // ----------------------------------------------------------------------
 
-Button::Button(const size_t length, const size_t width, const Dot& upper_left, const ButtonType type,
-               void (*action)(void*), const char* default_image, const char* pressed_image) :
-                    length_(length), width_(width), upper_left_(upper_left), action_(action)
+AButton::AButton(const size_t length, const size_t width, const Dot& upper_left) :
+                length_(length), width_(width), upper_left_(upper_left)
 {
-	default_.loadFromFile(default_image);
-    pressed_.loadFromFile(pressed_image);
-
-    type_ = type;
 }
 
 // ----------------------------------------------------------------------
 
-Button::~Button()
+AButton::~AButton()
 {
     length_ = NAN;
     width_  = NAN;
@@ -26,7 +21,7 @@ Button::~Button()
 
 // ----------------------------------------------------------------------
 
-bool Button::is_hovered(const Graphics::Window& window)
+bool AButton::is_hovered(const Graphics::Window& window)
 {
     Dot mouse = get_mouse_position(window);
 
@@ -48,44 +43,42 @@ bool Button::is_hovered(const Graphics::Window& window)
 
 // ----------------------------------------------------------------------
 
-ButtonCondition Button::update_condition(Graphics::Window& window, void* params)
+bool AButton::update(Graphics::Window& window)
 {
-    bool is_hovered = this->is_hovered(window);
-    bool is_pressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
-
     switch (cond_)
     {
         case ButtonCondition::DEFAULT:
+            this->handle_default_(window);
+            return this->on_default(window);
 
-            this->when_default_(window, params, is_hovered, is_pressed);
-            break;
+        case ButtonCondition::HOVERED:
+            this->handle_hover_(window);
+            return this->on_hover(window);
 
         case ButtonCondition::PRESSED:
-
-            this->when_pressed_(window, params, is_hovered, is_pressed);
-            break;
+            this->handle_click_(window);
+            return this->on_click(window);
 
         case ButtonCondition::RELEASED:
-
-            this->when_released_(window, params, is_hovered, is_pressed);
-            break;
+            this->handle_release_(window);
+            return this->on_release(window);
 
         default:
 
             cond_ = ButtonCondition::DEFAULT;
+            return false;
     }
-
-    return cond_;
 }
 
 // ----------------------------------------------------------------------
 
-void Button::when_default_(Graphics::Window& window, void* params, const bool is_hovered, const bool is_pressed)
+void AButton::handle_default_(Graphics::Window& window)
 {
-    Graphics::Sprite default_sprite;
-    default_sprite.set_texture(default_);
-	default_sprite.set_position(upper_left_.get_x(), upper_left_.get_y());
-    window.draw(default_sprite);
+    bool is_hovered = this->is_hovered(window);
+    bool is_pressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
+
+    if (is_hovered)
+        cond_ = ButtonCondition::HOVERED;
 
     if (is_hovered && is_pressed)
         cond_ = ButtonCondition::PRESSED;
@@ -93,15 +86,25 @@ void Button::when_default_(Graphics::Window& window, void* params, const bool is
 
 // ----------------------------------------------------------------------
 
-void Button::when_pressed_(Graphics::Window& window, void* params, const bool is_hovered, const bool is_pressed)
+void AButton::handle_hover_(Graphics::Window& window)
 {
-    Graphics::Sprite pressed_sprite;
-    pressed_sprite.set_texture(pressed_);
-	pressed_sprite.set_position(upper_left_.get_x(), upper_left_.get_y());
-    window.draw(pressed_sprite);
+    bool is_hovered = this->is_hovered(window);
+    bool is_pressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
 
-    if (type_ == ButtonType::HOLD)
-        action_(params);
+    if (!is_hovered)
+        cond_ = ButtonCondition::DEFAULT;
+
+    if (is_hovered && is_pressed)
+        cond_ = ButtonCondition::PRESSED;
+}
+
+
+// ----------------------------------------------------------------------
+
+void AButton::handle_click_(Graphics::Window& window)
+{
+    bool is_hovered = this->is_hovered(window);
+    bool is_pressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
 
     if (!is_pressed && is_hovered)
         cond_ = ButtonCondition::RELEASED;
@@ -111,15 +114,10 @@ void Button::when_pressed_(Graphics::Window& window, void* params, const bool is
 
 // ----------------------------------------------------------------------
 
-void Button::when_released_(Graphics::Window& window, void* params, const bool is_hovered, const bool is_pressed)
+void AButton::handle_release_(Graphics::Window& window)
 {
-    Graphics::Sprite default_sprite;
-    default_sprite.set_texture(default_);
-	default_sprite.set_position(upper_left_.get_x(), upper_left_.get_y());
-    window.draw(default_sprite);
-
-    if (type_ == ButtonType::RELEASE)
-        action_(params);
+    bool is_hovered = this->is_hovered(window);
+    bool is_pressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
 
     cond_ = ButtonCondition::DEFAULT;
 }

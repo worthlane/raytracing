@@ -37,7 +37,7 @@ DOXYBUILD = doxygen $(DOXYFILE)
 
 SOURCES = main.cpp
 
-GUI_SOURCES = controls.cpp manager.cpp
+GUI_SOURCES = controls.cpp manager.cpp move_button.cpp
 GUI_DIR = $(SOURCE_DIR)/gui
 
 SCENE_SOURCES = objects.cpp light.cpp

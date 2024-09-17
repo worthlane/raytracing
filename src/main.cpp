@@ -1,9 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include <assert.h>
+#include <iostream>
 
 #include "maths/vectors.hpp"
 #include "graphics/visual.hpp"
 #include "gui/manager.hpp"
+#include "gui/move_button.hpp"
 
 static const double DELTA_ANGLE = 1e-4;
 static const size_t LENGTH = 1280;
@@ -29,11 +31,6 @@ struct Objects
 
 void render_scene(Objects& scene);
 
-void upper_light1(void* scene);
-void lower_light1(void* scene);
-void righter_light1(void* scene);
-void lefter_light1(void* scene);
-
 int main()
 {
     RectangleSystem  system = {LENGTH, WIDTH, SCALE, {0, 0}};
@@ -48,22 +45,26 @@ int main()
 
     Manager manager = {};
 
-    Button up_but = {BUTTON_LENGTH, BUTTON_WIDTH, {180, 50}, ButtonType::HOLD,
-                     upper_light1, DEFAULT_BUTTON, PRESSED_BUTTON};
+    MoveLightButton up_but = {BUTTON_LENGTH, BUTTON_WIDTH, {180, 50},
+                              &light, {0, 1, 0},
+                              DEFAULT_BUTTON, PRESSED_BUTTON};
 
-    Button low_but = {BUTTON_LENGTH, BUTTON_WIDTH, {180, 210}, ButtonType::HOLD,
-                     lower_light1, DEFAULT_BUTTON, PRESSED_BUTTON};
+    MoveLightButton low_but = {BUTTON_LENGTH, BUTTON_WIDTH, {180, 210},
+                              &light, {0, -1, 0},
+                              DEFAULT_BUTTON, PRESSED_BUTTON};
 
-    Button right_but = {BUTTON_LENGTH, BUTTON_WIDTH, {250, 130}, ButtonType::HOLD,
-                        righter_light1, DEFAULT_BUTTON, PRESSED_BUTTON};
+    MoveLightButton right_but = {BUTTON_LENGTH, BUTTON_WIDTH, {250, 130},
+                                &light, {1, 0, 0},
+                                DEFAULT_BUTTON, PRESSED_BUTTON};
 
-    Button left_but = {BUTTON_LENGTH, BUTTON_WIDTH, {100, 130}, ButtonType::HOLD,
-                       lefter_light1, DEFAULT_BUTTON, PRESSED_BUTTON};
+    MoveLightButton left_but = {BUTTON_LENGTH, BUTTON_WIDTH, {100, 130},
+                                &light, {-1, 0, 0},
+                                DEFAULT_BUTTON, PRESSED_BUTTON};
 
-    manager.add_button(up_but);
-    manager.add_button(low_but);
-    manager.add_button(right_but);
-    manager.add_button(left_but);
+    manager.add_button(&up_but);
+    manager.add_button(&low_but);
+    manager.add_button(&right_but);
+    manager.add_button(&left_but);
 
     render_scene(scene);
 
@@ -73,9 +74,14 @@ int main()
 
         window.clear();
 
-        window.draw_sphere(sphere);
+        bool flag = manager.update(window);
 
-        manager.update(window, &scene);
+        std::cout << flag << std::endl;
+
+        if (flag)
+            render_scene(scene);
+
+        window.draw_sphere(sphere);
 
         window.display();
     }
@@ -92,61 +98,3 @@ void render_scene(Objects& scene)
     scene.sphere.add_light(scene.light1);
     scene.sphere.add_light(scene.light2);
 }
-
-// ----------------------------------------------------------
-
-void upper_light1(void* scene_ptr)
-{
-    assert(scene_ptr);
-
-    Objects* scene = (Objects*) scene_ptr;
-
-    static const Vector3 UPPERLIGHT_DELTA = {0, 1, 0};
-    scene->light1.set_center(scene->light1.get_center() + UPPERLIGHT_DELTA);
-
-    render_scene(*scene);
-}
-
-// ----------------------------------------------------------
-
-void lower_light1(void* scene_ptr)
-{
-    assert(scene_ptr);
-
-    Objects* scene = (Objects*) scene_ptr;
-
-    static const Vector3 LOWERLIGHT_DELTA = {0, -1, 0};
-    scene->light1.set_center(scene->light1.get_center() + LOWERLIGHT_DELTA);
-
-    render_scene(*scene);
-}
-
-// ----------------------------------------------------------
-
-void righter_light1(void* scene_ptr)
-{
-    assert(scene_ptr);
-
-    Objects* scene = (Objects*) scene_ptr;
-
-    static const Vector3 RIGHTERLIGHT_DELTA = {1, 0, 0};
-    scene->light1.set_center(scene->light1.get_center() + RIGHTERLIGHT_DELTA);
-
-    render_scene(*scene);
-}
-
-// ----------------------------------------------------------
-
-void lefter_light1(void* scene_ptr)
-{
-    assert(scene_ptr);
-
-    Objects* scene = (Objects*) scene_ptr;
-
-    static const Vector3 LEFTERLIGHT_DELTA = {-1, 0, 0};
-    scene->light1.set_center(scene->light1.get_center() + LEFTERLIGHT_DELTA);
-
-    render_scene(*scene);
-}
-
-
