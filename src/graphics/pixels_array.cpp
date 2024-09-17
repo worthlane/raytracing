@@ -13,6 +13,16 @@ Pixels::Pixels(const size_t size)
 
 // ----------------------------------------------------------------------
 
+Pixels::Pixels(const size_t length, const size_t width)
+{
+    u_int8_t* pixels = new u_int8_t[length * width * 4];
+
+    pixels_ = pixels;
+    size_   = length * width * 4;
+}
+
+// ----------------------------------------------------------------------
+
 Pixels::~Pixels()
 {
     delete[] pixels_;
@@ -30,6 +40,16 @@ void Pixels::paint_pixel(const size_t position, const PixelCondition& color)
     pixels_[position + 1] = color.green;
     pixels_[position + 2] = color.blue;
     pixels_[position + 3] = color.transparency;
+}
+
+// ----------------------------------------------------------------------
+
+void Pixels::paint_array(const PixelCondition& color)
+{
+    for (size_t i = 0; i < size_; i += 4)
+    {
+        this->paint_pixel(i, color);
+    }
 }
 
 // ----------------------------------------------------------------------

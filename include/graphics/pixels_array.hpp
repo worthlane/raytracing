@@ -27,10 +27,13 @@ class Pixels
 {
     public:
         Pixels(const size_t size);
+        Pixels(const size_t length, const size_t width);
         ~Pixels();
 
         u_int8_t* get_array() const;
         PixelCondition get_pixel_color(const size_t position) const;
+
+        void paint_array(const PixelCondition& color);
 
         void paint_pixel(const size_t position, const PixelCondition& color);
         void lighten_pixel(const size_t position, const double brightness);

@@ -6,6 +6,7 @@
 #include "graphics/visual.hpp"
 #include "gui/manager.hpp"
 #include "gui/move_button.hpp"
+#include "gui/color_button.hpp"
 
 static const double DELTA_ANGLE = 1e-4;
 static const size_t LENGTH = 1280;
@@ -61,10 +62,20 @@ int main()
                                 &light, {-1, 0, 0},
                                 DEFAULT_BUTTON, PRESSED_BUTTON};
 
+    ColorLightButton red = {BUTTON_LENGTH, BUTTON_WIDTH, {100, 500},
+                            &light, RED};
+    ColorLightButton grn = {BUTTON_LENGTH, BUTTON_WIDTH, {100, 550},
+                            &light, GREEN};
+    ColorLightButton blu = {BUTTON_LENGTH, BUTTON_WIDTH, {100, 600},
+                            &light, BLUE};
+
     manager.add_button(&up_but);
     manager.add_button(&low_but);
     manager.add_button(&right_but);
     manager.add_button(&left_but);
+    manager.add_button(&red);
+    manager.add_button(&grn);
+    manager.add_button(&blu);
 
     render_scene(scene);
 
@@ -75,8 +86,6 @@ int main()
         window.clear();
 
         bool flag = manager.update(window);
-
-        std::cout << flag << std::endl;
 
         if (flag)
             render_scene(scene);
