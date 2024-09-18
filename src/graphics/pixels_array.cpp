@@ -120,4 +120,24 @@ void Pixels::clear()
         pixels_[i] = 0;
 }
 
+// ----------------------------------------------------------------------
+
+void Pixels::paint_frame(const PixelCondition& color, const size_t length, const size_t width, const double percent)
+{
+    assert(percent <= 1 && percent >= 0);
+    assert(length * width * 4 == size_);
+
+    size_t y_size = (width / 2) * percent;
+    size_t x_size = (length / 2) * percent;
+
+    for (size_t x = 0; x < length; x++)
+    {
+        for (size_t y = 0; y < width; y++)
+        {
+            if (x <= x_size || x >= length - x_size || y <= y_size || y >= width - y_size)
+                this->paint_pixel((length * y + x) * 4, color);
+        }
+    }
+}
+
 

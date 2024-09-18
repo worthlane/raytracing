@@ -8,12 +8,21 @@ ColorLightButton::ColorLightButton(const size_t length, const size_t width, cons
     light_(light),
     color_(color)
 {
-    Pixels pixels(length, width);
     PixelCondition but_color = {color.get_x(), color.get_y(), color.get_z(), RGB_MAX};
-    pixels.paint_array(but_color);
+    PixelCondition hov_color = {RGB_MAX - color.get_x(), RGB_MAX - color.get_y(), RGB_MAX - color.get_z(), RGB_MAX};
+
+    Pixels def_pixels(length, width);
+    def_pixels.paint_array(but_color);
 
     default_.create(length, width);
-    default_.update(pixels.get_array());
+    default_.update(def_pixels.get_array());
+
+    Pixels hov_pixels(length, width);
+    hov_pixels.paint_array(but_color);
+    hov_pixels.paint_frame(hov_color, length, width, 0.1);
+
+    hovered_.create(length, width);
+    hovered_.update(hov_pixels.get_array());
 }
 
 // ----------------------------------------------------------------------
@@ -43,7 +52,7 @@ bool ColorLightButton::on_click(Graphics::Window& window)
 
 bool ColorLightButton::on_hover(Graphics::Window& window)
 {
-    DRAW_BUTTON(window, default_);
+    DRAW_BUTTON(window, hovered_);
     return false;
 }
 

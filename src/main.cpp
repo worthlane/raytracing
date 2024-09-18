@@ -62,12 +62,14 @@ int main()
                                 &light, {-1, 0, 0},
                                 DEFAULT_BUTTON, PRESSED_BUTTON};
 
-    ColorLightButton red = {BUTTON_LENGTH, BUTTON_WIDTH, {100, 500},
+    ColorLightButton red = {BUTTON_LENGTH, BUTTON_WIDTH, {1000, 200},
                             &light, RED};
-    ColorLightButton grn = {BUTTON_LENGTH, BUTTON_WIDTH, {100, 550},
+    ColorLightButton grn = {BUTTON_LENGTH, BUTTON_WIDTH, {1000, 250},
                             &light, GREEN};
-    ColorLightButton blu = {BUTTON_LENGTH, BUTTON_WIDTH, {100, 600},
+    ColorLightButton blu = {BUTTON_LENGTH, BUTTON_WIDTH, {1000, 350},
                             &light, BLUE};
+    ColorLightButton cst = {BUTTON_LENGTH, BUTTON_WIDTH, {1000, 300},
+                            &light, {153, 230, 100}};
 
     manager.add_button(&up_but);
     manager.add_button(&low_but);
@@ -76,6 +78,7 @@ int main()
     manager.add_button(&red);
     manager.add_button(&grn);
     manager.add_button(&blu);
+    manager.add_button(&cst);
 
     render_scene(scene);
 

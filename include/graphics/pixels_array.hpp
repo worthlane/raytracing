@@ -34,6 +34,7 @@ class Pixels
         PixelCondition get_pixel_color(const size_t position) const;
 
         void paint_array(const PixelCondition& color);
+        void paint_frame(const PixelCondition& color, const size_t length, const size_t width, const double percent);
 
         void paint_pixel(const size_t position, const PixelCondition& color);
         void lighten_pixel(const size_t position, const double brightness);

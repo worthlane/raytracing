@@ -23,6 +23,7 @@ class ColorLightButton : public AButton
         Vector3 color_;
 
         sf::Texture default_;
+        sf::Texture hovered_;
 
 };
 
