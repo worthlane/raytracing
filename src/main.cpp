@@ -5,8 +5,7 @@
 #include "maths/vectors.hpp"
 #include "graphics/visual.hpp"
 #include "gui/manager.hpp"
-#include "gui/move_button.hpp"
-#include "gui/color_button.hpp"
+#include "gui/light_buttons.hpp"
 
 static const double DELTA_ANGLE = 1e-4;
 static const size_t LENGTH = 1280;
@@ -47,29 +46,31 @@ int main()
     Manager manager = {};
 
     MoveLightButton up_but = {BUTTON_LENGTH, BUTTON_WIDTH, {180, 50},
-                              &light, {0, 1, 0},
+                              &light, &light2, {0, 1, 0},
                               DEFAULT_BUTTON, PRESSED_BUTTON};
 
     MoveLightButton low_but = {BUTTON_LENGTH, BUTTON_WIDTH, {180, 210},
-                              &light, {0, -1, 0},
+                              &light, &light2, {0, -1, 0},
                               DEFAULT_BUTTON, PRESSED_BUTTON};
 
     MoveLightButton right_but = {BUTTON_LENGTH, BUTTON_WIDTH, {250, 130},
-                                &light, {1, 0, 0},
+                                &light, &light2, {1, 0, 0},
                                 DEFAULT_BUTTON, PRESSED_BUTTON};
 
     MoveLightButton left_but = {BUTTON_LENGTH, BUTTON_WIDTH, {100, 130},
-                                &light, {-1, 0, 0},
+                                &light, &light2, {-1, 0, 0},
                                 DEFAULT_BUTTON, PRESSED_BUTTON};
 
     ColorLightButton red = {BUTTON_LENGTH, BUTTON_WIDTH, {1000, 200},
-                            &light, RED};
+                            &light, &light2, RED};
     ColorLightButton grn = {BUTTON_LENGTH, BUTTON_WIDTH, {1000, 250},
-                            &light, GREEN};
-    ColorLightButton blu = {BUTTON_LENGTH, BUTTON_WIDTH, {1000, 350},
-                            &light, BLUE};
+                            &light, &light2, GREEN};
     ColorLightButton cst = {BUTTON_LENGTH, BUTTON_WIDTH, {1000, 300},
-                            &light, {153, 230, 100}};
+                            &light, &light2, {153, 230, 100}};
+    ColorLightButton blu = {BUTTON_LENGTH, BUTTON_WIDTH, {1000, 350},
+                            &light, &light2, BLUE};
+    ColorLightButton cst2 = {BUTTON_LENGTH, BUTTON_WIDTH, {1000, 400},
+                            &light, &light2, {200, 0, 200}};
 
     manager.add_button(&up_but);
     manager.add_button(&low_but);
@@ -79,6 +80,7 @@ int main()
     manager.add_button(&grn);
     manager.add_button(&blu);
     manager.add_button(&cst);
+    manager.add_button(&cst2);
 
     render_scene(scene);
 

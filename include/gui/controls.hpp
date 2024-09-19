@@ -33,6 +33,8 @@ class AButton
         virtual bool on_click(Graphics::Window& window)   = 0;
         virtual bool on_release(Graphics::Window& window) = 0;
 
+        virtual void operator()() = 0;
+
         bool is_hovered(const Graphics::Window& window);
 
         bool update(Graphics::Window& window);
