@@ -27,6 +27,8 @@ class Window
         Vector2 get_mouse_position();
 
         void draw_sphere(const Scene::Sphere& sphere);
+        void draw_light(const Scene::LightSource& light);
+
         void draw(const Sprite& sprite); // TODO convert
 
         sf::RenderWindow window_;

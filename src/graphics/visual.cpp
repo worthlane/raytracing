@@ -90,3 +90,27 @@ void Graphics::Window::set_system(const RectangleSystem& system)
 {
     system_ = system;
 }
+
+// ------------------------------------------
+
+void Graphics::Window::draw_light(const Scene::LightSource& light)
+{
+    static const double LIGHT_RADIUS = 5;
+
+    sf::CircleShape shape;
+
+    Vector3 center = light.get_center();
+    Dot center_coords = {center.get_x(), center.get_y()};
+
+    Dot center_pixel = system_.coords_to_pixel(center_coords);
+    Vector3 light_color = light.get_color_rgb();
+
+    sf::Color col = {light_color.get_x(), light_color.get_y(), light_color.get_z()};
+
+    shape.setRadius(LIGHT_RADIUS);
+    shape.setPosition(center_pixel.get_x(), center_pixel.get_y());
+    shape.setFillColor(col);
+
+    window_.draw(shape);
+
+}

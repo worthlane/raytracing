@@ -96,6 +96,8 @@ int main()
             render_scene(scene);
 
         window.draw_sphere(sphere);
+        window.draw_light(light);
+        window.draw_light(light2);
 
         window.display();
     }
@@ -111,4 +113,6 @@ void render_scene(Objects& scene)
 
     scene.sphere.add_light(scene.light1);
     scene.sphere.add_light(scene.light2);
+
+
 }
