@@ -44,7 +44,7 @@ ColorLightButton::~ColorLightButton()
 
 // ----------------------------------------------------------------------
 
-void ColorLightButton::operator()()
+void ColorLightButton::operator()(Graphics::Event& event)
 {
     if (sf::Keyboard::isKeyPressed(SWITCH_SYMBOL))
         secondary_light_->set_color(color_);
@@ -79,7 +79,7 @@ MoveLightButton::~MoveLightButton()
 
 // ----------------------------------------------------------------------
 
-bool MoveLightButton::on_default(Graphics::Window& window)
+bool MoveLightButton::on_default(Graphics::Window& window, Graphics::Event& event)
 {
     DRAW_BUTTON(window, default_);
     return false;
@@ -87,18 +87,18 @@ bool MoveLightButton::on_default(Graphics::Window& window)
 
 // ----------------------------------------------------------------------
 
-bool MoveLightButton::on_click(Graphics::Window& window)
+bool MoveLightButton::on_click(Graphics::Window& window, Graphics::Event& event)
 {
     DRAW_BUTTON(window, pressed_);
 
-    (*this)();
+    (*this)(event);
 
     return true;
 }
 
 // ---------------------------------------------------------------------
 
-bool MoveLightButton::on_hover(Graphics::Window& window)
+bool MoveLightButton::on_hover(Graphics::Window& window, Graphics::Event& event)
 {
     DRAW_BUTTON(window, hovered_);
     return false;
@@ -106,7 +106,7 @@ bool MoveLightButton::on_hover(Graphics::Window& window)
 
 // ----------------------------------------------------------------------
 
-bool MoveLightButton::on_release(Graphics::Window& window)
+bool MoveLightButton::on_release(Graphics::Window& window, Graphics::Event& event)
 {
     DRAW_BUTTON(window, released_);
     return false;
@@ -114,7 +114,7 @@ bool MoveLightButton::on_release(Graphics::Window& window)
 
 // ----------------------------------------------------------------------
 
-void MoveLightButton::operator()()
+void MoveLightButton::operator()(Graphics::Event& event)
 {
     Scene::LightSource* source = nullptr;
 

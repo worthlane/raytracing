@@ -22,7 +22,7 @@ void Manager::add_button(AButton* button)
 
 // ----------------------------------------------------------------------
 
-bool Manager::update(Graphics::Window& window)
+bool Manager::update(Graphics::Window& window, Graphics::Event& event)
 {
     size_t size = buttons_.size();
 
@@ -30,7 +30,7 @@ bool Manager::update(Graphics::Window& window)
 
     for (size_t i = 0; i < size; i++)
     {
-        bool res = buttons_[i]->update(window);
+        bool res = buttons_[i]->update(window, event);
         if (res)
             update_flag = true;
     }

@@ -40,3 +40,23 @@ void Graphics::Sprite::set_color(sf::Color color)
 {
     sprite_.setColor(color);
 }
+
+// ----------------------------------------------------------------------
+
+Graphics::Event::Event()
+{
+    sf::Event event_;
+}
+
+// ----------------------------------------------------------------------
+
+Graphics::Event::~Event()
+{
+}
+
+// ----------------------------------------------------------------------
+
+sf::Event& Graphics::Event::get_event()
+{
+    return event_;
+}

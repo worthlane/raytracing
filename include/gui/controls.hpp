@@ -31,16 +31,16 @@ class AButton
         AButton(const size_t length, const size_t width, const Dot& upper_left);
         ~AButton();
 
-        virtual bool on_default(Graphics::Window& window) = 0;
-        virtual bool on_hover(Graphics::Window& window)   = 0;
-        virtual bool on_click(Graphics::Window& window)   = 0;
-        virtual bool on_release(Graphics::Window& window) = 0;
+        virtual bool on_default(Graphics::Window& window, Graphics::Event& event) = 0;
+        virtual bool on_hover(Graphics::Window& window, Graphics::Event& event)   = 0;
+        virtual bool on_click(Graphics::Window& window, Graphics::Event& event)   = 0;
+        virtual bool on_release(Graphics::Window& window, Graphics::Event& event) = 0;
 
-        virtual void operator()() = 0;
+        virtual void operator()(Graphics::Event& event) = 0;
 
         bool is_hovered(const Graphics::Window& window);
 
-        bool update(Graphics::Window& window);
+        bool update(Graphics::Window& window, Graphics::Event& event);
 
     protected:
         size_t width_, length_;
@@ -75,10 +75,10 @@ class AnimatedButton : public AButton
         AnimatedButton(const size_t length, const size_t width, const Dot& upper_left);
         ~AnimatedButton();
 
-        bool on_default(Graphics::Window& window) override;
-        bool on_hover(Graphics::Window& window)   override;
-        bool on_click(Graphics::Window& window)   override;
-        bool on_release(Graphics::Window& window) override;
+        bool on_default(Graphics::Window& window, Graphics::Event& event) override;
+        bool on_hover(Graphics::Window& window, Graphics::Event& event)   override;
+        bool on_click(Graphics::Window& window, Graphics::Event& event)   override;
+        bool on_release(Graphics::Window& window, Graphics::Event& event) override;
 
     protected:
 

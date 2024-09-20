@@ -22,6 +22,18 @@ class Sprite
         sf::Sprite sprite_;
 };
 
+class Event
+{
+    public:
+        Event();
+        ~Event();
+
+        sf::Event& get_event();
+
+    private:
+        sf::Event event_;
+};
+
 /*class Texture
 {
     public:

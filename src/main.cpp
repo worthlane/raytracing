@@ -88,9 +88,12 @@ int main()
     {
         window.closure_check();
 
+        Graphics::Event event;
+        window.poll_event(event);
+
         window.clear();
 
-        bool flag = manager.update(window);
+        bool flag = manager.update(window, event);
 
         if (flag)
             render_scene(scene);

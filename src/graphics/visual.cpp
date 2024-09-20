@@ -112,5 +112,11 @@ void Graphics::Window::draw_light(const Scene::LightSource& light)
     shape.setFillColor(col);
 
     window_.draw(shape);
+}
 
+// ------------------------------------------
+
+bool Graphics::Window::poll_event(Event& event)
+{
+    return window_.pollEvent(event.get_event());
 }

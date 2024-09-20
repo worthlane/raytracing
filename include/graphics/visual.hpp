@@ -24,6 +24,8 @@ class Window
 
         void set_system(const RectangleSystem& system);
 
+        bool poll_event(Event& event);
+
         Vector2 get_mouse_position();
 
         void draw_sphere(const Scene::Sphere& sphere);

@@ -53,25 +53,25 @@ bool AButton::is_hovered(const Graphics::Window& window)
 
 // ----------------------------------------------------------------------
 
-bool AButton::update(Graphics::Window& window)
+bool AButton::update(Graphics::Window& window, Graphics::Event& event)
 {
     switch (cond_)
     {
         case ButtonCondition::DEFAULT:
             this->handle_default_(window);
-            return this->on_default(window);
+            return this->on_default(window, event);
 
         case ButtonCondition::HOVERED:
             this->handle_hover_(window);
-            return this->on_hover(window);
+            return this->on_hover(window, event);
 
         case ButtonCondition::PRESSED:
             this->handle_click_(window);
-            return this->on_click(window);
+            return this->on_click(window, event);
 
         case ButtonCondition::RELEASED:
             this->handle_release_(window);
-            return this->on_release(window);
+            return this->on_release(window, event);
 
         default:
 
@@ -173,7 +173,7 @@ AnimatedButton::~AnimatedButton()
 
 // ----------------------------------------------------------------------
 
-bool AnimatedButton::on_default(Graphics::Window& window)
+bool AnimatedButton::on_default(Graphics::Window& window, Graphics::Event& event)
 {
     std::chrono::steady_clock::time_point moment = std::chrono::steady_clock::now();
 
@@ -190,7 +190,7 @@ bool AnimatedButton::on_default(Graphics::Window& window)
 
 // ----------------------------------------------------------------------
 
-bool AnimatedButton::on_hover(Graphics::Window& window)
+bool AnimatedButton::on_hover(Graphics::Window& window, Graphics::Event& event)
 {
     if (mask_brightness_ < 1)
     {
@@ -204,7 +204,7 @@ bool AnimatedButton::on_hover(Graphics::Window& window)
 
 // ----------------------------------------------------------------------
 
-bool AnimatedButton::on_click(Graphics::Window& window)
+bool AnimatedButton::on_click(Graphics::Window& window, Graphics::Event& event)
 {
     DRAW_BUTTON(window, pressed_);
 
@@ -215,11 +215,11 @@ bool AnimatedButton::on_click(Graphics::Window& window)
 
 // ----------------------------------------------------------------------
 
-bool AnimatedButton::on_release(Graphics::Window& window)
+bool AnimatedButton::on_release(Graphics::Window& window, Graphics::Event& event)
 {
     DRAW_BUTTON(window, released_);
 
-    (*this)();
+    (*this)(event);
 
     return true;
 }
