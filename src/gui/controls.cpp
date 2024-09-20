@@ -159,8 +159,7 @@ void default_action(void* params)
 
 // ----------------------------------------------------------------------
 
-/*AnimatedButton::AnimatedButton(const size_t length, const size_t width, const Dot& upper_left,
-                               const Vector3& std_color, const Vector3& mask_color) :
+/*AnimatedButton::AnimatedButton(const size_t length, const size_t width, const Dot& upper_left) :
                 AButton(length, width, upper_left), std_color_(std_color), mask_color_(mask_color)
 {
     mask_brightness_ = 0;
@@ -214,33 +213,4 @@ bool AnimatedButton::on_release(Graphics::Window& window)
 
 // ----------------------------------------------------------------------
 
-sf::Texture AnimatedButton::get_current_texture()
-{
-    u_int8_t mask_brightness = RGB_MAX * mask_brightness_;
-    u_int8_t origin_brightness = RGB_MAX - mask_brightness;
-
-    PixelCondition default_color = {std_color_.get_x(),
-                                    std_color_.get_y(),
-                                    std_color_.get_z(),
-                                    origin_brightness};
-
-    PixelCondition default_color = {mask_color_.get_x(),
-                                    mask_color_.get_y(),
-                                    mask_color_.get_z(),
-                                    mask_brightness};
-
-
-    Pixels def_pixels(length, width);
-    def_pixels.paint_array(but_color);
-
-    default_.create(length, width);
-    default_.update(def_pixels.get_array());
-
-    Pixels hov_pixels(length, width);
-    hov_pixels.paint_array(but_color);
-    hov_pixels.paint_frame(hov_color, length, width, 0.1);
-
-    hovered_.create(length, width);
-    hovered_.update(hov_pixels.get_array());
-
-} */
+*/

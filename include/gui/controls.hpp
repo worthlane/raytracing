@@ -71,8 +71,7 @@ void default_action(void* params);
 /*class AnimatedButton : public AButton
 {
     public:
-        AnimatedButton(const size_t length, const size_t width, const Dot& upper_left,
-                       const Vector3& std_color, const Vector3& mask_color);
+        AnimatedButton(const size_t length, const size_t width, const Dot& upper_left);
         ~AnimatedButton();
 
         bool on_default(Graphics::Window& window) override;
@@ -82,9 +81,6 @@ void default_action(void* params);
 
     protected:
 
-
-        Vector3 std_color_;
-        Vector3 mask_color_;
 
         double mask_brightness_;
 
