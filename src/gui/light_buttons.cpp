@@ -8,7 +8,7 @@ static const sf::Keyboard::Key SWITCH_SYMBOL = sf::Keyboard::Key::LShift;
 
 ColorLightButton::ColorLightButton(const size_t length, const size_t width, const Dot& upper_left,
                                    Scene::LightSource* default_light, Scene::LightSource* secondary_light, const Vector3& color) :
-    AButton(length, width, upper_left),
+    AnimatedButton(length, width, upper_left),
     default_light_(default_light),
     secondary_light_(secondary_light),
     color_(color)
@@ -21,6 +21,9 @@ ColorLightButton::ColorLightButton(const size_t length, const size_t width, cons
 
     default_.create(length, width);
     default_.update(def_pixels.get_array());
+
+    pressed_ = default_;
+    released_ = default_;
 
     Pixels hov_pixels(length, width);
     hov_pixels.paint_array(but_color);
@@ -36,41 +39,6 @@ ColorLightButton::~ColorLightButton()
 {
     default_light_   = nullptr;
     secondary_light_ = nullptr;
-}
-
-// ----------------------------------------------------------------------
-
-bool ColorLightButton::on_default(Graphics::Window& window)
-{
-    DRAW_BUTTON(window, default_);
-    return false;
-}
-
-// ----------------------------------------------------------------------
-
-bool ColorLightButton::on_click(Graphics::Window& window)
-{
-    DRAW_BUTTON(window, default_);
-    return false;
-}
-
-// ---------------------------------------------------------------------
-
-bool ColorLightButton::on_hover(Graphics::Window& window)
-{
-    DRAW_BUTTON(window, hovered_);
-    return false;
-}
-
-// ----------------------------------------------------------------------
-
-bool ColorLightButton::on_release(Graphics::Window& window)
-{
-    DRAW_BUTTON(window, default_);
-
-    (*this)();
-
-    return true;
 }
 
 // ----------------------------------------------------------------------
@@ -95,6 +63,9 @@ MoveLightButton::MoveLightButton(const size_t length, const size_t width, const 
 {
     default_.loadFromFile(default_img);
     pressed_.loadFromFile(click_img);
+
+    hovered_ = default_;
+    released_ = pressed_;
 }
 
 // ----------------------------------------------------------------------
@@ -128,7 +99,7 @@ bool MoveLightButton::on_click(Graphics::Window& window)
 
 bool MoveLightButton::on_hover(Graphics::Window& window)
 {
-    DRAW_BUTTON(window, default_);
+    DRAW_BUTTON(window, hovered_);
     return false;
 }
 
@@ -136,7 +107,7 @@ bool MoveLightButton::on_hover(Graphics::Window& window)
 
 bool MoveLightButton::on_release(Graphics::Window& window)
 {
-    DRAW_BUTTON(window, default_);
+    DRAW_BUTTON(window, released_);
     return false;
 }
 

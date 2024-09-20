@@ -3,6 +3,7 @@
 
 #include "gui/controls.hpp"
 
+static const double MASK_DELTA = 0.001;
 
 // ----------------------------------------------------------------------
 
@@ -159,15 +160,15 @@ void default_action(void* params)
 
 // ----------------------------------------------------------------------
 
-/*AnimatedButton::AnimatedButton(const size_t length, const size_t width, const Dot& upper_left) :
-                AButton(length, width, upper_left), std_color_(std_color), mask_color_(mask_color)
+AnimatedButton::AnimatedButton(const size_t length, const size_t width, const Dot& upper_left) :
+                AButton(length, width, upper_left)
 {
     mask_brightness_ = 0;
 }
 
 // ----------------------------------------------------------------------
 
-~AnimatedButton::AnimatedButton()
+AnimatedButton::~AnimatedButton()
 {}
 
 // ----------------------------------------------------------------------
@@ -178,6 +179,8 @@ bool AnimatedButton::on_default(Graphics::Window& window)
     {
         mask_brightness_ -= MASK_DELTA;
     }
+
+    DRAW_BUTTON_WITH_MASK(window, default_, hovered_, mask_brightness_);
 
     return false;
 }
@@ -191,6 +194,8 @@ bool AnimatedButton::on_hover(Graphics::Window& window)
         mask_brightness_ += MASK_DELTA;
     }
 
+    DRAW_BUTTON_WITH_MASK(window, default_, hovered_, mask_brightness_);
+
     return false;
 }
 
@@ -198,6 +203,8 @@ bool AnimatedButton::on_hover(Graphics::Window& window)
 
 bool AnimatedButton::on_click(Graphics::Window& window)
 {
+    DRAW_BUTTON(window, pressed_);
+
     return false;
 }
 
@@ -205,6 +212,7 @@ bool AnimatedButton::on_click(Graphics::Window& window)
 
 bool AnimatedButton::on_release(Graphics::Window& window)
 {
+    DRAW_BUTTON(window, released_);
 
     (*this)();
 
@@ -212,5 +220,3 @@ bool AnimatedButton::on_release(Graphics::Window& window)
 }
 
 // ----------------------------------------------------------------------
-
-*/

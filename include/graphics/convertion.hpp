@@ -14,6 +14,7 @@ class Sprite
 
         void set_texture(const sf::Texture &texture, bool reset_rect=false);
         void set_position (float x, float y);
+        void set_color(sf::Color color);
 
         sf::Sprite get_sprite() const;
 

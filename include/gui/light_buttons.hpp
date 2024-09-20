@@ -5,18 +5,13 @@
 #include "scene/light.hpp"
 #include "maths/vectors.hpp"
 
-class ColorLightButton : public AButton
+class ColorLightButton : public AnimatedButton
 {
     public:
         ColorLightButton(const size_t length, const size_t width, const Dot& upper_left,
                         Scene::LightSource* default_light, Scene::LightSource* secondary_light,
                         const Vector3& color);
         virtual ~ColorLightButton();
-
-        bool on_default(Graphics::Window& window) override;
-        bool on_click(Graphics::Window& window) override;
-        bool on_hover(Graphics::Window& window) override;
-        bool on_release(Graphics::Window& window) override;
 
         void operator()() override;
 
@@ -47,6 +42,8 @@ class MoveLightButton : public AButton
 
         Scene::LightSource* default_light_;
         Scene::LightSource* secondary_light_;
+
+        
 
         Vector3 delta_;
 };

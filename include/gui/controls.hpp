@@ -68,7 +68,7 @@ class AButton
 
 void default_action(void* params);
 
-/*class AnimatedButton : public AButton
+class AnimatedButton : public AButton
 {
     public:
         AnimatedButton(const size_t length, const size_t width, const Dot& upper_left);
@@ -81,10 +81,27 @@ void default_action(void* params);
 
     protected:
 
-
         double mask_brightness_;
 
-};*/
+};
+
+#define DRAW_BUTTON_WITH_MASK(window, texture, mask, alpha)             \
+                                        do                              \
+                                        {                               \
+                                            Graphics::Sprite masked;    \
+                                            masked.set_texture(mask);   \
+                                            masked.set_position(upper_left_.get_x(), upper_left_.get_y());  \
+                                            masked.set_color(sf::Color(RGB_MAX, RGB_MAX, RGB_MAX, RGB_MAX * alpha)); \
+                                                                                                                    \
+                                            Graphics::Sprite origin;    \
+                                            origin.set_texture(texture);   \
+                                            origin.set_position(upper_left_.get_x(), upper_left_.get_y());  \
+                                            origin.set_color(sf::Color(RGB_MAX, RGB_MAX, RGB_MAX, RGB_MAX - RGB_MAX * alpha)); \
+                                                                                                                            \
+                                            window.draw(origin);                                            \
+                                            window.draw(masked);                                            \
+                                        } while(0)
+
 
 
 #endif // _CONTROLS_HPP_

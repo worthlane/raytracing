@@ -33,3 +33,10 @@ sf::Sprite Graphics::Sprite::get_sprite() const
 {
     return sprite_;
 }
+
+// ----------------------------------------------------------------------
+
+void Graphics::Sprite::set_color(sf::Color color)
+{
+    sprite_.setColor(color);
+}
