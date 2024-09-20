@@ -2,6 +2,7 @@
 #define _CONTROLS_HPP_
 
 #include <vector>
+#include <chrono>
 
 #include "graphics/visual.hpp"
 
@@ -82,6 +83,9 @@ class AnimatedButton : public AButton
     protected:
 
         double mask_brightness_;
+
+        std::chrono::milliseconds interact_time_;
+        std::chrono::steady_clock::time_point last_update_;
 
 };
 

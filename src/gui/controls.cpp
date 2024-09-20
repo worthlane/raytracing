@@ -175,6 +175,9 @@ AnimatedButton::~AnimatedButton()
 
 bool AnimatedButton::on_default(Graphics::Window& window)
 {
+    std::chrono::steady_clock::time_point moment = std::chrono::steady_clock::now();
+
+
     if (mask_brightness_ > 0)
     {
         mask_brightness_ -= MASK_DELTA;
@@ -204,6 +207,8 @@ bool AnimatedButton::on_hover(Graphics::Window& window)
 bool AnimatedButton::on_click(Graphics::Window& window)
 {
     DRAW_BUTTON(window, pressed_);
+
+    mask_brightness_ = 1;
 
     return false;
 }

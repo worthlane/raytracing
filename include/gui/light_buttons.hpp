@@ -43,7 +43,6 @@ class MoveLightButton : public AButton
         Scene::LightSource* default_light_;
         Scene::LightSource* secondary_light_;
 
-        
 
         Vector3 delta_;
 };

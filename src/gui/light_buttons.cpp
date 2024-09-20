@@ -22,7 +22,6 @@ ColorLightButton::ColorLightButton(const size_t length, const size_t width, cons
     default_.create(length, width);
     default_.update(def_pixels.get_array());
 
-    pressed_ = default_;
     released_ = default_;
 
     Pixels hov_pixels(length, width);
@@ -31,6 +30,8 @@ ColorLightButton::ColorLightButton(const size_t length, const size_t width, cons
 
     hovered_.create(length, width);
     hovered_.update(hov_pixels.get_array());
+
+    pressed_ = hovered_;
 }
 
 // ----------------------------------------------------------------------
