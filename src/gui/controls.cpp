@@ -6,6 +6,15 @@
 
 // ----------------------------------------------------------------------
 
+AButton::AButton(const size_t length, const size_t width, const Dot& upper_left,
+                const sf::Texture def, const sf::Texture hovered, const sf::Texture pressed, const sf::Texture released) :
+                length_(length), width_(width), upper_left_(upper_left),
+                default_(def), hovered_(hovered), pressed_(pressed), released_(released)
+{
+}
+
+// ----------------------------------------------------------------------
+
 AButton::AButton(const size_t length, const size_t width, const Dot& upper_left) :
                 length_(length), width_(width), upper_left_(upper_left)
 {
@@ -92,7 +101,9 @@ void AButton::handle_hover_(Graphics::Window& window)
     bool is_pressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
 
     if (!is_hovered)
+    {
         cond_ = ButtonCondition::DEFAULT;
+    }
 
     if (is_hovered && is_pressed)
         cond_ = ButtonCondition::PRESSED;
@@ -145,3 +156,91 @@ void default_action(void* params)
 {
     printf("action\n");
 }
+
+// ----------------------------------------------------------------------
+
+/*AnimatedButton::AnimatedButton(const size_t length, const size_t width, const Dot& upper_left,
+                               const Vector3& std_color, const Vector3& mask_color) :
+                AButton(length, width, upper_left), std_color_(std_color), mask_color_(mask_color)
+{
+    mask_brightness_ = 0;
+}
+
+// ----------------------------------------------------------------------
+
+~AnimatedButton::AnimatedButton()
+{}
+
+// ----------------------------------------------------------------------
+
+bool AnimatedButton::on_default(Graphics::Window& window)
+{
+    if (mask_brightness_ > 0)
+    {
+        mask_brightness_ -= MASK_DELTA;
+    }
+
+    return false;
+}
+
+// ----------------------------------------------------------------------
+
+bool AnimatedButton::on_hover(Graphics::Window& window)
+{
+    if (mask_brightness_ < 1)
+    {
+        mask_brightness_ += MASK_DELTA;
+    }
+
+    return false;
+}
+
+// ----------------------------------------------------------------------
+
+bool AnimatedButton::on_click(Graphics::Window& window)
+{
+    return false;
+}
+
+// ----------------------------------------------------------------------
+
+bool AnimatedButton::on_release(Graphics::Window& window)
+{
+
+    (*this)();
+
+    return true;
+}
+
+// ----------------------------------------------------------------------
+
+sf::Texture AnimatedButton::get_current_texture()
+{
+    u_int8_t mask_brightness = RGB_MAX * mask_brightness_;
+    u_int8_t origin_brightness = RGB_MAX - mask_brightness;
+
+    PixelCondition default_color = {std_color_.get_x(),
+                                    std_color_.get_y(),
+                                    std_color_.get_z(),
+                                    origin_brightness};
+
+    PixelCondition default_color = {mask_color_.get_x(),
+                                    mask_color_.get_y(),
+                                    mask_color_.get_z(),
+                                    mask_brightness};
+
+
+    Pixels def_pixels(length, width);
+    def_pixels.paint_array(but_color);
+
+    default_.create(length, width);
+    default_.update(def_pixels.get_array());
+
+    Pixels hov_pixels(length, width);
+    hov_pixels.paint_array(but_color);
+    hov_pixels.paint_frame(hov_color, length, width, 0.1);
+
+    hovered_.create(length, width);
+    hovered_.update(hov_pixels.get_array());
+
+} */

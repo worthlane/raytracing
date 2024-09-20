@@ -25,6 +25,8 @@ enum class ButtonType
 class AButton
 {
     public:
+        AButton(const size_t length, const size_t width, const Dot& upper_left,
+                const sf::Texture def, const sf::Texture hovered, const sf::Texture pressed, const sf::Texture released);
         AButton(const size_t length, const size_t width, const Dot& upper_left);
         ~AButton();
 
@@ -45,6 +47,11 @@ class AButton
 
         ButtonCondition cond_ = ButtonCondition::DEFAULT;
 
+        sf::Texture default_;
+        sf::Texture hovered_;
+        sf::Texture pressed_;
+        sf::Texture released_;
+
         void handle_default_(Graphics::Window& window);
         void handle_hover_(Graphics::Window& window);
         void handle_click_(Graphics::Window& window);
@@ -60,5 +67,28 @@ class AButton
                                         } while(0)
 
 void default_action(void* params);
+
+/*class AnimatedButton : public AButton
+{
+    public:
+        AnimatedButton(const size_t length, const size_t width, const Dot& upper_left,
+                       const Vector3& std_color, const Vector3& mask_color);
+        ~AnimatedButton();
+
+        bool on_default(Graphics::Window& window) override;
+        bool on_hover(Graphics::Window& window)   override;
+        bool on_click(Graphics::Window& window)   override;
+        bool on_release(Graphics::Window& window) override;
+
+    protected:
+
+
+        Vector3 std_color_;
+        Vector3 mask_color_;
+
+        double mask_brightness_;
+
+};*/
+
 
 #endif // _CONTROLS_HPP_

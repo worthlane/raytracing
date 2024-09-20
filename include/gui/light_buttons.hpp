@@ -26,10 +26,6 @@ class ColorLightButton : public AButton
         Scene::LightSource* secondary_light_;
 
         Vector3 color_;
-
-        sf::Texture default_;
-        sf::Texture hovered_;
-
 };
 
 class MoveLightButton : public AButton
@@ -53,9 +49,6 @@ class MoveLightButton : public AButton
         Scene::LightSource* secondary_light_;
 
         Vector3 delta_;
-
-        sf::Texture default_;
-        sf::Texture pressed_;
 };
 
 #endif // _COLOR_BUTTON_HPP_
