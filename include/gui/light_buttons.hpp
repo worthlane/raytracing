@@ -5,7 +5,7 @@
 #include "scene/light.hpp"
 #include "maths/vectors.hpp"
 
-class ColorLightButton : public AnimatedButton
+class ColorLightButton : public AnimatedButton // TODO отдельный класс для кнопок цвета
 {
     public:
         ColorLightButton(const size_t length, const size_t width, const Dot& upper_left,
@@ -42,7 +42,6 @@ class MoveLightButton : public AButton
 
         Scene::LightSource* default_light_;
         Scene::LightSource* secondary_light_;
-
 
         Vector3 delta_;
 };

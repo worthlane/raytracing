@@ -60,3 +60,10 @@ sf::Event& Graphics::Event::get_event()
 {
     return event_;
 }
+
+// ----------------------------------------------------------------------
+
+sf::Event::EventType& Graphics::Event::type()
+{
+    return event_.type;
+}

@@ -5,6 +5,8 @@
 
 static const double MASK_DELTA = 0.001;
 
+//static const std::chrono::milliseconds ANIMATION_TIME = 3000;
+
 // ----------------------------------------------------------------------
 
 AButton::AButton(const size_t length, const size_t width, const Dot& upper_left,
@@ -161,7 +163,7 @@ void default_action(void* params)
 // ----------------------------------------------------------------------
 
 AnimatedButton::AnimatedButton(const size_t length, const size_t width, const Dot& upper_left) :
-                AButton(length, width, upper_left)
+                AButton(length, width, upper_left), interact_time_(0)
 {
     mask_brightness_ = 0;
 }
@@ -175,7 +177,9 @@ AnimatedButton::~AnimatedButton()
 
 bool AnimatedButton::on_default(Graphics::Window& window, Graphics::Event& event)
 {
-    std::chrono::steady_clock::time_point moment = std::chrono::steady_clock::now();
+    /*std::chrono::steady_clock::time_point moment = std::chrono::steady_clock::now();
+    std::chrono::milliseconds delta = moment - last_update_;
+    last_update_ = moment;*/
 
 
     if (mask_brightness_ > 0)

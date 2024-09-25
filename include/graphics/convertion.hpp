@@ -29,6 +29,7 @@ class Event
         ~Event();
 
         sf::Event& get_event();
+        sf::Event::EventType& type();
 
     private:
         sf::Event event_;
