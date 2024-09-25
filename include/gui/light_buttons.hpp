@@ -5,15 +5,14 @@
 #include "scene/light.hpp"
 #include "maths/vectors.hpp"
 
-class ColorLightButton : public AnimatedButton // TODO отдельный класс для кнопок цвета
+class LightColorAction : public Action
 {
     public:
-        ColorLightButton(const size_t length, const size_t width, const Dot& upper_left,
-                        Scene::LightSource* default_light, Scene::LightSource* secondary_light,
-                        const Vector3& color);
-        virtual ~ColorLightButton();
+        LightColorAction(Scene::LightSource* default_light, Scene::LightSource* secondary_light,
+                         const Vector3& color);
+        ~LightColorAction();
 
-        void operator()(Graphics::Event& event) override;
+        virtual void operator()(Graphics::Event& event) override;
 
     private:
 
@@ -23,20 +22,15 @@ class ColorLightButton : public AnimatedButton // TODO отдельный кла
         Vector3 color_;
 };
 
-class MoveLightButton : public AButton
+class LightMoveAction : public Action
 {
     public:
-        MoveLightButton(const size_t length, const size_t width, const Dot& upper_left,
-                        Scene::LightSource* default_light, Scene::LightSource* secondary_light, const Vector3& delta,
-                        const char* default_img, const char* click_img);
-        virtual ~MoveLightButton();
 
-        bool on_default(Graphics::Window& window, Graphics::Event& event) override;
-        bool on_click(Graphics::Window& window, Graphics::Event& event) override;
-        bool on_hover(Graphics::Window& window, Graphics::Event& event) override;
-        bool on_release(Graphics::Window& window, Graphics::Event& event) override;
+        LightMoveAction(Scene::LightSource* default_light, Scene::LightSource* secondary_light,
+                        const Vector3& delta);
+        ~LightMoveAction();
 
-        void operator()(Graphics::Event& event) override;
+        virtual void operator()(Graphics::Event& event) override;
 
     private:
 

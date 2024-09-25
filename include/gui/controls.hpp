@@ -23,20 +23,24 @@ enum class ButtonType
     DISABLED
 };
 
+class Action
+{
+    public:
+        virtual void operator()(Graphics::Event& event) = 0;
+};
+
 class AButton
 {
     public:
         AButton(const size_t length, const size_t width, const Dot& upper_left,
-                const sf::Texture def, const sf::Texture hovered, const sf::Texture pressed, const sf::Texture released);
-        AButton(const size_t length, const size_t width, const Dot& upper_left);
+                const sf::Texture def, const sf::Texture hovered, const sf::Texture pressed, const sf::Texture released, Action* action);
+        AButton(const size_t length, const size_t width, const Dot& upper_left, Action* action);
         ~AButton();
 
-        virtual bool on_default(Graphics::Window& window, Graphics::Event& event) = 0;
-        virtual bool on_hover(Graphics::Window& window, Graphics::Event& event)   = 0;
-        virtual bool on_click(Graphics::Window& window, Graphics::Event& event)   = 0;
-        virtual bool on_release(Graphics::Window& window, Graphics::Event& event) = 0;
-
-        virtual void operator()(Graphics::Event& event) = 0;
+        virtual bool on_default(Graphics::Window& window, Graphics::Event& event);
+        virtual bool on_hover(Graphics::Window& window, Graphics::Event& event);
+        virtual bool on_click(Graphics::Window& window, Graphics::Event& event);
+        virtual bool on_release(Graphics::Window& window, Graphics::Event& event);
 
         bool is_hovered(const Graphics::Window& window);
 
@@ -47,6 +51,8 @@ class AButton
         Dot upper_left_;
 
         ButtonCondition cond_ = ButtonCondition::DEFAULT;
+
+        Action* action_;
 
         sf::Texture default_;
         sf::Texture hovered_;
@@ -72,7 +78,7 @@ void default_action(void* params);
 class AnimatedButton : public AButton
 {
     public:
-        AnimatedButton(const size_t length, const size_t width, const Dot& upper_left);
+        AnimatedButton(const size_t length, const size_t width, const Dot& upper_left, Action* action, const Vector3& color);
         ~AnimatedButton();
 
         bool on_default(Graphics::Window& window, Graphics::Event& event) override;
@@ -105,6 +111,15 @@ class AnimatedButton : public AButton
                                             window.draw(origin);                                            \
                                             window.draw(masked);                                            \
                                         } while(0)
+
+class SubscribeButton : public AButton
+{
+    public:
+        SubscribeButton(const size_t length, const size_t width, const Dot& upper_left, Action* action);
+        ~SubscribeButton();
+
+        bool on_click(Graphics::Window& window, Graphics::Event& event)   override;
+};
 
 
 
