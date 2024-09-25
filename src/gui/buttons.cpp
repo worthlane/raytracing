@@ -1,7 +1,7 @@
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "gui/controls.hpp"
+#include "gui/buttons.hpp"
 
 static const double MASK_DELTA = 0.001;
 

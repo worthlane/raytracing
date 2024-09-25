@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "gui/light_buttons.hpp"
+#include "gui/actions.hpp"
 
 #include "graphics/pixels_array.hpp"
 

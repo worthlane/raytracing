@@ -1,7 +1,7 @@
 #ifndef _LIGHT_BUTTONS_HPP_
 #define _LIGHT_BUTTONS_HPP_
 
-#include "gui/controls.hpp"
+#include "gui/buttons.hpp"
 #include "scene/light.hpp"
 #include "maths/vectors.hpp"
 

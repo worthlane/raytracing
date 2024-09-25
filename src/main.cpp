@@ -5,7 +5,7 @@
 #include "maths/vectors.hpp"
 #include "graphics/visual.hpp"
 #include "gui/manager.hpp"
-#include "gui/light_buttons.hpp"
+#include "gui/actions.hpp"
 
 static const double DELTA_ANGLE = 1e-4;
 static const size_t LENGTH = 1280;

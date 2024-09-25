@@ -2,7 +2,7 @@
 #define _MANAGER_HPP_
 
 #include "graphics/visual.hpp"
-#include "gui/controls.hpp"
+#include "gui/buttons.hpp"
 
 class Manager
 {
