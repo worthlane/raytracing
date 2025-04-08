@@ -1,5 +1,5 @@
-#include <assert.h>
-#include <stdio.h>
+#include <cassert>
+#include <iostream>
 
 #include "graphics/pixels_array.hpp"
 
@@ -98,8 +98,8 @@ PixelCondition operator+=(PixelCondition& self, const PixelCondition& second)
 
 void Pixels::clear()
 {
-    for (size_t i = 0; i < size_; i++)
-        pixels_[i] = 0;
+    for (auto& pixel : pixels_)
+        pixel = 0;
 }
 
 // ----------------------------------------------------------------------

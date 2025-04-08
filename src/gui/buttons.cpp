@@ -99,9 +99,7 @@ void AButton::handle_hover_(Graphics::Window& window)
     bool is_pressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
 
     if (!is_hovered)
-    {
         cond_ = ButtonCondition::DEFAULT;
-    }
 
     if (is_hovered && is_pressed)
         cond_ = ButtonCondition::PRESSED;
@@ -133,7 +131,7 @@ void AButton::handle_release_(Graphics::Window& window)
 
 // ----------------------------------------------------------------------
 
-bool AButton::on_default(Graphics::Window& window, Graphics::Event& event)
+bool AButton::on_default(Graphics::Window& window, Graphics::Event&)
 {
     DRAW_BUTTON(window, default_);
     return false;
@@ -141,7 +139,7 @@ bool AButton::on_default(Graphics::Window& window, Graphics::Event& event)
 
 // ----------------------------------------------------------------------
 
-bool AButton::on_click(Graphics::Window& window, Graphics::Event& event)
+bool AButton::on_click(Graphics::Window& window, Graphics::Event&)
 {
     DRAW_BUTTON(window, pressed_);
     return false;
@@ -149,7 +147,7 @@ bool AButton::on_click(Graphics::Window& window, Graphics::Event& event)
 
 // ---------------------------------------------------------------------
 
-bool AButton::on_hover(Graphics::Window& window, Graphics::Event& event)
+bool AButton::on_hover(Graphics::Window& window, Graphics::Event&)
 {
     DRAW_BUTTON(window, hovered_);
     return false;
@@ -157,7 +155,7 @@ bool AButton::on_hover(Graphics::Window& window, Graphics::Event& event)
 
 // ----------------------------------------------------------------------
 
-bool AButton::on_release(Graphics::Window& window, Graphics::Event& event)
+bool AButton::on_release(Graphics::Window& window, Graphics::Event&)
 {
     DRAW_BUTTON(window, released_);
     return false;
@@ -219,10 +217,6 @@ AnimatedButton::AnimatedButton(const size_t length, const size_t width, const Do
 
 bool AnimatedButton::on_default(Graphics::Window& window, Graphics::Event& event)
 {
-    /*std::chrono::steady_clock::time_point moment = std::chrono::steady_clock::now();
-    std::chrono::milliseconds delta = moment - last_update_;
-    last_update_ = moment;*/
-
     if (mask_brightness_ > 0)
     {
         mask_brightness_ -= MASK_DELTA;

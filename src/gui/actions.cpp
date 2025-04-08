@@ -16,7 +16,7 @@ LightMoveAction::LightMoveAction(Scene::LightSource* default_light, Scene::Light
 
 // ----------------------------------------------------------------------
 
-void LightMoveAction::operator()(Graphics::Event& event)
+void LightMoveAction::operator()(Graphics::Event&)
 {
     Scene::LightSource* source = nullptr;
 
@@ -38,7 +38,7 @@ LightColorAction::LightColorAction(Scene::LightSource* default_light, Scene::Lig
 
 // ----------------------------------------------------------------------
 
-void LightColorAction::operator()(Graphics::Event& event)
+void LightColorAction::operator()(Graphics::Event&)
 {
     if (sf::Keyboard::isKeyPressed(SWITCH_SYMBOL))
         secondary_light_->set_color(color_);

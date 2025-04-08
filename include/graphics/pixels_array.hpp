@@ -27,7 +27,7 @@ static const PixelCondition WHITE_PIXEL = {RGB_MAX, RGB_MAX, RGB_MAX, NOT_TRANSP
 class Pixels
 {
     public:
-        Pixels(const size_t size);
+        explicit Pixels(const size_t size);
         Pixels(const size_t length, const size_t width);
 
         const u_int8_t* get_array() const;

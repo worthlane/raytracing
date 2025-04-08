@@ -12,8 +12,6 @@ class Vector2
         double get_y() const { return y_; }
         double get_length() const { return sqrt(x_ * x_ + y_ * y_); }
 
-        Vector2 operator=(const Vector2& second);
-
         void print() const;
 
     private:
@@ -35,8 +33,6 @@ class Vector3
         void set_x(const double x) { x_ = x; }
         void set_y(const double y) { y_ = y; }
         void set_z(const double z) { z_ = z; }
-
-        Vector3 operator=(const Vector3& second);
 
         double get_x() const { return x_; }
         double get_y() const { return y_; }

@@ -18,16 +18,6 @@ Vector2::Vector2(const double x, const double y)
 
 // ----------------------------------------------------------------------
 
-Vector2 Vector2::operator=(const Vector2& second)
-{
-    x_ = second.x_;
-    y_ = second.y_;
-
-    return *this;
-}
-
-// ----------------------------------------------------------------------
-
 Vector2 operator-(const Vector2& self)
 {
     return {-self.get_x(), -self.get_y()};
@@ -161,17 +151,6 @@ Vector3 operator/(const Vector3& self, const double scalar)
                         self.get_z() / scalar };
 
     return result;
-}
-
-// ----------------------------------------------------------------------
-
-Vector3 Vector3::operator=(const Vector3& second)
-{
-    x_ = second.x_;
-    y_ = second.y_;
-    z_ = second.z_;
-
-    return *this;
 }
 
 // ----------------------------------------------------------------------
