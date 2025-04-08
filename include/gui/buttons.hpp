@@ -35,7 +35,6 @@ class AButton
         AButton(const size_t length, const size_t width, const Dot& upper_left,
                 const sf::Texture def, const sf::Texture hovered, const sf::Texture pressed, const sf::Texture released, Action* action);
         AButton(const size_t length, const size_t width, const Dot& upper_left, Action* action);
-        ~AButton();
 
         virtual bool on_default(Graphics::Window& window, Graphics::Event& event);
         virtual bool on_hover(Graphics::Window& window, Graphics::Event& event);
@@ -79,7 +78,6 @@ class AnimatedButton : public AButton
 {
     public:
         AnimatedButton(const size_t length, const size_t width, const Dot& upper_left, Action* action, const Vector3& color);
-        ~AnimatedButton();
 
         bool on_default(Graphics::Window& window, Graphics::Event& event) override;
         bool on_hover(Graphics::Window& window, Graphics::Event& event)   override;
@@ -116,7 +114,6 @@ class SubscribeButton : public AButton
 {
     public:
         SubscribeButton(const size_t length, const size_t width, const Dot& upper_left, Action* action);
-        ~SubscribeButton();
 
         bool on_click(Graphics::Window& window, Graphics::Event& event)   override;
 };

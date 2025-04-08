@@ -126,7 +126,7 @@ static Vector3 calculate_glare(Scene::Sphere& sphere, const Vector3& falling_ray
 
 // ----------------------------------------------------------------------
 
-u_int8_t* Scene::Sphere::get_pixels_array() const
+const u_int8_t* Scene::Sphere::get_pixels_array() const
 {
     return pixels_.get_array();
 }

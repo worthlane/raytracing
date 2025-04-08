@@ -10,7 +10,6 @@ class LightColorAction : public Action
     public:
         LightColorAction(Scene::LightSource* default_light, Scene::LightSource* secondary_light,
                          const Vector3& color);
-        ~LightColorAction();
 
         virtual void operator()(Graphics::Event& event) override;
 
@@ -28,7 +27,6 @@ class LightMoveAction : public Action
 
         LightMoveAction(Scene::LightSource* default_light, Scene::LightSource* secondary_light,
                         const Vector3& delta);
-        ~LightMoveAction();
 
         virtual void operator()(Graphics::Event& event) override;
 

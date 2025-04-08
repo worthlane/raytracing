@@ -12,16 +12,7 @@ LightMoveAction::LightMoveAction(Scene::LightSource* default_light, Scene::Light
     default_light_(default_light),
     secondary_light_(secondary_light),
     delta_(delta)
-{
-}
-
-// ----------------------------------------------------------------------
-
-LightMoveAction::~LightMoveAction()
-{
-    default_light_   = nullptr;
-    secondary_light_ = nullptr;
-}
+{}
 
 // ----------------------------------------------------------------------
 
@@ -43,16 +34,7 @@ LightColorAction::LightColorAction(Scene::LightSource* default_light, Scene::Lig
     default_light_(default_light),
     secondary_light_(secondary_light),
     color_(color)
-{
-}
-
-// ----------------------------------------------------------------------
-
-LightColorAction::~LightColorAction()
-{
-    default_light_   = nullptr;
-    secondary_light_ = nullptr;
-}
+{}
 
 // ----------------------------------------------------------------------
 

@@ -2,6 +2,7 @@
 #define _PIXELS_ARRAY_HPP_
 
 #include <cmath>
+#include <vector>
 
 static const u_int8_t RGB_MAX         = 255;
 static const u_int8_t NOT_TRANSPARENT = 255;
@@ -28,9 +29,8 @@ class Pixels
     public:
         Pixels(const size_t size);
         Pixels(const size_t length, const size_t width);
-        ~Pixels();
 
-        u_int8_t* get_array() const;
+        const u_int8_t* get_array() const;
         PixelCondition get_pixel_color(const size_t position) const;
 
         void paint_array(const PixelCondition& color);
@@ -42,8 +42,8 @@ class Pixels
         void clear();
 
     private:
-        size_t    size_;
-        u_int8_t* pixels_;
+        size_t size_;
+        std::vector<u_int8_t> pixels_;
 };
 
 #endif // _PIXELS_ARRAY_HPP_

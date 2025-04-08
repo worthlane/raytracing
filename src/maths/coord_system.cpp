@@ -19,16 +19,6 @@ RectangleSystem::RectangleSystem(const size_t length, const size_t width, const 
 
 // ----------------------------------------------------------------------
 
-RectangleSystem::~RectangleSystem()
-{
-    scale_ = NAN;
-
-    width_  = NAN;
-    length_ = NAN;
-}
-
-// ----------------------------------------------------------------------
-
 size_t RectangleSystem::get_width() const
 {
     return width_;

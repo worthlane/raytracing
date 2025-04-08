@@ -7,7 +7,6 @@ class Vector2
 {
     public:
         Vector2(const double x, const double y);
-        ~Vector2();
 
         double get_x() const { return x_; }
         double get_y() const { return y_; }
@@ -32,7 +31,6 @@ class Vector3
 {
     public:
         Vector3(const double x, const double y, const double z);
-        ~Vector3();
 
         void set_x(const double x) { x_ = x; }
         void set_y(const double y) { y_ = y; }

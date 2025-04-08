@@ -18,14 +18,6 @@ Vector2::Vector2(const double x, const double y)
 
 // ----------------------------------------------------------------------
 
-Vector2::~Vector2()
-{
-    x_ = NAN;
-    y_ = NAN;
-}
-
-// ----------------------------------------------------------------------
-
 Vector2 Vector2::operator=(const Vector2& second)
 {
     x_ = second.x_;
@@ -107,15 +99,6 @@ Vector3::Vector3(const double x, const double y, const double z)
     x_ = x;
     y_ = y;
     z_ = z;
-}
-
-// ----------------------------------------------------------------------
-
-Vector3::~Vector3()
-{
-    x_ = NAN;
-    y_ = NAN;
-    z_ = NAN;
 }
 
 // ----------------------------------------------------------------------

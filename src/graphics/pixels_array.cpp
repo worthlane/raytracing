@@ -3,32 +3,14 @@
 
 #include "graphics/pixels_array.hpp"
 
-Pixels::Pixels(const size_t size)
-{
-    u_int8_t* pixels = new u_int8_t[size];
-
-    pixels_ = pixels;
-    size_   = size;
-}
+Pixels::Pixels(const size_t size) : size_(size), pixels_(size)
+{}
 
 // ----------------------------------------------------------------------
 
-Pixels::Pixels(const size_t length, const size_t width)
-{
-    u_int8_t* pixels = new u_int8_t[length * width * 4];
-
-    pixels_ = pixels;
-    size_   = length * width * 4;
-}
-
-// ----------------------------------------------------------------------
-
-Pixels::~Pixels()
-{
-    delete[] pixels_;
-
-    size_   = NAN;
-}
+Pixels::Pixels(const size_t length, const size_t width) :
+    size_(length * width * 4), pixels_(length * width * 4)
+{}
 
 // ----------------------------------------------------------------------
 
@@ -54,9 +36,9 @@ void Pixels::paint_array(const PixelCondition& color)
 
 // ----------------------------------------------------------------------
 
-u_int8_t* Pixels::get_array() const
+const u_int8_t* Pixels::get_array() const
 {
-    return pixels_;
+    return pixels_.data();
 }
 
 // ----------------------------------------------------------------------

@@ -20,7 +20,7 @@ class Sphere
         RectangleSystem get_system()  const { return system_; }
         double          get_ambient() const { return ambient_; }
 
-        u_int8_t* get_pixels_array() const;
+        const u_int8_t* get_pixels_array() const;
         Vector3   get_surface_normal(const Dot& coords);
 
         void set_system(const RectangleSystem& system);

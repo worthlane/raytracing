@@ -68,7 +68,7 @@ void Graphics::Window::draw_sphere(const Scene::Sphere& sphere)
     texture.create(system_.get_length(), system_.get_width());
     sf::Sprite sprite;
 
-    u_int8_t* pixels = sphere.get_pixels_array();
+    const u_int8_t* pixels = sphere.get_pixels_array();
 
     texture.update(pixels);
 

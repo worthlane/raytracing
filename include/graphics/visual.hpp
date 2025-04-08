@@ -14,6 +14,15 @@ class Window
 {
     public:
         Window(const RectangleSystem& system, const char* name);
+
+        // Non-movable
+        Window(Window&&) = delete;
+        Window& operator=(Window&&) = delete;
+
+        // Non-copyable
+        Window(const Window&) = delete;
+        Window& operator=(const Window&) = delete;
+
         ~Window();
 
         bool is_open();

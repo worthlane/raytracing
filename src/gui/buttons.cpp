@@ -28,14 +28,6 @@ AButton::AButton(const size_t length, const size_t width, const Dot& upper_left,
 
 // ----------------------------------------------------------------------
 
-AButton::~AButton()
-{
-    length_ = NAN;
-    width_  = NAN;
-}
-
-// ----------------------------------------------------------------------
-
 bool AButton::is_hovered(const Graphics::Window& window)
 {
     Dot mouse = get_mouse_position(window);
@@ -225,11 +217,6 @@ AnimatedButton::AnimatedButton(const size_t length, const size_t width, const Do
 
 // ----------------------------------------------------------------------
 
-AnimatedButton::~AnimatedButton()
-{}
-
-// ----------------------------------------------------------------------
-
 bool AnimatedButton::on_default(Graphics::Window& window, Graphics::Event& event)
 {
     /*std::chrono::steady_clock::time_point moment = std::chrono::steady_clock::now();
@@ -292,12 +279,6 @@ SubscribeButton::SubscribeButton(const size_t length, const size_t width, const 
 
     hovered_ = default_;
     released_ = pressed_;
-}
-
-// ----------------------------------------------------------------------
-
-SubscribeButton::~SubscribeButton()
-{
 }
 
 // ----------------------------------------------------------------------

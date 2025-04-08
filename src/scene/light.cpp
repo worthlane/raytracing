@@ -9,12 +9,6 @@ Scene::LightSource::LightSource(const Vector3& center, const Vector3& color) :
 
 // ------------------------------------------
 
-Scene::LightSource::~LightSource()
-{
-}
-
-// ------------------------------------------
-
 Vector3 Scene::LightSource::get_color_rgb() const
 {
     Vector3 color = {(size_t) (color_.get_x() * RGB_MAX),

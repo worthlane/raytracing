@@ -16,9 +16,7 @@ namespace Scene
 class LightSource
 {
     public:
-
         LightSource(const Vector3& center, const Vector3& color);
-        ~LightSource();
 
         Vector3 get_color_rgb()    const;
         Vector3 get_color_vector() const;
@@ -28,7 +26,6 @@ class LightSource
         void    set_color(const Vector3& color);
 
     private:
-
         Vector3 center_;
         Vector3 color_;
 };
